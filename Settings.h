@@ -20,12 +20,16 @@ enum EntityType {ENTITY, CHARACTER};
 enum TypeAnim{STILL, MOVE};
 enum {HAUT = 0,BAS = 2,GAUCHE = 3,DROITE = 1};
 
-struct Rect
+class Rect
 {
-    int x;
-    int y;
-    unsigned int w;
-    unsigned int h;
+    public:
+        Rect() {}
+        Rect(int x1, int y1, int w1, int h1) : x(x1), y(y1), w(w1), h(h1) {}
+
+        int x;
+        int y;
+        unsigned int w;
+        unsigned int h;
 };
 
 class Point

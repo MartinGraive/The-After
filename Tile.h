@@ -16,7 +16,7 @@ Projet de TDLog*/
 class Map;
 
 enum {HERBE = 270,VIDE = 258,MONTAGNE = 227,EAU = 36};
-enum {LU,LD,RU,RD};
+enum {LU = 0,RU = 1,LD = 2,RD = 3};
 
 class Tile
 {
@@ -24,13 +24,21 @@ class Tile
         Tile();
         ~Tile();
 
-        Point getTexCoords();
+        Point getTexCoords() const;
+        Point getSecondaryTexCoords() const;
         void setPos(int i, int j);
         void setVal(int val);
+        void setTex(int val);
+        void setHalfTex(int val);
+        void setHalfHorizontal(bool i);
+        bool isHalfHorizontal() const;
         int getVal() const;
+        int getTex() const;
+        int getHalfTex() const;
         void setCorner(bool val, int i);
         void setMap(Map* i);
         bool isSolid() const;
+        bool getCorner(int i) const;
     private:
         void init();
 
@@ -38,6 +46,9 @@ class Tile
         int x;
         int y;
         int val;
+        int tex;
+        int halftex;
+        bool halfhorizontal;
         bool corner[4];
         bool solid;
 };

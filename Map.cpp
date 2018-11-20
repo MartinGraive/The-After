@@ -57,6 +57,11 @@ void Map::create()
     }
     randomMap();
 
+    tiles[10][10].setVal(70);
+    tiles[11][10].setVal(70);
+    tiles[11][11].setVal(70);
+    tiles[12][11].setVal(70);
+    
     autotile(); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
     tilemap.prepare("data/graphics/tiles/Basis.png", tiles, w, h);
 }
@@ -87,7 +92,7 @@ void Map::autotile()
     for (int i = 0 ; i < w ; i++) {
         for (int j = 0 ; j < h ; j++) {
             int t = tiles[i][j].getVal();
-            if (t == EAU) {
+            if (t == 70) {
                 // opposite corners
                 if (i > 0 && j > 0 && tiles[i-1][j-1].getVal() != t && tiles[i-1][j].getVal() == t && tiles[i][j-1].getVal() == t) {
                     tiles[i][j].setCorner(true, LU);
@@ -104,46 +109,80 @@ void Map::autotile()
 
                 // other tile rules
                 if (i > 0 && j > 0 && i < w - 1 && tiles[i-1][j].getVal() != t && tiles[i][j-1].getVal() != t && tiles[i+1][j].getVal() != t) {
-                    tiles[i][j].setVal(27);
+                    //  _
+                    // | |
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH - 1);
+                    tiles[i][j].setHalfTex(t - 1 * TILESET_WIDTH + 1);
+                    tiles[i][j].setHalfHorizontal(true);
                 }
                 else if (i > 0 && j > 0 && j < h - 1 && tiles[i-1][j].getVal() != t && tiles[i][j-1].getVal() != t && tiles[i][j+1].getVal() != t) {
-                    tiles[i][j].setVal(28);
+                    //  _
+                    // |_
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH - 1);
+                    tiles[i][j].setHalfTex(t + 1 * TILESET_WIDTH - 1);
+                    tiles[i][j].setHalfHorizontal(false);
                 }
                 else if (i > 0 && j < h-1 && i < w - 1 && tiles[i-1][j].getVal() != t && tiles[i][j+1].getVal() != t && tiles[i+1][j].getVal() != t) {
-                    tiles[i][j].setVal(29);
+                    // |_|
+                    tiles[i][j].setTex(t + 1 * TILESET_WIDTH - 1);
+                    tiles[i][j].setHalfTex(t + 1 * TILESET_WIDTH + 1);
+                    tiles[i][j].setHalfHorizontal(true);
                 }
                 else if (i < w-1 && j > 0 && j < h - 1 && tiles[i+1][j].getVal() != t && tiles[i][j-1].getVal() != t && tiles[i][j+1].getVal() != t) {
-                    tiles[i][j].setVal(30);
+                    // _
+                    // _|
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH + 1);
+                    tiles[i][j].setHalfTex(t + 1 * TILESET_WIDTH + 1);
+                    tiles[i][j].setHalfHorizontal(false);
                 }
                 else if (i > 0 && j > 0 && tiles[i-1][j].getVal() != t && tiles[i][j-1].getVal() != t) {
-                    tiles[i][j].setVal(0);
+                    //  _
+                    // |
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH - 1);
                 }
                 else if (i < w - 1 && j > 0 && tiles[i+1][j].getVal() != t && tiles[i][j-1].getVal() != t) {
-                    tiles[i][j].setVal(2);
+                    //  _
+                    //   |
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH + 1);
                 }
                 else if (i < w - 1 && j < h -1 && tiles[i+1][j].getVal() != t && tiles[i][j+1].getVal() != t) {
-                    tiles[i][j].setVal(20);
+                    // _|
+                    tiles[i][j].setTex(t + 1 * TILESET_WIDTH + 1);
                 }
                 else if (i > 0 && j < h -1 && tiles[i-1][j].getVal() != t && tiles[i][j+1].getVal() != t) {
-                    tiles[i][j].setVal(18);
+                    // |_
+                    tiles[i][j].setTex(t + 1 * TILESET_WIDTH - 1);
                 }
                 else if (j > 0 && j < h - 1 && tiles[i][j-1].getVal() != t && tiles[i][j+1].getVal() != t) {
-                    tiles[i][j].setVal(22);
+                    //  _
+                    //  _
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH);
+                    tiles[i][j].setHalfTex(t + 1 * TILESET_WIDTH);
+                    tiles[i][j].setHalfHorizontal(false);
                 }
                 else if (i > 0 && i < w - 1 && tiles[i-1][j].getVal() != t && tiles[i+1][j].getVal() != t) {
-                    tiles[i][j].setVal(29);
+                    // | |
+                    tiles[i][j].setTex(t - 1);
+                    tiles[i][j].setHalfTex(t + 1);
+                    tiles[i][j].setHalfHorizontal(true);
                 }
                 else if (j > 0 && tiles[i][j-1].getVal() != t) {
-                    tiles[i][j].setVal(1);
+                    //  _
+                    //
+                    tiles[i][j].setTex(t - 1 * TILESET_WIDTH);
                 }
                 else if (i > 0 && tiles[i-1][j].getVal() != t) {
-                    tiles[i][j].setVal(9);
+                    // |
+                    tiles[i][j].setTex(t - 1);
                 }
                 else if (i < w-1 && tiles[i+1][j].getVal() != t) {
-                    tiles[i][j].setVal(11);
+                    //   |
+                    tiles[i][j].setTex(t + 1);
                 }
                 else if (j < h-1 && tiles[i][j+1].getVal() != t) {
-                    tiles[i][j].setVal(19);
+                    //
+                    //  _
+                    tiles[i][j].setTex(t + 1 * TILESET_WIDTH);
                 }
             }
         }
