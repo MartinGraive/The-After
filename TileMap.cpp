@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commencï¿½ le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -17,13 +17,9 @@ Projet de TDLog*/
 #include "Graphics/TextureHandler.h"
 #include "Graphics/Graphics.h"
 
-TileMap::TileMap()
+int TileMap::prepare(const std::string& tileset_file, std::vector<std::vector<Tile> > tiles, const unsigned int width, const unsigned int height)
 {
-}
-
-int TileMap::prepare(const std::string& tileset_file, const int* tiles, const unsigned int width, const unsigned int height)
-{
-    if (!tileset.loadFromFile(tileset_file)) {
+    if (!loadSource(tileset_file)) {
         return false;
     }
 
@@ -32,10 +28,8 @@ int TileMap::prepare(const std::string& tileset_file, const int* tiles, const un
 
     for (unsigned int i = 0 ; i < width ; i++) {
         for (unsigned int j = 0 ; j < height ; j++) {
-            int val = tiles[i + j * width];
-
-            int tu = val % (tileset.getSize().x / TILE_SIZE);
-            int tv = val / (tileset.getSize().x / TILE_SIZE);
+            int tu = tiles[i][j].getTexCoords().x;
+            int tv = tiles[i][j].getTexCoords().y;
 
             sf::Vertex* quad = &vertices[(i + j * width) * 4];
 

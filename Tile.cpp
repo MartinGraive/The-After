@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commencï¿½ le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -26,65 +26,26 @@ Tile::~Tile()
 {
 }
 
-void Tile::draw(sf::RenderWindow* window)
+Point Tile::getTexCoords()
 {
-    drawCouche1(window);
-    drawCouche2(window);
-}
+    int xt = val % TILESET_WIDTH;
+    int yt = val / TILESET_WIDTH;
 
-void Tile::drawCouche1(sf::RenderWindow* window)
-{
-    int xt = c1 % 30;
-    int yt = (int)(c1 / 30);
-    if (c1 == EAU) { xt += map->getAnim(); }
-    Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getTiles(),
-                                        x*TILE_SIZE, y*TILE_SIZE, xt*TILE_SIZE, yt*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-}
-
-void Tile::drawCouche2(sf::RenderWindow* window)
-{
-    int xt = c2 % 30;
-    int yt = (int)(c2 / 30);
-    Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getTiles(),
-                                        x*TILE_SIZE, y*TILE_SIZE, xt*TILE_SIZE, yt*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-
-    ///CORNERS autotiles
-    if (corner[LU]) {
-        Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getTiles(),
-                                            x*TILE_SIZE, y*TILE_SIZE, 64, 16, 4, 4);
-    }
-    if (corner[LD]) {
-        Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getTiles(),
-                                            x*TILE_SIZE, y*TILE_SIZE+12, 64, 12, 4, 4);
-    }
-    if (corner[RU]) {
-        Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getTiles(),
-                                            x*TILE_SIZE+12, y*TILE_SIZE, 60, 16, 4, 4);
-    }
-    if (corner[RD]) {
-        Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getTiles(),
-                                            x*TILE_SIZE+12, y*TILE_SIZE+12, 60, 12, 4, 4);
-    }
+    return Point(xt, yt);
 }
 
 void Tile::init()
 {
-    if (c1 == EAU || c2 == MONTAGNE) {
-        solid = true;
-    }
 }
 
 void Tile::setPos(int i, int j)
     { x = i; y = j; }
 
-void Tile::setCouches(int co1, int co2)
-    { c1 = co1; c2 = co2; init(); }
+void Tile::setVal(int i)
+    { val = i; }
 
-int Tile::getC1() const
-    { return c1; }
-
-int Tile::getC2() const
-    { return c2; }
+int Tile::getVal() const
+    { return val; }
 
 void Tile::setCorner(bool val, int i)
     { corner[i] = val; }

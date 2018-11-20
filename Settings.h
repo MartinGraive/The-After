@@ -1,10 +1,11 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commencï¿½ le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
 Nicolas de Roux
 Malo Le Magueresse
+Arnaud Lafargue
 
 Projet de TDLog*/
 
@@ -13,6 +14,7 @@ Projet de TDLog*/
 #include <string>
 
 #define TILE_SIZE     16
+#define TILESET_WIDTH 30
 
 enum EntityType {ENTITY, CHARACTER};
 enum TypeAnim{STILL, MOVE};
@@ -26,10 +28,14 @@ struct Rect
     unsigned int h;
 };
 
-struct Point
+class Point
 {
-    int x;
-    int y;
+    public:
+        Point() {}
+        Point(int x1, int y1) : x(x1), y(y1) {}
+
+        int x;
+        int y;
 };
 
 class Settings

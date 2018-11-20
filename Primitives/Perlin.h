@@ -1,7 +1,13 @@
-/*Random Game
-Started on 27/01/2018
+/*THE AFTER
+Commenc� le 22/10/2018
 
-Grade (programming / Concept)*/
+Youval Vanlaer
+Martin Graive
+Nicolas de Roux
+Malo Le Magueresse
+Arnaud Lafargue
+
+Projet de TDLog*/
 
 #ifndef DEF_PERLIN
 #define DEF_PERLIN

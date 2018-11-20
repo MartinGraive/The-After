@@ -1,16 +1,17 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commencï¿½ le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
 Nicolas de Roux
 Malo Le Magueresse
+Arnaud Lafargue
 
 Projet de TDLog*/
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "Settings.h"
 
 class Map;
 
@@ -23,28 +24,21 @@ class Tile
         Tile();
         ~Tile();
 
-        void draw(sf::RenderWindow* window);
+        Point getTexCoords();
         void setPos(int i, int j);
-        void setCouches(int co1, int co2);
-        int getC1() const;
-        int getC2() const;
+        void setVal(int val);
+        int getVal() const;
         void setCorner(bool val, int i);
         void setMap(Map* i);
         bool isSolid() const;
     private:
-        void drawCouche1(sf::RenderWindow* window);
-        void drawCouche2(sf::RenderWindow* window);
         void init();
 
         Map* map;
         int x;
         int y;
-        int c1;
-        int c2;
+        int val;
         bool corner[4];
         bool solid;
-
-        sf::Sprite sprite1;
-        sf::Sprite sprite2;
 };
 
