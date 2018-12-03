@@ -58,7 +58,7 @@ void Character::draw(sf::RenderWindow* window)
 void Character::drawStillAndMove(sf::RenderWindow* window)
 {
     ///DRAW SHADOW
-    Graphics::getInstance()->drawEllipse(window, x + baseRect.x + 2, y + baseRect.y + baseRect.h - 4,
+    Graphics::getInstance()->drawEllipse(window, x + baseRect.x + 2, y + baseRect.y + baseRect.h - 5,
                           6, 3, 1, 150);
 
     ///DRAW CHARACTER
@@ -86,6 +86,28 @@ void Character::process()
 
 EntityType Character::getType() const
     { return CHARACTER; }
+
+void Character::move(double xt, double yt)
+{
+    if (typeanim == STILL) {setTypeAnim(MOVE);}
+    if (!collideWithEntities(xt, 0)) {
+        setX(getX() + xt);
+    }
+    if (!collideWithEntities(0, yt)) {
+        setY(getY() + yt);
+    }
+
+    ///Change direction
+    if (direction == HAUT && yt>0 && xt != 0) { direction = BAS;}
+    else if (direction == BAS && yt<0 && xt != 0) { direction = HAUT;}
+    else if (direction == GAUCHE && yt!=0 && xt > 0) { direction = DROITE;}
+    else if (direction == DROITE && yt!=0 && xt < 0) { direction = GAUCHE;}
+    else if (yt==0 && xt < 0) { direction = GAUCHE;}
+    else if (yt==0 && xt > 0) { direction = DROITE;}
+    else if (yt<0 && xt == 0) { direction = HAUT;}
+    else if (yt>0 && xt == 0) { direction = BAS;}
+    else if (yt>0 && xt == 0) { direction = BAS;}
+}
 
 bool Character::collideWithEntities(double xd, double yd)
 {

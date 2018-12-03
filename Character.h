@@ -26,6 +26,7 @@ class Character : public Entity //Abstract class for every character
         void process();
         void draw(sf::RenderWindow* window);
         EntityType getType() const;
+        void move(double xt, double yt);
         bool collideWithEntities(double xd, double yd);
         void setTypeAnim(TypeAnim t);
 

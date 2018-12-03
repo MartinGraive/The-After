@@ -33,3 +33,10 @@
 
 # All files in .vscode
 .vscode/
+
+# Codeblocks files
+*.cbp
+bin/
+obj/
+*.depend
+*.layout

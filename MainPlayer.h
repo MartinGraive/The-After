@@ -18,6 +18,5 @@ class MainPlayer : public Character
     public:
         MainPlayer(RenderingArray* a = NULL);
         ~MainPlayer();
-        void move(double xt, double yt);
     private:
 };

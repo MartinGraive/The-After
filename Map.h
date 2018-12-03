@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -25,6 +25,7 @@ class Map
 
         void draw(sf::RenderWindow* window);
         void create();
+        void loadMap(int i);
         int getAnim() const;
         Tile getTile(int i, int j) const;
         int getW() const;
@@ -32,6 +33,7 @@ class Map
     private:
         void autotile();
         void randomMap();
+        void loadTileRules();
 
         int w;
         int h;

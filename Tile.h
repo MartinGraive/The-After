@@ -38,6 +38,7 @@ class Tile
         void setCorner(bool val, int i);
         void setMap(Map* i);
         bool isSolid() const;
+        void setSolid(bool i);
         bool getCorner(int i) const;
     private:
         void init();

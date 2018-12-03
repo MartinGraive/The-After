@@ -1,5 +1,5 @@
 /*THE AFTER
-Commenc� le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -10,6 +10,8 @@ Arnaud Lafargue
 Projet de TDLog*/
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "Map.h"
 #include "GameCore.h"
 #include "Tile.h"
@@ -61,9 +63,72 @@ void Map::create()
     tiles[11][10].setVal(70);
     tiles[11][11].setVal(70);
     tiles[12][11].setVal(70);
-    
+
     autotile(); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
-    tilemap.prepare("data/graphics/tiles/Basis.png", tiles, w, h);
+    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/Basis.png", tiles, w, h);
+}
+
+void Map::loadTileRules()
+{
+    std::ifstream fichier((Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.mmo").c_str(),std::ios::in|std::ios::binary);
+    if (fichier) {
+        int v=0;
+        fichier.read((char*)&v,sizeof(int));
+        int* spe=new int[TILESET_WIDTH * 16];
+        for (int i=0 ; i<TILESET_WIDTH ; i++)
+        {
+            for (int j = 0 ; j < 16 ; j++) {
+                int val = 0;
+                fichier.read((char*)&val,sizeof(int));
+                spe[j * TILESET_WIDTH + i]=val;
+            }
+        }
+        fichier.close();
+
+        for (int i=0 ; i<w ; i++)
+        {
+            for (int j=0 ; j<h ; j++)
+            {
+                if (spe[tiles[i][j].getVal()] == 1) {
+                    tiles[i][j].setSolid(true);
+                    tiles[i][j].setVal(0);
+                }
+            }
+        }
+        delete[] spe;
+    }
+}
+
+void Map::loadMap(int i)
+{
+    //std::cout<<"COUCOU!\n";
+    std::ostringstream im;
+    im << i;
+    std::ifstream fichier((Settings::getInstance()->getPath()+"data/maps/map"+im.str()+".mmo").c_str(),std::ios::in|std::ios::binary);
+    int chipset = 0;
+    fichier.read((char*)&chipset,sizeof(int));
+    fichier.read((char*)&w,sizeof(int));
+    fichier.read((char*)&h,sizeof(int));
+    tiles.resize(w);
+    for (int i = 0 ; i < w ; i++) {
+        tiles[i].resize(h);
+    }
+
+    for (int i=0 ; i<w ; i++)
+    {
+        for (int j=0 ; j<h ; j++)
+        {
+            int val;
+            fichier.read((char*)&val,sizeof(int));
+            tiles[i][j].setMap(this);
+            tiles[i][j].setPos(i,j);
+            tiles[i][j].setVal(val);
+        }
+    }
+    fichier.close();
+    autotile(); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
+    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles, w, h);
+    loadTileRules();
 }
 
 void Map::randomMap()
@@ -92,7 +157,7 @@ void Map::autotile()
     for (int i = 0 ; i < w ; i++) {
         for (int j = 0 ; j < h ; j++) {
             int t = tiles[i][j].getVal();
-            if (t == 70) {
+            if (t % TILESET_WIDTH <= 12 && (t % TILESET_WIDTH) / 3 == 1 && (t / TILESET_WIDTH) / 4 == 2) {
                 // opposite corners
                 if (i > 0 && j > 0 && tiles[i-1][j-1].getVal() != t && tiles[i-1][j].getVal() == t && tiles[i][j-1].getVal() == t) {
                     tiles[i][j].setCorner(true, LU);

@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commencï¿½ le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -38,14 +38,14 @@ void GameCore::createInstance(sf::RenderWindow* window)
 void GameCore::init(sf::RenderWindow* window)
 {
     map = new Map;
-    map->create();
+    map->loadMap(1);
     camera = new Camera(window);
 
     TextureHandler::getInstance()->loadGame();
     entities = new RenderingArray;
     mplayer = new MainPlayer(entities);
     mplayer->setX(180);
-    mplayer->setY(100, false);
+    mplayer->setY(180, false);
     entities->addEntity(mplayer);
 }
 

@@ -82,5 +82,8 @@ void Tile::setMap(Map* i)
 bool Tile::isSolid() const
     { return solid; }
 
+void Tile::setSolid(bool i)
+    { solid = i; }
+
 bool Tile::getCorner(int i) const
     { return corner[i]; }
