@@ -23,22 +23,26 @@ class Map
         Map();
         ~Map();
 
-        void draw(sf::RenderWindow* window);
+        void drawFloor(sf::RenderWindow* window);
+        void drawCeil(sf::RenderWindow* window);
         void create();
         void loadMap(int i);
         int getAnim() const;
         Tile getTile(int i, int j) const;
+        Tile getTileCeil(int i, int j) const;
         int getW() const;
         int getH() const;
     private:
-        void autotile();
+        void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();
         void loadTileRules();
 
         int w;
         int h;
         std::vector<std::vector<Tile> > tiles;
+        std::vector<std::vector<Tile> > tiles_ceil;
         TileMap tilemap;
+        TileMap tilemap_ceil;
         sf::Clock clock;
         int anim;
 };

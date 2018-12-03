@@ -23,9 +23,11 @@ void GameScene::draw()
 {
     GameCore* gameCore = GameCore::getInstance();
 
-    gameCore->getMap()->draw(window);
+    gameCore->getMap()->drawFloor(window);
 
     drawEntities();
+
+    gameCore->getMap()->drawCeil(window);
 }
 
 void GameScene::process()

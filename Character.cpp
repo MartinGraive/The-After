@@ -28,7 +28,7 @@ Character::Character(RenderingArray* a) : direction(1)
 
     typeanim = STILL;
     anim = 0;
-    speed = 2;
+    speed = 1;
 
     baseRect.x = 4;
     baseRect.y = 16;
