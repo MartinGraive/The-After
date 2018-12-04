@@ -13,6 +13,11 @@ Projet de TDLog*/
 #define DEF_TEXTUREHANDLER
 #include <SFML/Graphics.hpp>
 
+struct Texture
+{
+    sf::Texture* t;
+};
+
 class TextureHandler
 {
     public:
@@ -20,16 +25,16 @@ class TextureHandler
         void loadGame();
         void freeGame();
 
-        sf::Texture* getChara1();
-        sf::Texture* getTiles();
+        Texture getCharas(int i);
+        Texture getVigils(int i);
     private:
         TextureHandler();
         ~TextureHandler();
         static TextureHandler* instance;
-        sf::Texture* loadTexture(std::string src);
+        Texture loadTexture(std::string src);
 
-        sf::Texture* chara1;
-        sf::Texture* tiles;
+        Texture charas[1];
+        Texture vigils[1];
 };
 
 #endif // DEF_TEXTUREHANDLER

@@ -16,7 +16,7 @@ Projet de TDLog*/
 class MainPlayer : public Character
 {
     public:
-        MainPlayer(RenderingArray* a = NULL);
+        MainPlayer(Texture t, RenderingArray* a = NULL);
         ~MainPlayer();
     private:
 };

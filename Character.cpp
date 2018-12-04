@@ -67,7 +67,7 @@ void Character::drawStillAndMove(sf::RenderWindow* window)
     ///POSITION
     if (typeanim == MOVE) { posx = x, posy = y; clipx = anim + 1 - 2*(int)(anim/2) - 2*(int)(anim/3);}
     else { posx = x, posy = y; clipx = 1; }
-    Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getChara1(),
+    Graphics::getInstance()->drawSprite(window, tex,
                          posx, posy, clipx*w, direction*h, w, h);
 
     if (typeanim == MOVE) {

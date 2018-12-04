@@ -29,7 +29,12 @@ class GameCore
         RenderingArray* getEntities() const;
         Map* getMap() const;
         MainPlayer* getMPlayer() const;
+        Character* getCharacters(int i) const;
         Camera* getCamera() const;
+
+        int getNbCharacters() const;
+
+        void addCharacter(Character* i);
     private:
         GameCore();
         ~GameCore();
@@ -39,6 +44,7 @@ class GameCore
 
         RenderingArray* entities;
         MainPlayer* mplayer;
+        std::vector<Character*> characters;
         Map* map;
         Camera* camera;
 };

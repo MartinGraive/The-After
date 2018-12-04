@@ -26,11 +26,11 @@ TextureHandler* TextureHandler::getInstance() { return instance; }
 
 void TextureHandler::loadGame()
 {
-    chara1 = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/chara1.png");
-    tiles = loadTexture(Settings::getInstance()->getPath()+"data/graphics/tiles/Basis.png");
+    charas[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/chara1.png");
+    vigils[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/vigil.png");
 }
 
-sf::Texture* TextureHandler::loadTexture(std::string src)
+Texture TextureHandler::loadTexture(std::string src)
 {
     sf::Texture* tex = new sf::Texture;
     sf::Image img;
@@ -38,18 +38,19 @@ sf::Texture* TextureHandler::loadTexture(std::string src)
         img.createMaskFromColor(img.getPixel(img.getSize().x-1,0),0);
         tex->loadFromImage(img);
     }
-
-    return tex;
+    Texture t;
+    t.t = tex;
+    return t;
 }
 
 void TextureHandler::freeGame()
 {
-    delete chara1;
-    delete tiles;
+    delete charas[0].t;
+    delete vigils[0].t;
 }
 
-sf::Texture* TextureHandler::getChara1()
-    { return chara1; }
+Texture TextureHandler::getCharas(int i)
+    { return charas[i]; }
 
-sf::Texture* TextureHandler::getTiles()
-    { return tiles; }
+Texture TextureHandler::getVigils(int i)
+    { return vigils[i]; }

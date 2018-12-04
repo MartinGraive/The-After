@@ -1,5 +1,5 @@
 /*THE AFTER
-Commenc� le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -13,6 +13,7 @@ Projet de TDLog*/
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "Graphics/TextureHandler.h"
 #include "RenderingArray.h"
 #include "Settings.h"
 #include "Entity.h"
@@ -36,4 +37,5 @@ class Character : public Entity //Abstract class for every character
 
         int direction;
         double speed;
+        Texture tex;
 };

@@ -26,9 +26,9 @@ Graphics::~Graphics()
 
 Graphics* Graphics::getInstance() { return instance; }
 
-void Graphics::drawSprite(sf::RenderWindow* win, sf::Texture* t, int px, int py, int cx, int cy, int cw, int ch, double scale)
+void Graphics::drawSprite(sf::RenderWindow* win, Texture t, int px, int py, int cx, int cy, int cw, int ch, double scale)
 {
-    sf::Sprite sprite(*t);
+    sf::Sprite sprite(*t.t);
     sprite.setTextureRect(sf::IntRect(cx, cy, cw, ch));
 
     sprite.setPosition(px, py);

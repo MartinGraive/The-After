@@ -9,13 +9,14 @@ Arnaud Lafargue
 
 Projet de TDLog*/
 
-#include "MainPlayer.h"
+#include "Vigil.h"
 
-MainPlayer::MainPlayer(Texture t, RenderingArray* a) : Character(a)
+Vigil::Vigil(Texture t, RenderingArray* a) : Character(a)
 {
     tex = t;
 }
 
-MainPlayer::~MainPlayer()
+Vigil::~Vigil()
 {
 }
+
