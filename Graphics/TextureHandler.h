@@ -1,5 +1,5 @@
 /*THE AFTER
-Commenc� le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -27,6 +27,8 @@ class TextureHandler
 
         Texture getCharas(int i);
         Texture getVigils(int i);
+        Texture getTileset();
+        Texture getBubble();
     private:
         TextureHandler();
         ~TextureHandler();
@@ -35,6 +37,8 @@ class TextureHandler
 
         Texture charas[1];
         Texture vigils[1];
+        Texture tileset;
+        Texture bubble;
 };
 
 #endif // DEF_TEXTUREHANDLER

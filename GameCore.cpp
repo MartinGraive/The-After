@@ -38,11 +38,12 @@ void GameCore::createInstance(sf::RenderWindow* window)
 
 void GameCore::init(sf::RenderWindow* window)
 {
+    TextureHandler::getInstance()->loadGame();
+
     map = new Map;
     map->loadMap(1);
     camera = new Camera(window);
 
-    TextureHandler::getInstance()->loadGame();
     entities = new RenderingArray;
     mplayer = new MainPlayer(TextureHandler::getInstance()->getCharas(0), entities);
     mplayer->setX(180);
@@ -53,6 +54,8 @@ void GameCore::init(sf::RenderWindow* window)
     gaspard->setX(400);
     gaspard->setY(180, false);
     addCharacter(gaspard);
+
+    gaspard->say("Test");
 }
 
 RenderingArray* GameCore::getEntities() const

@@ -10,12 +10,12 @@ Arnaud Lafargue
 Projet de TDLog*/
 
 #include <iostream>
-#include <windows.h>
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <cstdlib>
 #include "Settings.h"
 #include "SceneManager.h"
+#include "Graphics/FontHandler.h"
 #include "GameScene.h"
 #include "Events/Events.h"
 
@@ -24,11 +24,11 @@ int main()
     ///Init random seed
     srand(time(NULL));
 
+    FontHandler::createInstance();
     Settings::getInstance()->init();
     sf::RenderWindow window(sf::VideoMode(Settings::getInstance()->getW() * Settings::getInstance()->getScale(),
                                           Settings::getInstance()->getH() * Settings::getInstance()->getScale()),
                                           "The after at ENPC");
-
     SceneManager::createInstance();
     GameScene* scene = new GameScene(&window);
 

@@ -1,5 +1,5 @@
 /*THE AFTER
-Commenc� le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -12,17 +12,13 @@ Projet de TDLog*/
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "TextureHandler.h"
 
 class Drawable : public sf::Drawable, public sf::Transformable
 {
     protected:
-        bool loadSource(std::string filename) {
-            if (!source.loadFromFile(filename)) {
-                return false;
-            }
-            return true;
-        }
         sf::VertexArray vertices;
+        sf::Texture source;
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
         {
@@ -32,6 +28,5 @@ class Drawable : public sf::Drawable, public sf::Transformable
 
             target.draw(vertices, states);
         }
-        sf::Texture source;
 };
 

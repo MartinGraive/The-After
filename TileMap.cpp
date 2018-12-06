@@ -1,5 +1,5 @@
 /*THE AFTER
-Commenc� le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -17,11 +17,9 @@ Projet de TDLog*/
 #include "Graphics/TextureHandler.h"
 #include "Graphics/Graphics.h"
 
-int TileMap::prepare(const std::string& tileset_file, std::vector<std::vector<Tile> > tiles, const unsigned int width, const unsigned int height)
+int TileMap::prepare(Texture t, std::vector<std::vector<Tile> > tiles, const unsigned int width, const unsigned int height)
 {
-    if (!loadSource(tileset_file)) {
-        return false;
-    }
+    source = *t.t;
 
     vertices.setPrimitiveType(sf::Quads);
     vertices.resize(width * height * 4 * 4);

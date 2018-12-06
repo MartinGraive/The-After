@@ -70,7 +70,7 @@ void Map::create()
     tiles[12][11].setVal(70);
 
     autotile(tiles); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
-    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/Basis.png", tiles, w, h);
+    tilemap.prepare(TextureHandler::getInstance()->getTileset(), tiles, w, h);
 }
 
 void Map::loadTileRules()
@@ -148,8 +148,8 @@ void Map::loadMap(int i)
     loadTileRules();
     autotile(tiles); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
     autotile(tiles_ceil);
-    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles, w, h);
-    tilemap_ceil.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles_ceil, w, h);
+    tilemap.prepare(TextureHandler::getInstance()->getTileset(), tiles, w, h);
+    tilemap_ceil.prepare(TextureHandler::getInstance()->getTileset(), tiles_ceil, w, h);
 }
 
 void Map::randomMap()

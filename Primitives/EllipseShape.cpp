@@ -28,7 +28,7 @@ const sf::Vector2f& EllipseShape::getRadius() const
     return m_radius;
 }
 
-unsigned int EllipseShape::getPointCount() const
+std::size_t EllipseShape::getPointCount() const
 {
     return 30; // fixed, but could be an attribute of the class if needed
 }

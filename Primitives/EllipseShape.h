@@ -21,7 +21,7 @@ class EllipseShape : public sf::Shape
 
         const sf::Vector2f& getRadius() const;
 
-        virtual unsigned int getPointCount() const;
+        virtual std::size_t getPointCount() const;
 
         virtual sf::Vector2f getPoint(unsigned int index) const;
 

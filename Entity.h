@@ -22,6 +22,7 @@ class Entity //Abstract class for every item / object / character
         virtual ~Entity();
 
         virtual void draw(sf::RenderWindow* window);
+        virtual void drawAbove(sf::RenderWindow* window);
 
         ///Process
         virtual void process();

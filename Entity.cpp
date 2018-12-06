@@ -24,6 +24,10 @@ void Entity::draw(sf::RenderWindow* window)
 {
 }
 
+void Entity::drawAbove(sf::RenderWindow* window)
+{
+}
+
 void Entity::process()
 {
 }

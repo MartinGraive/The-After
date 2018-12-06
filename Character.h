@@ -17,6 +17,7 @@ Projet de TDLog*/
 #include "RenderingArray.h"
 #include "Settings.h"
 #include "Entity.h"
+#include "TextBox.h"
 
 class Character : public Entity //Abstract class for every character
 {
@@ -26,16 +27,20 @@ class Character : public Entity //Abstract class for every character
 
         void process();
         void draw(sf::RenderWindow* window);
+        void drawAbove(sf::RenderWindow* window);
         EntityType getType() const;
         void move(double xt, double yt);
         bool collideWithEntities(double xd, double yd);
         void setTypeAnim(TypeAnim t);
 
         double getSpeed() const;
+
+        void say(std::string t);
     protected:
         void drawStillAndMove(sf::RenderWindow* window);
 
         int direction;
         double speed;
         Texture tex;
+        TextBox* bubble;
 };

@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -9,6 +9,7 @@ Arnaud Lafargue
 
 Projet de TDLog*/
 
+#include <iostream>
 #include "TextureHandler.h"
 #include "../Settings.h"
 
@@ -28,6 +29,8 @@ void TextureHandler::loadGame()
 {
     charas[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/chara1.png");
     vigils[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/vigil.png");
+    tileset = loadTexture(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png");
+    bubble = loadTexture(Settings::getInstance()->getPath()+"data/graphics/system/bubble.png");
 }
 
 Texture TextureHandler::loadTexture(std::string src)
@@ -47,6 +50,8 @@ void TextureHandler::freeGame()
 {
     delete charas[0].t;
     delete vigils[0].t;
+    delete tileset.t;
+    delete bubble.t;
 }
 
 Texture TextureHandler::getCharas(int i)
@@ -54,3 +59,9 @@ Texture TextureHandler::getCharas(int i)
 
 Texture TextureHandler::getVigils(int i)
     { return vigils[i]; }
+
+Texture TextureHandler::getTileset()
+    { return tileset; }
+
+Texture TextureHandler::getBubble()
+    { return bubble; }

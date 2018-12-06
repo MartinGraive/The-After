@@ -12,12 +12,12 @@ Projet de TDLog*/
 #pragma once
 
 #include "Graphics/Drawable.h"
-#include "Graphics/TextureHandler.h"
 #include "Tile.h"
 
-class TileMap : public Drawable
+class TextBoxBackground : public Drawable
 {
     public:
-        int prepare(Texture s, std::vector<std::vector<Tile> > tiles, const unsigned int width, const unsigned int height);
+        int prepare(Texture t, const unsigned int width, const unsigned int height);
 };
+
 

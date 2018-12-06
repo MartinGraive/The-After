@@ -28,6 +28,8 @@ void GameScene::draw()
     drawEntities();
 
     gameCore->getMap()->drawCeil(window);
+
+    drawAboveEntities();
 }
 
 void GameScene::process()
@@ -46,5 +48,14 @@ void GameScene::drawEntities()
 
     for (int i = 0 ; i<gameCore->getEntities()->size() ; i++) {
         gameCore->getEntities()->getEntity(i)->draw(window);
+    }
+}
+
+void GameScene::drawAboveEntities()
+{
+    GameCore* gameCore = GameCore::getInstance();
+
+    for (int i = 0 ; i<gameCore->getEntities()->size() ; i++) {
+        gameCore->getEntities()->getEntity(i)->drawAbove(window);
     }
 }

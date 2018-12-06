@@ -21,7 +21,7 @@ Projet de TDLog*/
 #include "Map.h"
 #include "Camera.h"
 
-Character::Character(RenderingArray* a) : direction(1)
+Character::Character(RenderingArray* a) : direction(1), bubble(NULL)
 {
     array = a;
     clock.restart();
@@ -41,6 +41,8 @@ Character::Character(RenderingArray* a) : direction(1)
 
 Character::~Character()
 {
+    if (bubble != NULL)
+        delete bubble;
 }
 
 void Character::draw(sf::RenderWindow* window)
@@ -53,6 +55,13 @@ void Character::draw(sf::RenderWindow* window)
     if (typeanim == STILL || typeanim == MOVE) { drawStillAndMove(window); }
 
     ///Draw Arrow if selected
+}
+
+void Character::drawAbove(sf::RenderWindow* window)
+{
+    if (bubble != NULL) {
+        bubble->draw(window);
+    }
 }
 
 void Character::drawStillAndMove(sf::RenderWindow* window)
@@ -143,3 +152,8 @@ void Character::setTypeAnim(TypeAnim t)
 
 double Character::getSpeed() const
     { return speed; }
+
+void Character::say(std::string i)
+{
+    bubble = new TextBox(i, x - 10, y - 21);
+}

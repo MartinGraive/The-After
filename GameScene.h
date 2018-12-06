@@ -23,6 +23,7 @@ class GameScene : public AbstractScene
         void process();
     private:
         void drawEntities();
+        void drawAboveEntities();
 
         sf::RenderWindow* window;
 };
