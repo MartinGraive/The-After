@@ -155,5 +155,5 @@ double Character::getSpeed() const
 
 void Character::say(std::string i)
 {
-    bubble = new TextBox(i, x - 10, y - 21);
+    bubble = new TextBox(i, x - 10, y - 21, 100, this);
 }

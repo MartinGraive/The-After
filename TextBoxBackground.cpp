@@ -17,6 +17,8 @@ Projet de TDLog*/
 
 int TextBoxBackground::prepare(Texture t, const unsigned int width, const unsigned int height)
 {
+    w = width;
+    h = height;
     source = *t.t;
 
     //structure
@@ -57,8 +59,8 @@ int TextBoxBackground::prepare(Texture t, const unsigned int width, const unsign
         vertices[j * 4 + 2].texCoords = sf::Vector2f(tu + tw, tv + th);
         vertices[j * 4 + 3].texCoords = sf::Vector2f(tu, tv + th);
     }
-    unsigned int wloop = (width - 1) / unit_bit;
-    unsigned int hloop = (height - 1) / unit_bit;
+    unsigned int wloop = (width - corner_size + unit_bit) / unit_bit;
+    unsigned int hloop = (height - corner_size + unit_bit) / unit_bit;
     for (unsigned int i = 0 ; i < wloop ; i++) {
         for (unsigned int j = 0 ; j < hloop ; j++) {
             if ((i != 0 || j != 0) && (i != wloop - 1 || j != 0) && (i != wloop - 1 || j != hloop - 1) && (i != 0 || j != hloop - 1)) {
@@ -111,3 +113,9 @@ int TextBoxBackground::prepare(Texture t, const unsigned int width, const unsign
     }
     return true;
 }
+
+unsigned int TextBoxBackground::getWidth()
+    { return w; }
+
+unsigned int TextBoxBackground::getHeight()
+    { return h; }

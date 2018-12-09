@@ -35,7 +35,7 @@ void FontHandler::createInstance()
 void FontHandler::loadFonts()
 {
     font = new sf::Font;
-    font->loadFromFile(Settings::getInstance()->getPath()+"data/graphics/fonts/arial.ttf");
+    font->loadFromFile(Settings::getInstance()->getPath()+"data/graphics/fonts/font.ttf");
 }
 
 sf::Font* FontHandler::getFont()

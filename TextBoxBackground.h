@@ -18,6 +18,11 @@ class TextBoxBackground : public Drawable
 {
     public:
         int prepare(Texture t, const unsigned int width, const unsigned int height);
+        unsigned int getWidth();
+        unsigned int getHeight();
+    private:
+        unsigned int w;
+        unsigned int h;
 };
 
 

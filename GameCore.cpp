@@ -55,7 +55,8 @@ void GameCore::init(sf::RenderWindow* window)
     gaspard->setY(180, false);
     addCharacter(gaspard);
 
-    gaspard->say("Test");
+    mplayer->say("coucou les zouz");
+    gaspard->say("Eh toi je te connais!");
 }
 
 RenderingArray* GameCore::getEntities() const
