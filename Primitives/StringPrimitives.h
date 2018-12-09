@@ -14,8 +14,8 @@ Projet de TDLog*/
 class StringPrimitives
 {
     public:
-        static std::vector<std::string> split(std::string str, char delimiter = ' ', bool keep_delimiter = false) {
-            std::vector<std::string> result;
+        static std::vector<std::wstring> split(std::wstring str, char delimiter = ' ', bool keep_delimiter = false) {
+            std::vector<std::wstring> result;
             int lastpos = 0;
             for (unsigned int i = 0 ; i < str.size() ; i++) {
                 if (str[i] == delimiter) {

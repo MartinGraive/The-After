@@ -1,5 +1,5 @@
 /*THE AFTER
-Commenc� le 22/10/2018
+Commence le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -55,8 +55,8 @@ void GameCore::init(sf::RenderWindow* window)
     gaspard->setY(180, false);
     addCharacter(gaspard);
 
-    mplayer->say("coucou les zouz");
-    gaspard->say("Eh toi je te connais!");
+    mplayer->say(L"Martin de mes énormes couilles fdp");
+    gaspard->say(L"Eh toi je te connais!");
 }
 
 RenderingArray* GameCore::getEntities() const

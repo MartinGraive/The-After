@@ -14,7 +14,7 @@ Projet de TDLog*/
 #include "Graphics/FontHandler.h"
 #include "Primitives/StringPrimitives.h"
 
-TextBox::TextBox(std::string t, int x1, int y1, int wmax1, Entity* track) : x(x1), y(y1), wmax(wmax1), text(t), trackTarget(track)
+TextBox::TextBox(std::wstring t, int x1, int y1, int wmax1, Entity* track) : x(x1), y(y1), wmax(wmax1), text(t), trackTarget(track)
 {
     prepare(t, x, y, wmax);
 }
@@ -23,10 +23,10 @@ TextBox::~TextBox()
 {
 }
 
-void TextBox::prepare(std::string t, int x1, int y1, int wmax1)
+void TextBox::prepare(std::wstring t, int x1, int y1, int wmax1)
 {
     x = x1; y = y1; wmax = wmax1; text = t;
-    std::vector<std::string> wordsString = StringPrimitives::split(text);
+    std::vector<std::wstring> wordsString = StringPrimitives::split(text);
     std::vector<int> wordLengths;
     for (unsigned int i = 0 ; i < wordsString.size() ; i++) {
         sf::Text texte;
@@ -51,7 +51,7 @@ void TextBox::prepare(std::string t, int x1, int y1, int wmax1)
 /**
   * Add \n in text so it never goes out of the box
   **/
-std::string TextBox::splitText(std::string s, std::vector<std::string> words, std::vector<int> lengths)
+std::wstring TextBox::splitText(std::wstring s, std::vector<std::wstring> words, std::vector<int> lengths)
 {
     int actual_width = 0;
     int actual_position = 0;

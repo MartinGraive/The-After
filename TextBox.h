@@ -17,18 +17,18 @@ Projet de TDLog*/
 class TextBox
 {
     public:
-        TextBox(std::string t, int x1, int y1, int wmax1, Entity* track = NULL);
-        void prepare(std::string t, int x1, int y1, int wmax1);
+        TextBox(std::wstring t, int x1, int y1, int wmax1, Entity* track = NULL);
+        void prepare(std::wstring t, int x1, int y1, int wmax1);
         ~TextBox();
 
         void draw(sf::RenderWindow* window);
     private:
-        std::string splitText(std::string s, std::vector<std::string> words, std::vector<int> lengths);
+        std::wstring splitText(std::wstring s, std::vector<std::wstring> words, std::vector<int> lengths);
 
         int x;
         int y;
         int wmax;
-        std::string text;
+        std::wstring text;
         sf::Text textTexture;
         Entity* trackTarget;
         TextBoxBackground bubble;

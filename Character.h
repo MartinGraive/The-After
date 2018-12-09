@@ -35,7 +35,7 @@ class Character : public Entity //Abstract class for every character
 
         double getSpeed() const;
 
-        void say(std::string t);
+        void say(std::wstring t);
     protected:
         void drawStillAndMove(sf::RenderWindow* window);
 

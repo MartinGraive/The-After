@@ -153,7 +153,7 @@ void Character::setTypeAnim(TypeAnim t)
 double Character::getSpeed() const
     { return speed; }
 
-void Character::say(std::string i)
+void Character::say(std::wstring i)
 {
     bubble = new TextBox(i, x - 10, y - 21, 100, this);
 }
