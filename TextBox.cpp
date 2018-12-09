@@ -26,7 +26,7 @@ TextBox::~TextBox()
 void TextBox::prepare(std::wstring t, int x1, int y1, int wmax1)
 {
     x = x1; y = y1; wmax = wmax1; text = t;
-    std::vector<std::wstring> wordsString = StringPrimitives::split(text);
+    std::vector<std::wstring> wordsString = StringPrimitives::split(text, ' ', true, 30);
     std::vector<int> wordLengths;
     for (unsigned int i = 0 ; i < wordsString.size() ; i++) {
         sf::Text texte;
@@ -42,10 +42,12 @@ void TextBox::prepare(std::wstring t, int x1, int y1, int wmax1)
     textTexture.setCharacterSize(12);
     textTexture.setFillColor(sf::Color::Black);
 
-    int bubble_width = textTexture.getLocalBounds().width + 15, bubble_height = textTexture.getLocalBounds().height + 10;
+    int bubble_width = textTexture.getLocalBounds().width + 15, bubble_height = textTexture.getLocalBounds().height + 12;
     bubble_width = ceil((bubble_width - 12) / 8) * 8 + 12;
     bubble_height = ceil((bubble_height - 12) / 4) * 4 + 12;
     bubble.prepare(TextureHandler::getInstance()->getBubble(), bubble_width, bubble_height);
+
+    std::wcout<<"Text="<<text<<" height="<<textTexture.getLocalBounds().height<<" bulle="<<bubble_height<<"\n";
 }
 
 /**
@@ -61,7 +63,7 @@ std::wstring TextBox::splitText(std::wstring s, std::vector<std::wstring> words,
             s[actual_position - 1] = '\n';
             actual_width = 0;
         }
-        actual_position += words[i].size() + 1;
+        actual_position += words[i].size();
     }
 
     return s;
@@ -78,6 +80,6 @@ void TextBox::draw(sf::RenderWindow* window)
     bubble.setPosition(xdraw, ydraw);
     window->draw(bubble);
 
-    textTexture.setPosition(xdraw + (bubble.getWidth() - textTexture.getLocalBounds().width)/2, ydraw + (bubble.getHeight() - 4 - textTexture.getLocalBounds().height)/2);
+    textTexture.setPosition(xdraw + (bubble.getWidth() - textTexture.getLocalBounds().width) / 2, ydraw + (bubble.getHeight() - 2 - textTexture.getLocalBounds().height - textTexture.getLocalBounds().top) / 2);
     window->draw(textTexture);
 }

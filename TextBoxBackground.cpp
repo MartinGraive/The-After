@@ -47,8 +47,8 @@ int TextBoxBackground::prepare(Texture t, const unsigned int width, const unsign
         }
         if (i == 2 || i == 3) {
             posy = height - corner_size;
-            tv = 13;
-            th = corner_size + 1;
+            tv = 14;
+            th = corner_size;
         }
         vertices[j * 4].position = sf::Vector2f(posx, posy);
         vertices[j * 4 + 1].position = sf::Vector2f(posx + tw, posy);
@@ -85,8 +85,8 @@ int TextBoxBackground::prepare(Texture t, const unsigned int width, const unsign
                     }
                     else {
                         tu = 17;
-                        tv = 13;
-                        th = corner_size + 1;
+                        tv = 14;
+                        th = corner_size;
                     }
                 }
                 if (i == 0) {

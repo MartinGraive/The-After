@@ -55,7 +55,7 @@ void GameCore::init(sf::RenderWindow* window)
     gaspard->setY(180, false);
     addCharacter(gaspard);
 
-    mplayer->say(L"Martin de mes énormes couilles fdp");
+    mplayer->say(L"Ceci est un message test. J'espère qu'il display very nice !");
     gaspard->say(L"Eh toi je te connais!");
 }
 
