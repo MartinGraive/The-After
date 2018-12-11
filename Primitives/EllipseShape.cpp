@@ -28,12 +28,12 @@ const sf::Vector2f& EllipseShape::getRadius() const
     return m_radius;
 }
 
-unsigned int EllipseShape::getPointCount() const
+std::size_t EllipseShape::getPointCount() const
 {
     return 30; // fixed, but could be an attribute of the class if needed
 }
 
-sf::Vector2f EllipseShape::getPoint(unsigned int index) const
+sf::Vector2f EllipseShape::getPoint(std::size_t index) const
 {
     static const float pi = 3.141592654f;
 

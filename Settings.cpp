@@ -15,6 +15,9 @@ Settings* Settings::instance = new Settings;
 
 Settings::Settings() : path(""), quitting(false)
 {
+    #ifndef WIN32
+        path = "../";
+    #endif
 }
 
 Settings::~Settings()

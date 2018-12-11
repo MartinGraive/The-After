@@ -33,6 +33,8 @@ class Map
         int getW() const;
         int getH() const;
     private:
+        void couloir(int type, int i, int j);
+        
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();
         void loadTileRules();

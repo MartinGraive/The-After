@@ -59,18 +59,13 @@ void Map::create()
         for (int j = 0 ; j < h ; j++) {
             tiles[i][j].setMap(this);
             tiles[i][j].setPos(i,j);
-            tiles[i][j].setVal(HERBE);
+            tiles[i][j].setVal(FLOOR);
         }
     }
     randomMap();
-
-    tiles[10][10].setVal(70);
-    tiles[11][10].setVal(70);
-    tiles[11][11].setVal(70);
-    tiles[12][11].setVal(70);
-
+    
     autotile(tiles); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
-    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/Basis.png", tiles, w, h);
+    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles, w, h);
 }
 
 void Map::loadTileRules()
@@ -118,59 +113,153 @@ void Map::loadMap(int i)
     std::ostringstream im;
     im << i;
     std::ifstream fichier((Settings::getInstance()->getPath()+"data/maps/map"+im.str()+".mmo").c_str(),std::ios::in|std::ios::binary);
-    int chipset = 0;
-    fichier.read((char*)&chipset,sizeof(int));
-    fichier.read((char*)&w,sizeof(int));
-    fichier.read((char*)&h,sizeof(int));
-    tiles.resize(w);
-    tiles_ceil.resize(w);
-    for (int i = 0 ; i < w ; i++) {
-        tiles[i].resize(h);
-        tiles_ceil[i].resize(h);
-    }
+    if (fichier) {
+        int chipset = 0;
+        fichier.read((char*)&chipset,sizeof(int));
+        fichier.read((char*)&w,sizeof(int));
+        fichier.read((char*)&h,sizeof(int));
+        tiles.resize(w);
+        tiles_ceil.resize(w);
+        for (int i = 0 ; i < w ; i++) {
+            tiles[i].resize(h);
+            tiles_ceil[i].resize(h);
+        }
 
-    for (int i=0 ; i<w ; i++)
-    {
-        for (int j=0 ; j<h ; j++)
+        for (int i=0 ; i<w ; i++)
         {
-            int val;
-            fichier.read((char*)&val,sizeof(int));
-            tiles[i][j].setMap(this);
-            tiles[i][j].setPos(i,j);
-            tiles[i][j].setVal(val);
+            for (int j=0 ; j<h ; j++)
+            {
+                int val;
+                fichier.read((char*)&val,sizeof(int));
+                tiles[i][j].setMap(this);
+                tiles[i][j].setPos(i,j);
+                tiles[i][j].setVal(val);
 
-            tiles_ceil[i][j].setMap(this);
-            tiles_ceil[i][j].setPos(i,j);
-            tiles_ceil[i][j].setVal(VIDE);
+                tiles_ceil[i][j].setMap(this);
+                tiles_ceil[i][j].setPos(i,j);
+                tiles_ceil[i][j].setVal(EMPTY);
+            }
+        }
+        fichier.close();
+        loadTileRules();
+        autotile(tiles); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
+        autotile(tiles_ceil);
+        tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles, w, h);
+        tilemap_ceil.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles_ceil, w, h);
+    }
+}
+
+//faire une enumeration pour les types de couloirs ?
+void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du rectangle a creer
+{
+    for (int ii=0;ii<13;ii++)
+    {
+        for (int jj=0;jj<13;jj++)
+        {
+            tiles[i+ii][j+jj].setVal(CEILING);
         }
     }
-    fichier.close();
-    loadTileRules();
-    autotile(tiles); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
-    autotile(tiles_ceil);
-    tilemap.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles, w, h);
-    tilemap_ceil.prepare(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png", tiles_ceil, w, h);
+    switch(type) // format de base 13*13
+    {
+        case 1: //simple couloir vertical
+            for (int ii=0;ii<3;ii++)
+            {
+                for (int jj=0;jj<13;jj++)
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 2: // simple couloir horizontal 
+            for (int ii=0;ii<13;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 3: //coin superieur gauche
+            for (int ii=5;ii<13;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            for (int jj=5;jj<13;jj++)
+            {
+                for (int ii=0;ii<3;ii++)
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 4: //coin superieur droit
+            for (int ii=0;ii<8;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            for (int jj=5;jj<13;jj++)
+            {
+                for (int ii=0;ii<3;ii++)
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 5: //coin inferieur droit
+            for (int ii=0;ii<8;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            for (int jj=0;jj<8;jj++)
+            {
+                for (int ii=0;ii<3;ii++)
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 6: //coin inferieur droit
+            for (int ii=5;ii<13;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            for (int jj=0;jj<8;jj++)
+            {
+                for (int ii=0;ii<3;ii++)
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        default:
+            std::cerr << "mauvais type de couloir" << std::endl; // erreur
+            break;
+    }
 }
 
 void Map::randomMap()
 {
-    ///DRAWING PATH
-    float** heightmap = heightMap(w, h, 3, 2);
-
-    for (int i = 0 ; i < w ; i++) {
-        for (int j = 0 ; j < h ; j++) {
-            int val = heightmap[i][j] * 12.f;
-            if (val >= 0 && val <= 1) { tiles[i][j].setVal(210); }
-            else if (val == 2) { tiles[i][j].setVal(120); }
-            else if (val == 3) { tiles[i][j].setVal(70); }
-            else if (val >= 4 && val <= 7) { tiles[i][j].setVal(HERBE); }
-            else if (val == 8) { tiles[i][j].setVal(67); }
-            else { tiles[i][j].setVal(424); }
+    
+    for (int i=0 ; i<w ; i++)
+    {
+        for (int j=0 ; j<h ; j++)
+        {
+            tiles[i][j].setVal(EMPTY);
         }
     }
-
-    for (int i = 0 ; i < w ; i++) { delete[] heightmap[i]; }
-    delete[] heightmap;
+    couloir(6,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)

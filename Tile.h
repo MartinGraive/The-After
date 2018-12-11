@@ -15,7 +15,7 @@ Projet de TDLog*/
 
 class Map;
 
-enum {HERBE = 270,VIDE = 258,MONTAGNE = 227,EAU = 36};
+enum {FLOOR = 270,EMPTY = 258,CEILING = 304};
 enum {LU = 0,RU = 1,LD = 2,RD = 3};
 
 class Tile

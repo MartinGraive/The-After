@@ -39,7 +39,7 @@ void GameCore::createInstance(sf::RenderWindow* window)
 void GameCore::init(sf::RenderWindow* window)
 {
     map = new Map;
-    map->loadMap(1);
+    map->create();
     camera = new Camera(window);
 
     TextureHandler::getInstance()->loadGame();

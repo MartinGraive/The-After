@@ -10,10 +10,10 @@ Arnaud Lafargue
 Projet de TDLog*/
 
 #include <iostream>
-#include <windows.h>
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <cstdlib>
+#include <experimental/filesystem>
 #include "Settings.h"
 #include "SceneManager.h"
 #include "GameScene.h"
