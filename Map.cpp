@@ -149,7 +149,7 @@ void Map::loadMap(int i)
     }
 }
 
-//faire une enumeration pour les types de couloirs ?
+enum {C_VERT = 1, C_HORI = 2, COUDE_SG = 3, COUDE_SD = 4, COUDE_ID = 5, COUDE_IG = 6, CULDS_D = 7, CULDS_G = 8, CULDS_H = 9, CULDS_B = 10};
 void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du rectangle a creer
 {
     for (int ii=0;ii<13;ii++)
@@ -159,6 +159,7 @@ void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du recta
             tiles[i+ii][j+jj].setVal(CEILING);
         }
     }
+    // oui je sais c'est absurde je pourrais faire toutes les boucles apres le switch...
     switch(type) // format de base 13*13
     {
         case 1: //simple couloir vertical
@@ -243,6 +244,42 @@ void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du recta
                 }
             }
             break;
+        case 7: //cul de sac horizontal a droite
+            for (int ii=0;ii<7;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 8: //cul de sac horizontal a gauche
+            for (int ii=6;ii<13;ii++)
+            {
+                for (int jj=0;jj<3;jj++)
+                {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 9: //cul de sac vertical en haut
+            for (int ii=0;ii<3;ii++)
+            {
+                for (int jj=6;jj<13;jj++)
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 10: //cul de sac vertical en bas
+            for (int ii=0;ii<3;ii++)
+            {
+                for (int jj=0;jj<7;jj++) 
+                {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
         default:
             std::cerr << "mauvais type de couloir" << std::endl; // erreur
             break;
@@ -251,15 +288,16 @@ void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du recta
 
 void Map::randomMap()
 {
-    
-    for (int i=0 ; i<w ; i++)
+    if ((w%13!=0) || (h%13!=0)) std::cerr << "la map est de mauvaise dimensions" << std::endl; // erreur dependant de la taille des blocs de couloir
+    // initialisation de la map vide :
+    for (int i=0 ; i<w ; i++) 
     {
         for (int j=0 ; j<h ; j++)
         {
-            tiles[i][j].setVal(EMPTY);
+            tiles[i][j].setVal(EMPTY); // CEILING ou EMPTY ?
         }
     }
-    couloir(6,5,5);
+    couloir(9,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)
