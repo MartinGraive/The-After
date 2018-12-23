@@ -286,6 +286,8 @@ void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du recta
     }
 }
 
+//enum {HAUT = 0,BAS = 2,GAUCHE = 3,DROITE = 1}; // dans Settings.h via Tile.h
+enum statut {LIBRE, CLOS, OUVERT};
 void Map::randomMap()
 {
     if ((w%13!=0) || (h%13!=0)) std::cerr << "la map est de mauvaise dimensions" << std::endl; // erreur dependant de la taille des blocs de couloir
@@ -297,6 +299,26 @@ void Map::randomMap()
             tiles[i][j].setVal(EMPTY); // CEILING ou EMPTY ?
         }
     }
+    // creation et initialisation du tableau des disponibilites des interfaces entre blocs
+    statut** disponibilites = new statut*[w/13+2];
+    for (int i=0;i<w/13+2;i++) {
+        disponibilites[i] = new statut[h/13+2];
+        for (int j=0;j<h/13+2;j++) {
+            disponibilites[i][j] = LIBRE;
+        }
+    }
+    for (int i=0;i<w/13+2;i++) {
+        disponibilites[i][0]=CLOS;
+        disponibilites[i][h/13+1]=CLOS;
+    }
+    for (int j=0;j<h/13+2;j++) {
+        disponibilites[0][j]=CLOS;
+        disponibilites[w/13+1][j]=CLOS;
+    }
+    
+    disponibilites[0][(h/13+1)/2]=OUVERT; //entree de la residence
+    // appel recursif parcours au depart du bloc 0,(h/13-1)/2
+    
     couloir(9,5,5);
 }
 
