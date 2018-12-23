@@ -149,134 +149,161 @@ void Map::loadMap(int i)
     }
 }
 
-enum {C_VERT = 1, C_HORI = 2, COUDE_SG = 3, COUDE_SD = 4, COUDE_ID = 5, COUDE_IG = 6, CULDS_D = 7, CULDS_G = 8, CULDS_H = 9, CULDS_B = 10};
-void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du rectangle a creer
-{
-    for (int ii=0;ii<13;ii++)
-    {
-        for (int jj=0;jj<13;jj++)
-        {
+void Map::couloir(couloir_t type, int i, int j) { //(i,j) tile en haut a gauche du rectangle a creer
+    for (int ii=0;ii<13;ii++) {
+        for (int jj=0;jj<13;jj++) {
             tiles[i+ii][j+jj].setVal(CEILING);
         }
     }
     // oui je sais c'est absurde je pourrais faire toutes les boucles apres le switch...
-    switch(type) // format de base 13*13
-    {
+    switch(type) { // format de base 13*13
         case 1: //simple couloir vertical
-            for (int ii=0;ii<3;ii++)
-            {
-                for (int jj=0;jj<13;jj++)
-                {
+            for (int ii=0;ii<3;ii++) {
+                for (int jj=0;jj<13;jj++) {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
                 }
             }
             break;
         case 2: // simple couloir horizontal 
-            for (int ii=0;ii<13;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=0;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
             break;
         case 3: //coin superieur gauche
-            for (int ii=5;ii<13;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=5;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
-            for (int jj=5;jj<13;jj++)
-            {
-                for (int ii=0;ii<3;ii++)
-                {
+            for (int jj=5;jj<13;jj++) {
+                for (int ii=0;ii<3;ii++) {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
                 }
             }
             break;
         case 4: //coin superieur droit
-            for (int ii=0;ii<8;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=0;ii<8;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
-            for (int jj=5;jj<13;jj++)
-            {
-                for (int ii=0;ii<3;ii++)
-                {
+            for (int jj=5;jj<13;jj++) {
+                for (int ii=0;ii<3;ii++) {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
                 }
             }
             break;
         case 5: //coin inferieur droit
-            for (int ii=0;ii<8;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=0;ii<8;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
-            for (int jj=0;jj<8;jj++)
-            {
-                for (int ii=0;ii<3;ii++)
-                {
+            for (int jj=0;jj<8;jj++) {
+                for (int ii=0;ii<3;ii++) {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
                 }
             }
             break;
         case 6: //coin inferieur droit
-            for (int ii=5;ii<13;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=5;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
-            for (int jj=0;jj<8;jj++)
-            {
-                for (int ii=0;ii<3;ii++)
-                {
+            for (int jj=0;jj<8;jj++) {
+                for (int ii=0;ii<3;ii++) {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
                 }
             }
             break;
         case 7: //cul de sac horizontal a droite
-            for (int ii=0;ii<7;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=0;ii<7;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
             break;
         case 8: //cul de sac horizontal a gauche
-            for (int ii=6;ii<13;ii++)
-            {
-                for (int jj=0;jj<3;jj++)
-                {
+            for (int ii=6;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
                     tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
             break;
         case 9: //cul de sac vertical en haut
-            for (int ii=0;ii<3;ii++)
-            {
-                for (int jj=6;jj<13;jj++)
-                {
+            for (int ii=0;ii<3;ii++) {
+                for (int jj=6;jj<13;jj++) {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
                 }
             }
             break;
         case 10: //cul de sac vertical en bas
-            for (int ii=0;ii<3;ii++)
-            {
-                for (int jj=0;jj<7;jj++) 
-                {
+            for (int ii=0;ii<3;ii++) {
+                for (int jj=0;jj<7;jj++)  {
                     tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 11: //en T
+            for (int ii=0;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            for (int jj=5;jj<13;jj++) {
+                for (int ii=0;ii<3;ii++) {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 12: //en T, sorties en bas, droite, haut
+            for (int ii=0;ii<3;ii++) {
+                for (int jj=0;jj<13;jj++) {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            for (int ii=5;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 13: //en T, sorties a gauche, droite, haut
+            for (int ii=0;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            for (int jj=0;jj<7;jj++) {
+                for (int ii=0;ii<3;ii++) {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 14: //en T, sorties a gauche, bas, haut
+            for (int ii=0;ii<3;ii++) {
+                for (int jj=0;jj<13;jj++) {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            for (int ii=0;ii<7;ii++) {
+                for (int jj=0;jj<3;jj++) {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
+                }
+            }
+            break;
+        case 15: //carrefour +
+            for (int ii=0;ii<3;ii++) {
+                for (int jj=0;jj<13;jj++) {
+                    tiles[i+5+ii][j+jj].setVal(FLOOR);
+                }
+            }
+            for (int ii=0;ii<13;ii++) {
+                for (int jj=0;jj<3;jj++) {
+                    tiles[i+ii][j+5+jj].setVal(FLOOR);
                 }
             }
             break;
@@ -286,20 +313,19 @@ void Map::couloir(int type, int i, int j) //(i,j) tile en haut a gauche du recta
     }
 }
 
-//enum {HAUT = 0,BAS = 2,GAUCHE = 3,DROITE = 1}; // dans Settings.h via Tile.h
-enum statut {LIBRE, CLOS, OUVERT};
-void Map::randomMap()
-{
+void Map::parcours(int i, int j, statut** disponibilites) {
+    
+}
+
+void Map::randomMap() {
     if ((w%13!=0) || (h%13!=0)) std::cerr << "la map est de mauvaise dimensions" << std::endl; // erreur dependant de la taille des blocs de couloir
     // initialisation de la map vide :
-    for (int i=0 ; i<w ; i++) 
-    {
-        for (int j=0 ; j<h ; j++)
-        {
+    for (int i=0 ; i<w ; i++) {
+        for (int j=0 ; j<h ; j++) {
             tiles[i][j].setVal(EMPTY); // CEILING ou EMPTY ?
         }
     }
-    // creation et initialisation du tableau des disponibilites des interfaces entre blocs
+    // creation et initialisation du tableau des disponibilites des interfaces entre blocs (et contour exterieur de la map)
     statut** disponibilites = new statut*[w/13+2];
     for (int i=0;i<w/13+2;i++) {
         disponibilites[i] = new statut[h/13+2];
@@ -319,7 +345,7 @@ void Map::randomMap()
     disponibilites[0][(h/13+1)/2]=OUVERT; //entree de la residence
     // appel recursif parcours au depart du bloc 0,(h/13-1)/2
     
-    couloir(9,5,5);
+    couloir(C_T270,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)

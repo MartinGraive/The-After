@@ -15,6 +15,9 @@ Projet de TDLog*/
 #include "Tile.h"
 #include "TileMap.h"
 
+enum couloir_t {C_VERT = 1, C_HORI, COUDE_SG, COUDE_SD, COUDE_ID, COUDE_IG, CULDS_D, CULDS_G, CULDS_H, CULDS_B, C_T, C_T90, C_T180, C_T270, CARREFOUR};
+enum statut {LIBRE, CLOS, OUVERT};
+
 class Tile;
 
 class Map
@@ -33,8 +36,8 @@ class Map
         int getW() const;
         int getH() const;
     private:
-        void couloir(int type, int i, int j);
-        void parcours(int i, int j);
+        void couloir(couloir_t type, int i, int j);
+        void parcours(int i, int j, statut** disponibilites); 
         
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();
