@@ -28,7 +28,7 @@ Settings* Settings::getInstance() { return instance; }
 
 void Settings::init()
 {
-    w = 384*3; // bon ca va pas du tout je veux des multiples de 13 --Martin
+    w = 384*3;
     h = 216*3;
     scale = 1;
 }

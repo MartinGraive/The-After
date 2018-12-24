@@ -36,8 +36,8 @@ class Map
         int getW() const;
         int getH() const;
     private:
-        void couloir(couloir_t type, int i, int j);
-        void parcours(int i, int j, statut** disponibilites); 
+        void couloir(int type, int i, int j);
+        void parcours(int i, int j, statut** aretes_dispo); 
         
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();

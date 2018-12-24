@@ -12,6 +12,8 @@ Projet de TDLog*/
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <set> // pour parcours
+#include <iterator> // pour parcours
 #include "Map.h"
 #include "GameCore.h"
 #include "Tile.h"
@@ -48,8 +50,8 @@ void Map::drawCeil(sf::RenderWindow* window)
 
 void Map::create()
 {
-    w = 128;
-    h = 128;
+    w = 130; //128
+    h = 130; //128
     tiles.resize(w);
     for (int i = 0 ; i < w ; i++) {
         tiles[i].resize(h);
@@ -149,7 +151,7 @@ void Map::loadMap(int i)
     }
 }
 
-void Map::couloir(couloir_t type, int i, int j) { //(i,j) tile en haut a gauche du rectangle a creer
+void Map::couloir(int type, int i, int j) { //(i,j) tile en haut a gauche du rectangle a creer
     for (int ii=0;ii<13;ii++) {
         for (int jj=0;jj<13;jj++) {
             tiles[i+ii][j+jj].setVal(CEILING);
@@ -313,8 +315,100 @@ void Map::couloir(couloir_t type, int i, int j) { //(i,j) tile en haut a gauche 
     }
 }
 
-void Map::parcours(int i, int j, statut** disponibilites) {
+void Map::parcours(int i, int j, statut** aretes_dispo) { // le i,j ne correspond ni a un pixel ni a une tile ni a une interface mais a un bloc !!
+    //// observer en fonction du statut des cotes de ce bloc quels couloirs sont possibles
+    std::set<int> couloirs_possibles;
+    for (int k=1;k<16;k++) couloirs_possibles.insert(k);
+    // en haut
+    if (aretes_dispo[i][2*j]==CLOS) { // verifier les valeurs
+        couloirs_possibles.erase(C_VERT);
+        couloirs_possibles.erase(COUDE_ID);
+        couloirs_possibles.erase(COUDE_IG);
+        couloirs_possibles.erase(CULDS_H);
+        couloirs_possibles.erase(C_T90);
+        couloirs_possibles.erase(C_T180);
+        couloirs_possibles.erase(C_T270);
+        couloirs_possibles.erase(CARREFOUR);
+    }
+    else if (aretes_dispo[i][2*j]==OUVERT) {
+        couloirs_possibles.erase(C_HORI);
+        couloirs_possibles.erase(COUDE_SD);
+        couloirs_possibles.erase(COUDE_SG);
+        couloirs_possibles.erase(CULDS_B);
+        couloirs_possibles.erase(CULDS_D);
+        couloirs_possibles.erase(CULDS_G);
+        couloirs_possibles.erase(C_T);
+    }
+    // a droite
+    if (aretes_dispo[i+1][2*j+1]==CLOS) {
+        couloirs_possibles.erase(C_HORI);
+        couloirs_possibles.erase(COUDE_SG);
+        couloirs_possibles.erase(COUDE_IG);
+        couloirs_possibles.erase(CULDS_G);
+        couloirs_possibles.erase(C_T);
+        couloirs_possibles.erase(C_T90);
+        couloirs_possibles.erase(C_T180);
+        couloirs_possibles.erase(CARREFOUR);
+    }
+    else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
+        couloirs_possibles.erase(C_VERT);
+        couloirs_possibles.erase(COUDE_SD);
+        couloirs_possibles.erase(COUDE_ID);
+        couloirs_possibles.erase(CULDS_D);
+        couloirs_possibles.erase(CULDS_H);
+        couloirs_possibles.erase(CULDS_B);
+        couloirs_possibles.erase(C_T270);
+    }
+    //en bas
+    if (aretes_dispo[i][2*(j+1)]==CLOS) {
+        couloirs_possibles.erase(C_VERT);
+        couloirs_possibles.erase(COUDE_SG);
+        couloirs_possibles.erase(COUDE_SD);
+        couloirs_possibles.erase(CULDS_H);
+        couloirs_possibles.erase(C_T);
+        couloirs_possibles.erase(C_T90);
+        couloirs_possibles.erase(C_T270);
+        couloirs_possibles.erase(CARREFOUR);
+    }
+    else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
+        couloirs_possibles.erase(C_HORI);
+        couloirs_possibles.erase(COUDE_IG);
+        couloirs_possibles.erase(COUDE_ID);
+        couloirs_possibles.erase(CULDS_D);
+        couloirs_possibles.erase(CULDS_G);
+        couloirs_possibles.erase(CULDS_B);
+        couloirs_possibles.erase(C_T180);
+    }
+    // a gauche
+    if (aretes_dispo[i][2*j+1]==CLOS) {
+        couloirs_possibles.erase(C_HORI);
+        couloirs_possibles.erase(COUDE_SD);
+        couloirs_possibles.erase(COUDE_ID);
+        couloirs_possibles.erase(CULDS_D);
+        couloirs_possibles.erase(C_T);
+        couloirs_possibles.erase(C_T270);
+        couloirs_possibles.erase(C_T180);
+        couloirs_possibles.erase(CARREFOUR);
+    }
+    else if (aretes_dispo[i][2*j+1]==OUVERT) {
+        couloirs_possibles.erase(C_VERT);
+        couloirs_possibles.erase(COUDE_SG);
+        couloirs_possibles.erase(COUDE_IG);
+        couloirs_possibles.erase(CULDS_G);
+        couloirs_possibles.erase(CULDS_H);
+        couloirs_possibles.erase(CULDS_B);
+        couloirs_possibles.erase(C_T90);
+    }
     
+    //// choisir un couloir aleatoirement
+    // la fct a ete appelee sur un bloc dont un des cotes est obligatoirement ouvert donc couloirs_possibles n'est pas vide
+    std::set<int>::iterator it = couloirs_possibles.begin();
+    std::advance(it,std::rand()%couloirs_possibles.size());
+    couloir(*it,i,j);
+    
+    //// mettre a jour les statuts des cotes
+    
+    //// appel au niveau des blocs accessibles non traites (!)
 }
 
 void Map::randomMap() {
@@ -326,26 +420,27 @@ void Map::randomMap() {
         }
     }
     // creation et initialisation du tableau des disponibilites des interfaces entre blocs (et contour exterieur de la map)
-    statut** disponibilites = new statut*[w/13+2];
-    for (int i=0;i<w/13+2;i++) {
-        disponibilites[i] = new statut[h/13+2];
-        for (int j=0;j<h/13+2;j++) {
+    // c'est le plan dual, represente en decaler une ligne vers la gauche : la moitie des points en bout de ligne ne servent a rien
+    statut** disponibilites = new statut*[w/13+1];
+    for (int i=0;i<w/13+1;i++) {
+        disponibilites[i] = new statut[2*(h/13)+1];
+        for (int j=0;j<2*(h/13)+1;j++) {
             disponibilites[i][j] = LIBRE;
         }
     }
-    for (int i=0;i<w/13+2;i++) {
+    for (int i=0;i<w/13+1;i++) {
         disponibilites[i][0]=CLOS;
-        disponibilites[i][h/13+1]=CLOS;
+        disponibilites[i][2*(h/13)]=CLOS;
     }
-    for (int j=0;j<h/13+2;j++) {
+    for (int j=0;j<2*(h/13)+1;j++) {
         disponibilites[0][j]=CLOS;
-        disponibilites[w/13+1][j]=CLOS;
+        disponibilites[w/13-(j%2==0?1:0)][j]=CLOS;
     }
     
-    disponibilites[0][(h/13+1)/2]=OUVERT; //entree de la residence
-    // appel recursif parcours au depart du bloc 0,(h/13-1)/2
+    disponibilites[0][0]=OUVERT; //entree de la residence
+    parcours(0,0,disponibilites);// appel recursif parcours au depart du bloc 0,0
     
-    couloir(C_T270,5,5);
+    couloir(CULDS_B,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)
