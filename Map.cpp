@@ -407,6 +407,9 @@ void Map::parcours(int i, int j, statut** aretes_dispo) { // le i,j ne correspon
     couloir(*it,i,j);
     
     //// mettre a jour les statuts des cotes
+    // ou faire les appels ? si je ne le fais pas maintenant, risque de boucle infinie s'il y a une boucle dans ma map
+    std::vector<Point> appels; //classe definie dans settings.h
+    
     
     //// appel au niveau des blocs accessibles non traites (!)
 }
@@ -420,7 +423,7 @@ void Map::randomMap() {
         }
     }
     // creation et initialisation du tableau des disponibilites des interfaces entre blocs (et contour exterieur de la map)
-    // c'est le plan dual, represente en decaler une ligne vers la gauche : la moitie des points en bout de ligne ne servent a rien
+    // c'est le plan dual, represente en decaler une ligne sur deux vers la gauche : la moitie des points en bout de ligne ne servent a rien, ce sont les aretes horizontales hors de la map
     statut** disponibilites = new statut*[w/13+1];
     for (int i=0;i<w/13+1;i++) {
         disponibilites[i] = new statut[2*(h/13)+1];
@@ -433,14 +436,14 @@ void Map::randomMap() {
         disponibilites[i][2*(h/13)]=CLOS;
     }
     for (int j=0;j<2*(h/13)+1;j++) {
-        disponibilites[0][j]=CLOS;
+        disponibilites[0][j]=(j%2==0?LIBRE:CLOS);
         disponibilites[w/13-(j%2==0?1:0)][j]=CLOS;
     }
     
-    disponibilites[0][0]=OUVERT; //entree de la residence
+    disponibilites[0][0]=OUVERT; //entree de la residence : premiere arete horizontale en haut a gauche
     parcours(0,0,disponibilites);// appel recursif parcours au depart du bloc 0,0
     
-    couloir(CULDS_B,5,5);
+    //couloir(CULDS_B,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)
