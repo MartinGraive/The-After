@@ -12,6 +12,7 @@ Projet de TDLog*/
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <queue> // pour parcours
 #include "Tile.h"
 #include "TileMap.h"
 
@@ -37,7 +38,9 @@ class Map
         int getH() const;
     private:
         void couloir(int type, int i, int j);
-        void parcours(int i, int j, statut** aretes_dispo); 
+        std::vector<Point> sortieCouloir(couloir_t type, Point bloc);  // classe Point definie dans Settings.h via Tile.h
+        bool blocVide(Point bloc, statut** aretes_dispo);
+        void parcours(std::queue<Point> fifo, statut** aretes_dispo);
         
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();

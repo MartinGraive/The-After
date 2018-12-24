@@ -315,103 +315,183 @@ void Map::couloir(int type, int i, int j) { //(i,j) tile en haut a gauche du rec
     }
 }
 
-void Map::parcours(int i, int j, statut** aretes_dispo) { // le i,j ne correspond ni a un pixel ni a une tile ni a une interface mais a un bloc !!
-    //// observer en fonction du statut des cotes de ce bloc quels couloirs sont possibles
-    std::set<int> couloirs_possibles;
-    for (int k=1;k<16;k++) couloirs_possibles.insert(k);
-    // en haut
-    if (aretes_dispo[i][2*j]==CLOS) { // verifier les valeurs
-        couloirs_possibles.erase(C_VERT);
-        couloirs_possibles.erase(COUDE_ID);
-        couloirs_possibles.erase(COUDE_IG);
-        couloirs_possibles.erase(CULDS_H);
-        couloirs_possibles.erase(C_T90);
-        couloirs_possibles.erase(C_T180);
-        couloirs_possibles.erase(C_T270);
-        couloirs_possibles.erase(CARREFOUR);
+std::vector<Point> Map::sortieCouloir(couloir_t type, Point bloc) {
+    int i = bloc.x, j = bloc.y;
+    Point haut(i,2*j), droite(i+1,2*j+1), bas(i,2*(j+1)), gauche(i,2*j+1); // on s'en moque si ca sort de la map, ca ne sera pas appele dans ce cas pathologique
+    std::vector<Point> res;
+    switch(type) {
+        case C_VERT:
+            res.push_back(haut);
+            res.push_back(bas);
+            break;
+        case C_HORI:
+            res.push_back(gauche);
+            res.push_back(droite);
+            break;
+        case COUDE_SG:
+            res.push_back(droite);
+            res.push_back(bas);
+            break;
+        case COUDE_SD:
+            res.push_back(gauche);
+            res.push_back(bas);
+            break;
+        case COUDE_ID:
+            res.push_back(gauche);
+            res.push_back(haut);
+            break;
+        case COUDE_IG:
+            res.push_back(droite);
+            res.push_back(haut);
+            break;
+        case CULDS_D:
+            res.push_back(gauche);
+            break;
+        case CULDS_G:
+            res.push_back(droite);
+            break;
+        case CULDS_H:
+            res.push_back(bas);
+            break;
+        case CULDS_B:
+            res.push_back(haut);
+            break;
+        case C_T:
+            res.push_back(gauche);
+            res.push_back(bas);
+            res.push_back(droite);
+            break;
+        case C_T90:
+            res.push_back(haut);
+            res.push_back(droite);
+            res.push_back(bas);
+            break;
+        case C_T180:
+            res.push_back(haut);
+            res.push_back(gauche);
+            res.push_back(droite);
+            break;
+        case C_T270:
+            res.push_back(gauche);
+            res.push_back(haut);
+            res.push_back(bas);
+            break;
+        case CARREFOUR:
+            res.push_back(gauche);
+            res.push_back(haut);
+            res.push_back(bas);
+            res.push_back(droite);
+            break;
     }
-    else if (aretes_dispo[i][2*j]==OUVERT) {
-        couloirs_possibles.erase(C_HORI);
-        couloirs_possibles.erase(COUDE_SD);
-        couloirs_possibles.erase(COUDE_SG);
-        couloirs_possibles.erase(CULDS_B);
-        couloirs_possibles.erase(CULDS_D);
-        couloirs_possibles.erase(CULDS_G);
-        couloirs_possibles.erase(C_T);
+    return res;
+}
+        
+bool Map::blocVide(Point bloc, statut** aretes_dispo) {
+    // proposition : bloc occupe par un couloir SSI aucune de ses interfaces n'est LIBRE au moment de faire la mise a jour des statuts pour le bloc adjacent dans le parcours (c'est clair ?)
+    int i = bloc.x, j = bloc.y;
+    return (aretes_dispo[i][2*j]==LIBRE || aretes_dispo[i+1][2*j+1]==LIBRE || aretes_dispo[i][2*(j+1)]==LIBRE || aretes_dispo[i][2*j+1]==LIBRE);
+}
+
+void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) { 
+    while(!fifo.empty()) {
+        int i = fifo.front().x, j = fifo.front().y; // le i,j ne correspond ni a un pixel ni a une tile ni a une interface mais a un bloc !!
+        fifo.pop();
+        
+        //// observer en fonction du statut des cotes de ce bloc quels couloirs sont possibles
+        std::set<int> couloirs_possibles;
+        for (int k=1;k<16;k++) couloirs_possibles.insert(k);
+        // en haut
+        if (aretes_dispo[i][2*j]==CLOS) { // verifier les valeurs
+            couloirs_possibles.erase(C_VERT);
+            couloirs_possibles.erase(COUDE_ID);
+            couloirs_possibles.erase(COUDE_IG);
+            couloirs_possibles.erase(CULDS_H);
+            couloirs_possibles.erase(C_T90);
+            couloirs_possibles.erase(C_T180);
+            couloirs_possibles.erase(C_T270);
+            couloirs_possibles.erase(CARREFOUR);
+        }
+        else if (aretes_dispo[i][2*j]==OUVERT) {
+            couloirs_possibles.erase(C_HORI);
+            couloirs_possibles.erase(COUDE_SD);
+            couloirs_possibles.erase(COUDE_SG);
+            couloirs_possibles.erase(CULDS_B);
+            couloirs_possibles.erase(CULDS_D);
+            couloirs_possibles.erase(CULDS_G);
+            couloirs_possibles.erase(C_T);
+        }
+        // a droite
+        if (aretes_dispo[i+1][2*j+1]==CLOS) {
+            couloirs_possibles.erase(C_HORI);
+            couloirs_possibles.erase(COUDE_SG);
+            couloirs_possibles.erase(COUDE_IG);
+            couloirs_possibles.erase(CULDS_G);
+            couloirs_possibles.erase(C_T);
+            couloirs_possibles.erase(C_T90);
+            couloirs_possibles.erase(C_T180);
+            couloirs_possibles.erase(CARREFOUR);
+        }
+        else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
+            couloirs_possibles.erase(C_VERT);
+            couloirs_possibles.erase(COUDE_SD);
+            couloirs_possibles.erase(COUDE_ID);
+            couloirs_possibles.erase(CULDS_D);
+            couloirs_possibles.erase(CULDS_H);
+            couloirs_possibles.erase(CULDS_B);
+            couloirs_possibles.erase(C_T270);
+        }
+        //en bas
+        if (aretes_dispo[i][2*(j+1)]==CLOS) {
+            couloirs_possibles.erase(C_VERT);
+            couloirs_possibles.erase(COUDE_SG);
+            couloirs_possibles.erase(COUDE_SD);
+            couloirs_possibles.erase(CULDS_H);
+            couloirs_possibles.erase(C_T);
+            couloirs_possibles.erase(C_T90);
+            couloirs_possibles.erase(C_T270);
+            couloirs_possibles.erase(CARREFOUR);
+        }
+        else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
+            couloirs_possibles.erase(C_HORI);
+            couloirs_possibles.erase(COUDE_IG);
+            couloirs_possibles.erase(COUDE_ID);
+            couloirs_possibles.erase(CULDS_D);
+            couloirs_possibles.erase(CULDS_G);
+            couloirs_possibles.erase(CULDS_B);
+            couloirs_possibles.erase(C_T180);
+        }
+        // a gauche
+        if (aretes_dispo[i][2*j+1]==CLOS) {
+            couloirs_possibles.erase(C_HORI);
+            couloirs_possibles.erase(COUDE_SD);
+            couloirs_possibles.erase(COUDE_ID);
+            couloirs_possibles.erase(CULDS_D);
+            couloirs_possibles.erase(C_T);
+            couloirs_possibles.erase(C_T270);
+            couloirs_possibles.erase(C_T180);
+            couloirs_possibles.erase(CARREFOUR);
+        }
+        else if (aretes_dispo[i][2*j+1]==OUVERT) {
+            couloirs_possibles.erase(C_VERT);
+            couloirs_possibles.erase(COUDE_SG);
+            couloirs_possibles.erase(COUDE_IG);
+            couloirs_possibles.erase(CULDS_G);
+            couloirs_possibles.erase(CULDS_H);
+            couloirs_possibles.erase(CULDS_B);
+            couloirs_possibles.erase(C_T90);
+        }
+        
+        //// choisir un couloir aleatoirement
+        // la fct a ete appelee sur un bloc dont un des cotes est obligatoirement ouvert donc couloirs_possibles n'est pas vide
+        std::set<int>::iterator it = couloirs_possibles.begin();
+        std::advance(it,std::rand()%couloirs_possibles.size());
+        couloir(*it,i,j);
+        
+        //// mettre a jour les statuts des cotes
+        // ou faire les appels ? si je ne m'occupe pas de ca maintenant, risque de boucle infinie s'il y a une boucle dans ma map
+        
+        
     }
-    // a droite
-    if (aretes_dispo[i+1][2*j+1]==CLOS) {
-        couloirs_possibles.erase(C_HORI);
-        couloirs_possibles.erase(COUDE_SG);
-        couloirs_possibles.erase(COUDE_IG);
-        couloirs_possibles.erase(CULDS_G);
-        couloirs_possibles.erase(C_T);
-        couloirs_possibles.erase(C_T90);
-        couloirs_possibles.erase(C_T180);
-        couloirs_possibles.erase(CARREFOUR);
-    }
-    else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
-        couloirs_possibles.erase(C_VERT);
-        couloirs_possibles.erase(COUDE_SD);
-        couloirs_possibles.erase(COUDE_ID);
-        couloirs_possibles.erase(CULDS_D);
-        couloirs_possibles.erase(CULDS_H);
-        couloirs_possibles.erase(CULDS_B);
-        couloirs_possibles.erase(C_T270);
-    }
-    //en bas
-    if (aretes_dispo[i][2*(j+1)]==CLOS) {
-        couloirs_possibles.erase(C_VERT);
-        couloirs_possibles.erase(COUDE_SG);
-        couloirs_possibles.erase(COUDE_SD);
-        couloirs_possibles.erase(CULDS_H);
-        couloirs_possibles.erase(C_T);
-        couloirs_possibles.erase(C_T90);
-        couloirs_possibles.erase(C_T270);
-        couloirs_possibles.erase(CARREFOUR);
-    }
-    else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
-        couloirs_possibles.erase(C_HORI);
-        couloirs_possibles.erase(COUDE_IG);
-        couloirs_possibles.erase(COUDE_ID);
-        couloirs_possibles.erase(CULDS_D);
-        couloirs_possibles.erase(CULDS_G);
-        couloirs_possibles.erase(CULDS_B);
-        couloirs_possibles.erase(C_T180);
-    }
-    // a gauche
-    if (aretes_dispo[i][2*j+1]==CLOS) {
-        couloirs_possibles.erase(C_HORI);
-        couloirs_possibles.erase(COUDE_SD);
-        couloirs_possibles.erase(COUDE_ID);
-        couloirs_possibles.erase(CULDS_D);
-        couloirs_possibles.erase(C_T);
-        couloirs_possibles.erase(C_T270);
-        couloirs_possibles.erase(C_T180);
-        couloirs_possibles.erase(CARREFOUR);
-    }
-    else if (aretes_dispo[i][2*j+1]==OUVERT) {
-        couloirs_possibles.erase(C_VERT);
-        couloirs_possibles.erase(COUDE_SG);
-        couloirs_possibles.erase(COUDE_IG);
-        couloirs_possibles.erase(CULDS_G);
-        couloirs_possibles.erase(CULDS_H);
-        couloirs_possibles.erase(CULDS_B);
-        couloirs_possibles.erase(C_T90);
-    }
-    
-    //// choisir un couloir aleatoirement
-    // la fct a ete appelee sur un bloc dont un des cotes est obligatoirement ouvert donc couloirs_possibles n'est pas vide
-    std::set<int>::iterator it = couloirs_possibles.begin();
-    std::advance(it,std::rand()%couloirs_possibles.size());
-    couloir(*it,i,j);
-    
-    //// mettre a jour les statuts des cotes
-    // ou faire les appels ? si je ne le fais pas maintenant, risque de boucle infinie s'il y a une boucle dans ma map
-    std::vector<Point> appels; //classe definie dans settings.h
-    
-    
-    //// appel au niveau des blocs accessibles non traites (!)
 }
 
 void Map::randomMap() {
@@ -441,7 +521,9 @@ void Map::randomMap() {
     }
     
     disponibilites[0][0]=OUVERT; //entree de la residence : premiere arete horizontale en haut a gauche
-    parcours(0,0,disponibilites);// appel recursif parcours au depart du bloc 0,0
+    std::queue<Point> fifo;
+    fifo.push(Point(0,0));
+    parcours(fifo,disponibilites); // parcours en largeur (!) au depart du bloc 0,0
     
     //couloir(CULDS_B,5,5);
 }
