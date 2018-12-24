@@ -315,9 +315,80 @@ void Map::couloir(int type, int i, int j) { //(i,j) tile en haut a gauche du rec
     }
 }
 
-std::vector<Point> Map::sortieCouloir(couloir_t type, Point bloc) {
+std::vector<Point> Map::interfacesSortie(int type, Point bloc) {
     int i = bloc.x, j = bloc.y;
-    Point haut(i,2*j), droite(i+1,2*j+1), bas(i,2*(j+1)), gauche(i,2*j+1); // on s'en moque si ca sort de la map, ca ne sera pas appele dans ce cas pathologique
+    Point haut(i,2*j), droite(i+1,2*j+1), bas(i,2*(j+1)), gauche(i,2*j+1); 
+    std::vector<Point> res;
+    switch(type) {
+        case C_VERT:
+            res.push_back(haut);
+            res.push_back(bas);
+            break;
+        case C_HORI:
+            res.push_back(gauche);
+            res.push_back(droite);
+            break;
+        case COUDE_SG:
+            res.push_back(droite);
+            res.push_back(bas);
+            break;
+        case COUDE_SD:
+            res.push_back(gauche);
+            res.push_back(bas);
+            break;
+        case COUDE_ID:
+            res.push_back(gauche);
+            res.push_back(haut);
+            break;
+        case COUDE_IG:
+            res.push_back(droite);
+            res.push_back(haut);
+            break;
+        case CULDS_D:
+            res.push_back(gauche);
+            break;
+        case CULDS_G:
+            res.push_back(droite);
+            break;
+        case CULDS_H:
+            res.push_back(bas);
+            break;
+        case CULDS_B:
+            res.push_back(haut);
+            break;
+        case C_T:
+            res.push_back(gauche);
+            res.push_back(bas);
+            res.push_back(droite);
+            break;
+        case C_T90:
+            res.push_back(haut);
+            res.push_back(droite);
+            res.push_back(bas);
+            break;
+        case C_T180:
+            res.push_back(haut);
+            res.push_back(gauche);
+            res.push_back(droite);
+            break;
+        case C_T270:
+            res.push_back(gauche);
+            res.push_back(haut);
+            res.push_back(bas);
+            break;
+        case CARREFOUR:
+            res.push_back(gauche);
+            res.push_back(haut);
+            res.push_back(bas);
+            res.push_back(droite);
+            break;
+    }
+    return res;
+}
+
+std::vector<Point> Map::blocsSortie(int type, Point bloc) {
+    int i = bloc.x, j = bloc.y;
+    Point haut(i,j-1), droite(i+1,j), bas(i,j+1), gauche(i-1,j); // on s'en moque si ca sort de la map, ca ne sera pas appele dans ce cas pathologique
     std::vector<Point> res;
     switch(type) {
         case C_VERT:
@@ -389,12 +460,14 @@ std::vector<Point> Map::sortieCouloir(couloir_t type, Point bloc) {
 bool Map::blocVide(Point bloc, statut** aretes_dispo) {
     // proposition : bloc occupe par un couloir SSI aucune de ses interfaces n'est LIBRE au moment de faire la mise a jour des statuts pour le bloc adjacent dans le parcours (c'est clair ?)
     int i = bloc.x, j = bloc.y;
-    return (aretes_dispo[i][2*j]==LIBRE || aretes_dispo[i+1][2*j+1]==LIBRE || aretes_dispo[i][2*(j+1)]==LIBRE || aretes_dispo[i][2*j+1]==LIBRE);
+    // pas la peine de verifier si ca sort aux bords de la map, on n'utilisera pas la fct dans ce cas
+    return (aretes_dispo[i][2*j]==LIBRE || aretes_dispo[i+1][2*j+1]==LIBRE || aretes_dispo[i][2*(j+1)]==LIBRE || aretes_dispo[i][2*j+1]==LIBRE);  
 }
 
 void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) { 
     while(!fifo.empty()) {
-        int i = fifo.front().x, j = fifo.front().y; // le i,j ne correspond ni a un pixel ni a une tile ni a une interface mais a un bloc !!
+        Point cbloc = fifo.front();
+        int i = cbloc.x, j = cbloc.y; // le i,j ne correspond ni a un pixel ni a une tile ni a une interface mais a un bloc !!
         fifo.pop();
         
         //// observer en fonction du statut des cotes de ce bloc quels couloirs sont possibles
@@ -405,7 +478,7 @@ void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) {
             couloirs_possibles.erase(C_VERT);
             couloirs_possibles.erase(COUDE_ID);
             couloirs_possibles.erase(COUDE_IG);
-            couloirs_possibles.erase(CULDS_H);
+            couloirs_possibles.erase(CULDS_B);
             couloirs_possibles.erase(C_T90);
             couloirs_possibles.erase(C_T180);
             couloirs_possibles.erase(C_T270);
@@ -415,7 +488,7 @@ void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) {
             couloirs_possibles.erase(C_HORI);
             couloirs_possibles.erase(COUDE_SD);
             couloirs_possibles.erase(COUDE_SG);
-            couloirs_possibles.erase(CULDS_B);
+            couloirs_possibles.erase(CULDS_H);
             couloirs_possibles.erase(CULDS_D);
             couloirs_possibles.erase(CULDS_G);
             couloirs_possibles.erase(C_T);
@@ -485,12 +558,23 @@ void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) {
         // la fct a ete appelee sur un bloc dont un des cotes est obligatoirement ouvert donc couloirs_possibles n'est pas vide
         std::set<int>::iterator it = couloirs_possibles.begin();
         std::advance(it,std::rand()%couloirs_possibles.size());
-        couloir(*it,i,j);
+        couloir(*it,i*13,j*13);
         
         //// mettre a jour les statuts des cotes
         // ou faire les appels ? si je ne m'occupe pas de ca maintenant, risque de boucle infinie s'il y a une boucle dans ma map
-        
-        
+        std::vector<Point> sortiesB = blocsSortie(*it,cbloc);
+        for (std::vector<Point>::iterator ite = sortiesB.begin(); ite != sortiesB.end(); ++ite) {
+            if ((ite->x>=0 && ite->x<w/13 && ite->y>=0 && ite->y<w/13) && blocVide(*ite,aretes_dispo)) fifo.push(*ite);
+        }
+        // mise a jour
+        std::vector<Point> sortiesImax = interfacesSortie(CARREFOUR,cbloc);
+        std::vector<Point> sortiesIouvertes = interfacesSortie(*it,cbloc);
+        for (std::vector<Point>::iterator ite = sortiesIouvertes.begin(); ite != sortiesIouvertes.end(); ++ite) {
+            aretes_dispo[ite->x][ite->y] = OUVERT;
+        }
+        for (std::vector<Point>::iterator ite = sortiesImax.begin(); ite != sortiesImax.end(); ++ite) {
+            if (aretes_dispo[ite->x][ite->y] == LIBRE) aretes_dispo[ite->x][ite->y] = CLOS;
+        }
     }
 }
 
@@ -520,12 +604,12 @@ void Map::randomMap() {
         disponibilites[w/13-(j%2==0?1:0)][j]=CLOS;
     }
     
-    disponibilites[0][0]=OUVERT; //entree de la residence : premiere arete horizontale en haut a gauche
+    disponibilites[(w/13+1)/2][0]=OUVERT; //entree de la residence : premiere arete horizontale en haut a gauche
     std::queue<Point> fifo;
-    fifo.push(Point(0,0));
+    fifo.push(Point((w/13+1)/2,0));
     parcours(fifo,disponibilites); // parcours en largeur (!) au depart du bloc 0,0
     
-    //couloir(CULDS_B,5,5);
+    //couloir(C_T270,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)

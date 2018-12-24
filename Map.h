@@ -38,7 +38,8 @@ class Map
         int getH() const;
     private:
         void couloir(int type, int i, int j);
-        std::vector<Point> sortieCouloir(couloir_t type, Point bloc);  // classe Point definie dans Settings.h via Tile.h
+        std::vector<Point> interfacesSortie(int type, Point bloc);  // classe Point definie dans Settings.h via Tile.h
+        std::vector<Point> blocsSortie(int type, Point bloc);
         bool blocVide(Point bloc, statut** aretes_dispo);
         void parcours(std::queue<Point> fifo, statut** aretes_dispo);
         
