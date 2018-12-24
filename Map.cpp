@@ -464,7 +464,9 @@ bool Map::blocVide(Point bloc, statut** aretes_dispo) {
     return (aretes_dispo[i][2*j]==LIBRE || aretes_dispo[i+1][2*j+1]==LIBRE || aretes_dispo[i][2*(j+1)]==LIBRE || aretes_dispo[i][2*j+1]==LIBRE);  
 }
 
-void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) { 
+void Map::parcours(Point entree, statut** aretes_dispo) { 
+    std::queue<Point> fifo;
+    fifo.push(entree);
     while(!fifo.empty()) {
         Point cbloc = fifo.front();
         int i = cbloc.x, j = cbloc.y; // le i,j ne correspond ni a un pixel ni a une tile ni a une interface mais a un bloc !!
@@ -474,7 +476,7 @@ void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) {
         std::set<int> couloirs_possibles;
         for (int k=1;k<16;k++) couloirs_possibles.insert(k);
         // en haut
-        if (aretes_dispo[i][2*j]==CLOS) { // verifier les valeurs
+        if (aretes_dispo[i][2*j]==CLOS) {
             couloirs_possibles.erase(C_VERT);
             couloirs_possibles.erase(COUDE_ID);
             couloirs_possibles.erase(COUDE_IG);
@@ -524,7 +526,7 @@ void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) {
             couloirs_possibles.erase(C_T270);
             couloirs_possibles.erase(CARREFOUR);
         }
-        else if (aretes_dispo[i+1][2*j+1]==OUVERT) {
+        else if (aretes_dispo[i][2*(j+1)]==OUVERT) {
             couloirs_possibles.erase(C_HORI);
             couloirs_possibles.erase(COUDE_IG);
             couloirs_possibles.erase(COUDE_ID);
@@ -563,6 +565,7 @@ void Map::parcours(std::queue<Point> fifo, statut** aretes_dispo) {
         //// mettre a jour les statuts des cotes
         // ou faire les appels ? si je ne m'occupe pas de ca maintenant, risque de boucle infinie s'il y a une boucle dans ma map
         std::vector<Point> sortiesB = blocsSortie(*it,cbloc);
+        //std::cout << *it << " " << sortiesB.size() << std::endl;
         for (std::vector<Point>::iterator ite = sortiesB.begin(); ite != sortiesB.end(); ++ite) {
             if ((ite->x>=0 && ite->x<w/13 && ite->y>=0 && ite->y<w/13) && blocVide(*ite,aretes_dispo)) fifo.push(*ite);
         }
@@ -604,12 +607,10 @@ void Map::randomMap() {
         disponibilites[w/13-(j%2==0?1:0)][j]=CLOS;
     }
     
-    disponibilites[(w/13+1)/2][0]=OUVERT; //entree de la residence : premiere arete horizontale en haut a gauche
-    std::queue<Point> fifo;
-    fifo.push(Point((w/13+1)/2,0));
-    parcours(fifo,disponibilites); // parcours en largeur (!) au depart du bloc 0,0
+    disponibilites[(w/13+1)/2][0]=OUVERT; //entree de la residence
+    parcours(Point((w/13+1)/2,0),disponibilites); // parcours en largeur (!) au depart du bloc en premier argument
     
-    //couloir(C_T270,5,5);
+    //couloir(CULDS_B,5,5);
 }
 
 void Map::autotile(std::vector<std::vector<Tile> >& vt)
