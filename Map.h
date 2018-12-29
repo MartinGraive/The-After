@@ -16,6 +16,7 @@ Projet de TDLog*/
 #include "TileMap.h"
 
 class Tile;
+class Room;
 
 class Map
 {
@@ -25,6 +26,8 @@ class Map
 
         void drawFloor(sf::RenderWindow* window);
         void drawCeil(sf::RenderWindow* window);
+        void process();
+
         void create();
         void loadMap(int i);
         int getAnim() const;
@@ -39,10 +42,15 @@ class Map
 
         int w;
         int h;
+        //two-layers tile-system
         std::vector<std::vector<Tile> > tiles;
+        std::vector<std::vector<Tile> > tiles2;
         std::vector<std::vector<Tile> > tiles_ceil;
         TileMap tilemap;
+        TileMap tilemap2;
         TileMap tilemap_ceil;
+        //rooms
+        std::vector<Room> rooms;
         sf::Clock clock;
         int anim;
 };

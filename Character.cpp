@@ -30,9 +30,9 @@ Character::Character(RenderingArray* a) : direction(1), bubble(NULL)
     anim = 0;
     speed = 1;
 
-    baseRect.x = 4;
+    baseRect.x = 5;
     baseRect.y = 16;
-    baseRect.w = 16;
+    baseRect.w = 14;
     baseRect.h = 16;
     w=24;
     h=32;
@@ -67,7 +67,7 @@ void Character::drawAbove(sf::RenderWindow* window)
 void Character::drawStillAndMove(sf::RenderWindow* window)
 {
     ///DRAW SHADOW
-    Graphics::getInstance()->drawEllipse(window, x + baseRect.x + 2, y + baseRect.y + baseRect.h - 5,
+    Graphics::getInstance()->drawEllipse(window, x + baseRect.x + 1, y + baseRect.y + baseRect.h - 5,
                           6, 3, 1, 150);
 
     ///DRAW CHARACTER

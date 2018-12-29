@@ -20,6 +20,7 @@ Projet de TDLog*/
 #include "MainPlayer.h"
 #include "TileMap.h"
 #include "Primitives/Perlin.h"
+#include "Room.h"
 
 Map::Map() : anim(0)
 {
@@ -33,6 +34,7 @@ Map::~Map()
 void Map::drawFloor(sf::RenderWindow* window)
 {
     window->draw(tilemap);
+    window->draw(tilemap2);
 
     if (clock.getElapsedTime().asMilliseconds() >= 180) {
         anim ++;
@@ -44,6 +46,17 @@ void Map::drawFloor(sf::RenderWindow* window)
 void Map::drawCeil(sf::RenderWindow* window)
 {
     window->draw(tilemap_ceil);
+
+    for (unsigned int i = 0 ; i < rooms.size() ; i++) {
+        rooms[i].drawMask(window);
+    }
+}
+
+void Map::process()
+{
+    for (unsigned int i = 0 ; i < rooms.size() ; i++) {
+        rooms[i].process();
+    }
 }
 
 void Map::create()
@@ -123,12 +136,15 @@ void Map::loadMap(int i)
     fichier.read((char*)&w,sizeof(int));
     fichier.read((char*)&h,sizeof(int));
     tiles.resize(w);
+    tiles2.resize(w);
     tiles_ceil.resize(w);
     for (int i = 0 ; i < w ; i++) {
         tiles[i].resize(h);
+        tiles2[i].resize(h);
         tiles_ceil[i].resize(h);
     }
 
+    //1st layer
     for (int i=0 ; i<w ; i++)
     {
         for (int j=0 ; j<h ; j++)
@@ -144,12 +160,26 @@ void Map::loadMap(int i)
             tiles_ceil[i][j].setVal(VIDE);
         }
     }
+    //2nd layer
+    for (int i=0 ; i<w ; i++)
+    {
+        for (int j=0 ; j<h ; j++)
+        {
+            int val;
+            fichier.read((char*)&val,sizeof(int));
+            tiles2[i][j].setMap(this);
+            tiles2[i][j].setPos(i,j);
+            tiles2[i][j].setVal(val);
+        }
+    }
     fichier.close();
     loadTileRules();
-    autotile(tiles); ///SET AUTOTILESGame::getMPlayer()->getXbase() - Settings::getInstance()->W()/2;
+    autotile(tiles);
     autotile(tiles_ceil);
     tilemap.prepare(TextureHandler::getInstance()->getTileset(), tiles, w, h);
+    tilemap2.prepare(TextureHandler::getInstance()->getTileset(), tiles2, w, h);
     tilemap_ceil.prepare(TextureHandler::getInstance()->getTileset(), tiles_ceil, w, h);
+    rooms.push_back(Room(18, 0, 11, 10, this));
 }
 
 void Map::randomMap()

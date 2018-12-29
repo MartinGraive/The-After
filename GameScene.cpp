@@ -37,6 +37,8 @@ void GameScene::process()
     GameCore* gameCore = GameCore::getInstance();
     gameCore->getCamera()->autoScroll();
 
+    gameCore->getMap()->process();
+
     for (int i = 0 ; i < gameCore->getEntities()->size() ; i++) {
         gameCore->getEntities()->getEntity(i)->process();
     }
