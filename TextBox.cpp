@@ -10,6 +10,7 @@ Arnaud Lafargue
 Projet de TDLog*/
 
 #include <iostream>
+#include <cmath>
 #include "TextBox.h"
 #include "Graphics/FontHandler.h"
 #include "Primitives/StringPrimitives.h"
