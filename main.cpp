@@ -19,7 +19,15 @@ Projet de TDLog*/
 #include "GameScene.h"
 #include "Events/Events.h"
 
-int main()
+#include "gtest/gtest.h"
+
+int main(int ac, char* av[])
+{
+  testing::InitGoogleTest(&ac, av);
+  return RUN_ALL_TESTS();
+}
+
+/*int main()
 {
     ///Init random seed
     srand(time(NULL));
@@ -50,4 +58,4 @@ int main()
 
     window.close();
     return 0;
-}
+}*/
