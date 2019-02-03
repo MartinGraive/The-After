@@ -38,6 +38,8 @@ class Entity //Abstract class for every item / object / character
         bool isSolid() const;
         virtual EntityType getType() const;
 
+        bool isInRect(Rect r);
+
         ///SELECTION
         virtual void move(int xt, int yt);
     protected:

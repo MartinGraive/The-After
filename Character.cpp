@@ -21,7 +21,7 @@ Projet de TDLog*/
 #include "Map.h"
 #include "Camera.h"
 
-Character::Character(RenderingArray* a) : direction(1), bubble(NULL)
+Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(NULL)
 {
     array = a;
     clock.restart();
@@ -87,6 +87,10 @@ void Character::drawStillAndMove(sf::RenderWindow* window)
             clock.restart();
         }
     }
+    else if (typeanim == STILL) {
+        anim = 0;
+    }
+    setTypeAnim(STILL);
 }
 
 void Character::process()
@@ -118,6 +122,29 @@ void Character::move(double xt, double yt)
     else if (yt>0 && xt == 0) { direction = BAS;}
 }
 
+void Character::moveForward()
+{
+    if (direction == HAUT) { move(0, -speed); }
+    else if (direction == BAS) { move(0, speed); }
+    else if (direction == GAUCHE) { move(-speed, 0); }
+    else if (direction == DROITE) { move(speed, 0); }
+}
+
+void Character::turnLeft()
+{
+    direction --;
+    if (direction < 0) { direction = 3; }
+}
+
+void Character::turnRight()
+{
+    direction ++;
+    if (direction > 3) { direction = 0; }
+}
+
+void Character::setDirection(int i)
+    { direction = i; }
+
 bool Character::collideWithEntities(double xd, double yd)
 {
     /// if map blocks
@@ -146,7 +173,6 @@ bool Character::collideWithEntities(double xd, double yd)
 
 void Character::setTypeAnim(TypeAnim t)
 {
-    anim = 0;
     typeanim = t;
 }
 
@@ -156,4 +182,8 @@ double Character::getSpeed() const
 void Character::say(std::wstring i)
 {
     bubble = new TextBox(i, x - 10, y - 21, 100, this);
+    speaking = true;
 }
+
+bool Character::isSpeaking()
+    { return speaking; }

@@ -40,7 +40,6 @@ void Keyboard::handleKeys()
     if (xt != 0 || yt != 0) {
         GameCore::getInstance()->getMPlayer()->move(xt,yt);
     }
-    else {GameCore::getInstance()->getMPlayer()->setTypeAnim(STILL);}
 }
 
 void Keyboard::punctualPress()

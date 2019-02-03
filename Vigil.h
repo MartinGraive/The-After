@@ -22,5 +22,11 @@ class Vigil : public Character
     public:
         Vigil(Texture t, RenderingArray* a = NULL);
         ~Vigil();
+
+        void process();
+        bool seesPlayer();
+    private:
+        void goStraightTurnRight();
+
 };
 

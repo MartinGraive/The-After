@@ -42,7 +42,8 @@ void GameCore::init(sf::RenderWindow* window)
 
     map = new Map;
     map->loadMap(1);
-    camera = new Camera(window);
+    //if no window given in argument: no drawing intended, this is a test situation and thus camera is useless
+    if (window != NULL) camera = new Camera(window);
 
     entities = new RenderingArray;
     mplayer = new MainPlayer(TextureHandler::getInstance()->getCharas(0), entities);

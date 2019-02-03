@@ -22,8 +22,9 @@ class GameCore
 {
     public:
         static GameCore* getInstance();
+        ~GameCore();
 
-        static void createInstance(sf::RenderWindow* window);
+        static void createInstance(sf::RenderWindow* window = NULL);
         void init(sf::RenderWindow* window);
 
         RenderingArray* getEntities() const;
@@ -37,7 +38,6 @@ class GameCore
         void addCharacter(Character* i);
     private:
         GameCore();
-        ~GameCore();
         static GameCore* instance;
         void drawEntities(sf::RenderWindow* window);
         void process();

@@ -25,22 +25,28 @@ class Character : public Entity //Abstract class for every character
         Character(RenderingArray* a = NULL);
         ~Character();
 
-        void process();
+        virtual void process();
         void draw(sf::RenderWindow* window);
         void drawAbove(sf::RenderWindow* window);
         EntityType getType() const;
         void move(double xt, double yt);
+        void moveForward();
+        void turnLeft();
+        void turnRight();
+        void setDirection(int i);
         bool collideWithEntities(double xd, double yd);
         void setTypeAnim(TypeAnim t);
 
         double getSpeed() const;
 
         void say(std::wstring t);
+        bool isSpeaking();
     protected:
         void drawStillAndMove(sf::RenderWindow* window);
 
         int direction;
         double speed;
+        bool speaking;
         Texture tex;
         TextBox* bubble;
 };

@@ -71,3 +71,11 @@ void Entity::move(int xt, int yt)
 
 Rect Entity::getBaseRect() const
     { return baseRect; }
+
+bool Entity::isInRect(Rect r)
+{
+    if (this->getXbase() + this->getBaseRect().w >= r.x && this->getXbase() <= r.x + r.w && this->getYbase() + this->getBaseRect().h >= r.y && this->getYbase() <= r.y + r.h) {
+        return true;
+    }
+    else { return false; }
+}

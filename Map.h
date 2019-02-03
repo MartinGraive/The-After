@@ -35,6 +35,7 @@ class Map
         Tile getTileCeil(int i, int j) const;
         int getW() const;
         int getH() const;
+        void setSolid(int i, int j, bool val);
     private:
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();

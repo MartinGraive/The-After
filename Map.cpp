@@ -320,3 +320,5 @@ int Map::getW() const
 int Map::getH() const
     { return h; }
 
+void Map::setSolid(int i, int j, bool val)
+    { tiles[i][j].setSolid(val); }
