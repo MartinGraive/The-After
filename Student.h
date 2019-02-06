@@ -26,5 +26,6 @@ class Student : public Character
         void process();
     private:
         void randomWalk();
+        void followCharacter(Character* i);
 
 };
