@@ -12,8 +12,14 @@ Projet de TDLog*/
 #include "Settings.h"
 
 #include <stdio.h>  /* defines FILENAME_MAX */
-#include <unistd.h>
 
+#ifdef _WIN32
+    #include <direct.h>
+    #define GetCurrentDir _getcwd
+#else
+    #include <unistd.h>
+    #define GetCurrentDir getcwd
+#endif
 
 Settings* Settings::instance = new Settings;
 
@@ -23,7 +29,7 @@ Settings::Settings() : path(""), quitting(false)
         path = "../";
     #elif __linux__
         char buff[FILENAME_MAX];
-        getcwd( buff, FILENAME_MAX );
+        GetCurrentDir( buff, FILENAME_MAX );
         std::string current_working_dir(buff);
         path = current_working_dir + '/';
     #endif
