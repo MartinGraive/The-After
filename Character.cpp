@@ -16,12 +16,13 @@ Projet de TDLog*/
 #include "Graphics/Graphics.h"
 #include "Graphics/TextureHandler.h"
 #include "Primitives/EllipseShape.h"
+#include "Primitives/Astar.h"
 #include "Settings.h"
 #include "Tile.h"
 #include "Map.h"
 #include "Camera.h"
 
-Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(NULL)
+Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(NULL), path_step(0), goingToDestination(false)
 {
     array = a;
     clock.restart();
@@ -187,3 +188,43 @@ void Character::say(std::wstring i)
 
 bool Character::isSpeaking()
     { return speaking; }
+
+void Character::goTo(int xt, int yt)
+{
+    path = astar(getXbase(), getYbase(), xt, yt);
+    std::cout<< "path.size="<<path.size()<<"\n";
+    if (path.size() > 0) {
+        finaltarget.x = (xt / TILE_SIZE) * TILE_SIZE;
+        finaltarget.y = (yt / TILE_SIZE) * TILE_SIZE;
+        target.x = path[path.size() - 1].x * TILE_SIZE;
+        target.y = path[path.size() - 1].y * TILE_SIZE;
+        path_step = 0;
+        goingToDestination = true;
+    }
+}
+
+void Character::moveToDestination()
+{
+    if (target.x < getXbase()) { move(-speed, 0); }
+    else if (target.x > getXbase()) { move(speed, 0); }
+    else if (target.y < getYbase()) { move (0, -speed); }
+    else if (target.y > getYbase()) { move(0, speed); }
+
+    ///if arrived
+    if (getXbase() + baseRect.w  >= finaltarget.x &&
+        getYbase() + baseRect.h  >= finaltarget.y &&
+        getXbase() <= finaltarget.x &&
+        getYbase() <= finaltarget.y)
+    {
+        typeanim = STILL;
+    }
+    else if (getXbase() + baseRect.w  >= target.x && /// if partial path done
+        getYbase() + baseRect.h  >= target.y &&
+        getXbase() <= target.x &&
+        getYbase() <= target.y)
+    {
+        path_step++;
+        target.x = path[path.size() - path_step - 1].x * TILE_SIZE;
+        target.y = path[path.size() - path_step - 1].y * TILE_SIZE;
+    }
+}

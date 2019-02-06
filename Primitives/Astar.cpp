@@ -106,6 +106,12 @@ std::vector<Point> astar(int x, int y, int x2, int y2)
         chemin.push_back(p);
         endingnode=endingnode->parent;
     }
+    for (unsigned int i = 0 ; i < openlist.size() ; i++) {
+        delete openlist[i];
+    }
+    for (unsigned int i = 0 ; i < closelist.size() ; i++) {
+        delete closelist[i];
+    }
 
     ///FIN DE L'ALGORITHME
     return chemin;

@@ -42,6 +42,16 @@ class Point
         int y;
 };
 
+class Pointd
+{
+    public:
+        Pointd() {}
+        Pointd(double x1, double y1) : x(x1), y(y1) {}
+
+        double x;
+        double y;
+};
+
 class Settings
 {
     public:

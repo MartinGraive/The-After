@@ -37,6 +37,9 @@ class Character : public Entity //Abstract class for every character
         bool collideWithEntities(double xd, double yd);
         void setTypeAnim(TypeAnim t);
 
+        void goTo(int xt, int yt);
+        void moveToDestination();
+
         double getSpeed() const;
 
         void say(std::wstring t);
@@ -49,4 +52,11 @@ class Character : public Entity //Abstract class for every character
         bool speaking;
         Texture tex;
         TextBox* bubble;
+
+        Point target;
+        Point finaltarget;
+
+        int path_step;
+        bool goingToDestination;
+        std::vector<Point> path;
 };

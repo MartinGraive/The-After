@@ -12,7 +12,7 @@ Projet de TDLog*/
 #include <iostream>
 #include "GameCore.h"
 #include "Graphics/TextureHandler.h"
-#include "Vigil.h"
+#include "Student.h"
 
 GameCore* GameCore::instance = NULL;
 
@@ -46,15 +46,15 @@ void GameCore::init(sf::RenderWindow* window)
     if (window != NULL) camera = new Camera(window);
 
     entities = new RenderingArray;
-    mplayer = new MainPlayer(TextureHandler::getInstance()->getCharas(0), entities);
+    mplayer = new MainPlayer(TextureHandler::getInstance()->getVigils(0), entities);
     mplayer->setX(180);
     mplayer->setY(180, false);
     entities->addEntity(mplayer);
 
-    Vigil* gaspard = new Vigil(TextureHandler::getInstance()->getVigils(0), entities);
-    gaspard->setX(400);
-    gaspard->setY(180, false);
-    addCharacter(gaspard);
+    Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+    student->setX(400);
+    student->setY(180, false);
+    addCharacter(student);
 }
 
 RenderingArray* GameCore::getEntities() const
