@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+CommencÃ© le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -11,12 +11,21 @@ Projet de TDLog*/
 
 #include "Settings.h"
 
+#include <stdio.h>  /* defines FILENAME_MAX */
+#include <unistd.h>
+
+
 Settings* Settings::instance = new Settings;
 
 Settings::Settings() : path(""), quitting(false)
 {
-    #ifndef _WIN32
+    #ifdef __APPLE__
         path = "../";
+    #elif __linux__
+        char buff[FILENAME_MAX];
+        getcwd( buff, FILENAME_MAX );
+        std::string current_working_dir(buff);
+        path = current_working_dir + '/';
     #endif
 }
 
