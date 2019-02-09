@@ -22,7 +22,7 @@ Projet de TDLog*/
 #include "Map.h"
 #include "Camera.h"
 
-Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(NULL), path_step(0), goingToDestination(false)
+Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(NULL), frameBubble(0), path_step(0), goingToDestination(false)
 {
     array = a;
     clock.restart();
@@ -32,9 +32,9 @@ Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(
     speed = 1;
 
     baseRect.x = 5;
-    baseRect.y = 16;
+    baseRect.y = 17;
     baseRect.w = 14;
-    baseRect.h = 16;
+    baseRect.h = 15;
     w=24;
     h=32;
     solid = true;
@@ -96,6 +96,7 @@ void Character::drawStillAndMove(sf::RenderWindow* window)
 
 void Character::process()
 {
+    addBubbleTime();
 }
 
 EntityType Character::getType() const
@@ -146,6 +147,9 @@ void Character::turnRight()
 void Character::setDirection(int i)
     { direction = i; }
 
+int Character::getDirection()
+    { return direction; }
+
 bool Character::collideWithEntities(double xd, double yd)
 {
     /// if map blocks
@@ -184,6 +188,7 @@ void Character::say(std::wstring i)
 {
     bubble = new TextBox(i, x - 10, y - 21, 100, this);
     speaking = true;
+    frameBubble = 0;
 }
 
 bool Character::isSpeaking()
@@ -194,8 +199,8 @@ void Character::goTo(int xt, int yt)
     path = astar(getXbase(), getYbase(), xt, yt);
     std::cout<< "path.size="<<path.size()<<"\n";
     if (path.size() > 0) {
-        finaltarget.x = (xt / TILE_SIZE) * TILE_SIZE;
-        finaltarget.y = (yt / TILE_SIZE) * TILE_SIZE;
+        finaltarget.x = (xt / TILE_SIZE) * TILE_SIZE + TILE_SIZE / 2;
+        finaltarget.y = (yt / TILE_SIZE) * TILE_SIZE + TILE_SIZE / 2;
         target.x = path[path.size() - 1].x * TILE_SIZE;
         target.y = path[path.size() - 1].y * TILE_SIZE;
         path_step = 0;
@@ -217,14 +222,37 @@ void Character::moveToDestination()
         getYbase() <= finaltarget.y)
     {
         typeanim = STILL;
+        goingToDestination = false;
+        arrivedAtDestination();
     }
-    else if (getXbase() + baseRect.w  >= target.x && /// if partial path done
-        getYbase() + baseRect.h  >= target.y &&
-        getXbase() <= target.x &&
-        getYbase() <= target.y)
+    else if (getXbase() + baseRect.w / 2  >= target.x + TILE_SIZE / 2 - 1 && /// if partial path done
+        getYbase() + baseRect.h / 2  >= target.y + TILE_SIZE / 2 - 1 &&
+        getXbase() + baseRect.w / 2 <= target.x + TILE_SIZE / 2 + 1 &&
+        getYbase() + baseRect.h / 2 <= target.y + TILE_SIZE / 2 + 1)
     {
         path_step++;
         target.x = path[path.size() - path_step - 1].x * TILE_SIZE;
         target.y = path[path.size() - path_step - 1].y * TILE_SIZE;
     }
+}
+
+void Character::arrivedAtDestination()
+{
+}
+
+void Character::addBubbleTime()
+{
+    if (bubble != NULL) {
+        frameBubble++;
+        if (frameBubble > MAX_FRAME_BUBBLE) {
+            stopSpeaking();
+        }
+    }
+}
+
+void Character::stopSpeaking()
+{
+    speaking = false;
+    delete bubble;
+    bubble = NULL;
 }

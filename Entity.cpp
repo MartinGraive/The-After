@@ -9,6 +9,7 @@ Arnaud Lafargue
 
 Projet de TDLog*/
 
+#include <iostream>
 #include "Entity.h"
 #include "GameCore.h"
 
@@ -78,4 +79,8 @@ bool Entity::isInRect(Rect r)
         return true;
     }
     else { return false; }
+}
+
+void Entity::activate()
+{
 }

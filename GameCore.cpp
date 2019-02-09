@@ -55,6 +55,16 @@ void GameCore::init(sf::RenderWindow* window)
     student->setX(400);
     student->setY(180, false);
     addCharacter(student);
+
+    Student* student2 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+    student2->setX(500);
+    student2->setY(200, false);
+    addCharacter(student2);
+
+    Student* student3 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+    student3->setX(520);
+    student3->setY(230, false);
+    addCharacter(student3);
 }
 
 RenderingArray* GameCore::getEntities() const

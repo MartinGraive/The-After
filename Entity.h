@@ -40,6 +40,9 @@ class Entity //Abstract class for every item / object / character
 
         bool isInRect(Rect r);
 
+        ///Actions
+        virtual void activate();
+
         ///SELECTION
         virtual void move(int xt, int yt);
     protected:

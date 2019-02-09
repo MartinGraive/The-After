@@ -19,6 +19,8 @@ Projet de TDLog*/
 #include "Entity.h"
 #include "TextBox.h"
 
+#define MAX_FRAME_BUBBLE 300
+
 class Character : public Entity //Abstract class for every character
 {
     public:
@@ -34,16 +36,21 @@ class Character : public Entity //Abstract class for every character
         void turnLeft();
         void turnRight();
         void setDirection(int i);
+        int getDirection();
         bool collideWithEntities(double xd, double yd);
         void setTypeAnim(TypeAnim t);
 
         void goTo(int xt, int yt);
         void moveToDestination();
 
+        virtual void arrivedAtDestination();
+
         double getSpeed() const;
 
         void say(std::wstring t);
         bool isSpeaking();
+        void addBubbleTime();
+        void stopSpeaking();
     protected:
         void drawStillAndMove(sf::RenderWindow* window);
 
@@ -52,6 +59,7 @@ class Character : public Entity //Abstract class for every character
         bool speaking;
         Texture tex;
         TextBox* bubble;
+        int frameBubble;
 
         Point target;
         Point finaltarget;

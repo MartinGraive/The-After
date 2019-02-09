@@ -179,7 +179,8 @@ void Map::loadMap(int i)
     tilemap.prepare(TextureHandler::getInstance()->getTileset(), tiles, w, h);
     tilemap2.prepare(TextureHandler::getInstance()->getTileset(), tiles2, w, h);
     tilemap_ceil.prepare(TextureHandler::getInstance()->getTileset(), tiles_ceil, w, h);
-    rooms.push_back(Room(18, 0, 11, 10, this));
+    rooms.push_back(Room(18, 0, 11, 10, 23, 6, this));
+    rooms.push_back(Room(49, 13, 12, 14, 54, 19, this));
 }
 
 void Map::randomMap()
@@ -322,3 +323,9 @@ int Map::getH() const
 
 void Map::setSolid(int i, int j, bool val)
     { tiles[i][j].setSolid(val); }
+
+int Map::getNbRooms() const
+    { return rooms.size(); }
+
+Room Map::getRoom(int i) const
+    { return rooms[i]; }

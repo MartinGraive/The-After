@@ -24,8 +24,18 @@ class Student : public Character
         ~Student();
 
         void process();
+        void followCharacter(Character* i);
+        void goToRandomRoom();
+
+        void activate();
+
+        void arrivedAtDestination();
     private:
         void randomWalk();
-        void followCharacter(Character* i);
+        void moveToFollowingTarget();
+        void mayStopFollowing();
+        void unFollow();
 
+        Character* follow;
+        int followRank;
 };

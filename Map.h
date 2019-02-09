@@ -36,6 +36,9 @@ class Map
         int getW() const;
         int getH() const;
         void setSolid(int i, int j, bool val);
+
+        int getNbRooms() const;
+        Room getRoom(int i) const;
     private:
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();

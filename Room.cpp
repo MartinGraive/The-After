@@ -15,7 +15,7 @@ Projet de TDLog*/
 #include "GameCore.h"
 #include "MainPlayer.h"
 
-Room::Room(int x, int y, int w, int h, Map* p) : roomRect(x, y, w, h), parent(p), entered(false), fadeEntering(0)
+Room::Room(int x, int y, int w, int h, int xc, int yc, Map* p) : roomRect(x, y, w, h), parent(p), x_center(xc), y_center(yc), entered(false), fadeEntering(0)
 {
     mask.prepare(TextureHandler::getInstance()->getTileset(), p->getW() * TILE_SIZE, p->getH() * TILE_SIZE, roomRect);
     interiorMask.setSize(sf::Vector2f(roomRect.w * TILE_SIZE, roomRect.h * TILE_SIZE - TILE_SIZE / 2));
@@ -58,3 +58,9 @@ void Room::process()
         }
     }
 }
+
+int Room::getXCenter() const
+    { return x_center; }
+
+int Room::getYCenter() const
+    { return y_center; }
