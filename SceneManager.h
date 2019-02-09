@@ -21,6 +21,7 @@ class SceneManager
         static void createInstance();
 
         void stackScene(AbstractScene* scene);
+        void popScene();
         void drawScene();
         void processScene();
     private:

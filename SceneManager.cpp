@@ -37,8 +37,21 @@ void SceneManager::createInstance()
 void SceneManager::stackScene(AbstractScene* scene)
     { sceneStack.push(scene); }
 
+void SceneManager::popScene()
+{
+    delete sceneStack.top();
+    sceneStack.pop();
+}
+
 void SceneManager::drawScene()
     { sceneStack.top()->draw(); }
 
 void SceneManager::processScene()
-    { sceneStack.top()->process(); }
+{
+    if (sceneStack.top()->getNext() != NULL) { //pop and stack
+        AbstractScene* next = sceneStack.top()->getNext();
+        popScene();
+        stackScene(next);
+    }
+    sceneStack.top()->process();
+}

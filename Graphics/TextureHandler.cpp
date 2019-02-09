@@ -43,6 +43,8 @@ Texture TextureHandler::loadTexture(std::string src)
     }
     Texture t;
     t.t = tex;
+    t.w = img.getSize().x;
+    t.h = img.getSize().y;
     return t;
 }
 

@@ -16,6 +16,8 @@ Projet de TDLog*/
 struct Texture
 {
     sf::Texture* t;
+    int w;
+    int h;
 };
 
 class TextureHandler
@@ -29,11 +31,12 @@ class TextureHandler
         Texture getVigils(int i);
         Texture getTileset();
         Texture getBubble();
+
+        Texture loadTexture(std::string src);
     private:
         TextureHandler();
         ~TextureHandler();
         static TextureHandler* instance;
-        Texture loadTexture(std::string src);
 
         Texture charas[1];
         Texture vigils[1];

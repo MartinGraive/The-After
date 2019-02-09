@@ -17,4 +17,9 @@ class AbstractScene
         virtual ~AbstractScene() {}
         virtual void draw() = 0;
         virtual void process() = 0;
+
+        AbstractScene* getNext() const { return next; }
+
+    protected:
+        AbstractScene* next = NULL;
 };

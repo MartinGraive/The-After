@@ -17,6 +17,7 @@ Projet de TDLog*/
 #include "SceneManager.h"
 #include "Graphics/FontHandler.h"
 #include "GameScene.h"
+#include "SplashScreenScene.h"
 #include "Events/Events.h"
 
 int main()
@@ -30,9 +31,10 @@ int main()
                                           Settings::getInstance()->getH() * Settings::getInstance()->getScale()),
                                           "The after at ENPC");
     SceneManager::createInstance();
-    GameScene* scene = new GameScene(&window);
+    //GameScene* scene = new GameScene(&window);
+    SplashScreenScene* ssscene = new SplashScreenScene(&window);
 
-    SceneManager::getInstance()->stackScene(scene);
+    SceneManager::getInstance()->stackScene(ssscene);
 
     sf::Clock clock;
     while (!Settings::getInstance()->hasQuit())
