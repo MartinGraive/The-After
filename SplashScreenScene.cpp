@@ -14,6 +14,7 @@ Projet de TDLog*/
 #include "GameCore.h"
 #include "Graphics/TextureHandler.h"
 #include "Graphics/Graphics.h"
+#include "TitleScene.h"
 #include "GameScene.h"
 
 SplashScreenScene::SplashScreenScene(sf::RenderWindow* win) : window(win), frameElapsed(0)
@@ -49,6 +50,7 @@ void SplashScreenScene::process()
     frameElapsed++;
     if (frameElapsed > 250) {
         //go to next scene
+        //TitleScene* scene = new TitleScene(window);
         GameScene* scene = new GameScene(window);
         next = scene;
     }

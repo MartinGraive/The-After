@@ -43,7 +43,7 @@ void RenderingArray::addEntity(Entity* e)
         i++;
     }
     entity.push_back(NULL);
-    for (int j = i+1 ; j<(int)(entity.size()) ; j++) { entity[j] = entity[j-1]; entity[j]->setRenderingOrder(j); }
+    for (int j = (int)(entity.size()) - 1 ; j > i ; j--) { entity[j] = entity[j-1]; entity[j]->setRenderingOrder(j); }
     entity[i] = e;
     e->setRenderingOrder(i);
 }
@@ -72,7 +72,7 @@ void RenderingArray::reorder(double y, int renderingOrder, Entity* e)
         }
         //std::cout<<"renderingOrder="<<renderingOrder<<" J ="<<j<<" size="<<size()<<" y="<<y<<"\n";
         if (y < 0) {
-            for (int k = j+1 ; k<renderingOrder+1 ; k++) { entity[k] = entity[k-1]; entity[k]->setRenderingOrder(k); }
+            for (int k = renderingOrder ; k>j ; k--) { entity[k] = entity[k-1]; entity[k]->setRenderingOrder(k); }
         }
         else {
             for (int k = renderingOrder ; k<j ; k++) { entity[k] = entity[k+1]; entity[k]->setRenderingOrder(k); }

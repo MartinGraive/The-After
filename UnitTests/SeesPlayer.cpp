@@ -17,7 +17,7 @@ Projet de TDLog*/
 
 namespace
 {
-    TEST(SeesPlayerClear)
+    /*TEST(SeesPlayerClear)
     {
         GameCore::createInstance();
         GameCore::getInstance()->getMPlayer()->setX(500);
@@ -44,6 +44,6 @@ namespace
         bool Result = v->seesPlayer();
 
         CHECK_EQUAL(false, Result);
-    }
+    }*/
 }
 

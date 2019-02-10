@@ -1,4 +1,4 @@
-/*THE AFTER
+﻿/*THE AFTER
 Commence le 22/10/2018
 
 Youval Vanlaer
@@ -51,12 +51,21 @@ void GameCore::init(sf::RenderWindow* window)
     mplayer->setY(180, false);
     entities->addEntity(mplayer);
 
-    Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);
-    student->setX(400);
-    student->setY(180, false);
-    addCharacter(student);
+    //Agréé par ARPEJ
+    //Faire une blague lundi / jeudi
+    //Meunier Simulator
+    //Développement agile
+    //TDD style
+    mplayer->say(L"Agréé par ARPEJ");
 
-    Student* student2 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+    /*for (int i = 0 ; i < 10 ; i++) {
+        Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+        student->setX(400);
+        student->setY(180, false);
+        addCharacter(student);
+    }*/
+
+    /*Student* student2 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
     student2->setX(500);
     student2->setY(200, false);
     addCharacter(student2);
@@ -64,7 +73,7 @@ void GameCore::init(sf::RenderWindow* window)
     Student* student3 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
     student3->setX(520);
     student3->setY(230, false);
-    addCharacter(student3);
+    addCharacter(student3);*/
 }
 
 RenderingArray* GameCore::getEntities() const
