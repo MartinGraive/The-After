@@ -48,6 +48,27 @@ void RenderingArray::addEntity(Entity* e)
     e->setRenderingOrder(i);
 }
 
+void RenderingArray::removeEntity(Entity* e)
+{
+    int order = -1;
+    for (int i = 0 ; i < size() ; i++) {
+        if (entity[i] == e) { order=i; break; }
+    }
+    if (order > -1) {
+        removeEntity(order);
+    }
+}
+
+void RenderingArray::removeEntity(int order)
+{
+    delete entity[order];
+    for (int i = order ; i < size() - 1 ; i++) {
+        entity[i] = entity[i+1];
+        entity[i]->setRenderingOrder(i);
+    }
+    entity.pop_back();
+}
+
 void RenderingArray::sortEntities()
 {
     std::sort(entity.begin(),entity.end(), compare);

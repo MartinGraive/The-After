@@ -36,6 +36,7 @@ class GameCore
         int getNbCharacters() const;
 
         void addCharacter(Character* i);
+        void removeCharacter(Character* c);
     private:
         GameCore();
         static GameCore* instance;

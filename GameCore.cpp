@@ -85,6 +85,19 @@ void GameCore::addCharacter(Character* i)
     entities->addEntity(i);
 }
 
+void GameCore::removeCharacter(Character* c)
+{
+    int num = -1;
+    for (unsigned int i = 0 ; i < characters.size() ; i++) {
+        if (characters[i] == c) { num = i; break; }
+    }
+    if (num > -1) {
+        entities->removeEntity(c);
+        for (unsigned int i = num ; i < characters.size() - 1 ; i++) { characters[i] = characters[i + 1]; }
+        characters.pop_back();
+    }
+}
+
 Camera* GameCore::getCamera() const
     { return camera; }
 

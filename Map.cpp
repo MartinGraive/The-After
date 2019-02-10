@@ -181,6 +181,13 @@ void Map::loadMap(int i)
     tilemap_ceil.prepare(TextureHandler::getInstance()->getTileset(), tiles_ceil, w, h);
     rooms.push_back(Room(18, 0, 11, 10, 23, 6, this));
     rooms.push_back(Room(49, 13, 12, 14, 54, 19, this));
+    safeZone.x = 42;
+    safeZone.y = 36;
+    safeZone.w = 4;
+    safeZone.h = 7;
+
+    exit.x = 44;
+    exit.y = 43;
 }
 
 void Map::randomMap()
@@ -329,3 +336,9 @@ int Map::getNbRooms() const
 
 Room Map::getRoom(int i) const
     { return rooms[i]; }
+
+Rect Map::getSafeZone() const
+    { return safeZone; }
+
+Point Map::getExit() const
+    { return exit; }

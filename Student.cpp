@@ -46,6 +46,15 @@ void Student::process()
     if (follow != NULL)
         mayStopFollowing();
 
+    Rect safeZone = GameCore::getInstance()->getMap()->getSafeZone();
+    if (follow != NULL && !goingToDestination && getXbase() <= (safeZone.x + safeZone.w) * TILE_SIZE && getXbase() + getBaseRect().w >= safeZone.x * TILE_SIZE &&
+        getYbase() <= (safeZone.y + safeZone.h) * TILE_SIZE && getYbase() + getBaseRect().h >= safeZone.y * TILE_SIZE) {
+
+        Point exit = GameCore::getInstance()->getMap()->getExit();
+        unFollow();
+        goTo(exit.x * TILE_SIZE, exit.y * TILE_SIZE);
+    }
+
     addBubbleTime();
 }
 
@@ -130,5 +139,8 @@ void Student::unFollow()
 
 void Student::arrivedAtDestination()
 {
-
+    Point exit = GameCore::getInstance()->getMap()->getExit();
+    if (finaltarget.x == exit.x * TILE_SIZE + TILE_SIZE / 2 && finaltarget.y == exit.y * TILE_SIZE + TILE_SIZE / 2) {
+        GameCore::getInstance()->removeCharacter(this);
+    }
 }

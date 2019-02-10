@@ -34,7 +34,7 @@ Character::Character(RenderingArray* a) : direction(1), speaking(false), bubble(
     baseRect.x = 5;
     baseRect.y = 17;
     baseRect.w = 14;
-    baseRect.h = 15;
+    baseRect.h = 14;
     w=24;
     h=32;
     solid = true;
@@ -226,9 +226,9 @@ void Character::moveToDestination()
         arrivedAtDestination();
     }
     else if (getXbase() + baseRect.w / 2  >= target.x + TILE_SIZE / 2 - 1 && /// if partial path done
-        getYbase() + baseRect.h / 2  >= target.y + TILE_SIZE / 2 - 1 &&
+        getYbase() + baseRect.h / 2  >= target.y + TILE_SIZE / 2 - 2 &&
         getXbase() + baseRect.w / 2 <= target.x + TILE_SIZE / 2 + 1 &&
-        getYbase() + baseRect.h / 2 <= target.y + TILE_SIZE / 2 + 1)
+        getYbase() + baseRect.h / 2 <= target.y + TILE_SIZE / 2)
     {
         path_step++;
         target.x = path[path.size() - path_step - 1].x * TILE_SIZE;

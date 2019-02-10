@@ -25,6 +25,8 @@ class RenderingArray
 
         void resizeArray(int i);
         void addEntity(Entity* e);
+        void removeEntity(Entity* e);
+        void removeEntity(int order);
         void sortEntities();
         Entity* getEntity(int i);
         int size();

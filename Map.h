@@ -39,6 +39,8 @@ class Map
 
         int getNbRooms() const;
         Room getRoom(int i) const;
+        Rect getSafeZone() const;
+        Point getExit() const;
     private:
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();
@@ -55,6 +57,8 @@ class Map
         TileMap tilemap_ceil;
         //rooms
         std::vector<Room> rooms;
+        Rect safeZone;
+        Point exit;
         sf::Clock clock;
         int anim;
 };
