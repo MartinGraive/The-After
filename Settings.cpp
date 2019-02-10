@@ -1,5 +1,5 @@
 /*THE AFTER
-CommencÃ© le 22/10/2018
+Commencé le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -31,7 +31,7 @@ Settings::Settings() : path(""), quitting(false)
         char buff[FILENAME_MAX];
         GetCurrentDir( buff, FILENAME_MAX );
         std::string current_working_dir(buff);
-        path = current_working_dir + '/';
+        path = current_working_dir + "/../";
     #endif
 }
 

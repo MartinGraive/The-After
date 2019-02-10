@@ -1,0 +1,137 @@
+[
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/main.cpp.o -c /home/martin/Downloads/Prog/The-After/main.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/main.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Camera.cpp.o -c /home/martin/Downloads/Prog/The-After/Camera.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Camera.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Character.cpp.o -c /home/martin/Downloads/Prog/The-After/Character.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Character.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Entity.cpp.o -c /home/martin/Downloads/Prog/The-After/Entity.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Entity.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/GameCore.cpp.o -c /home/martin/Downloads/Prog/The-After/GameCore.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/GameCore.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/GameScene.cpp.o -c /home/martin/Downloads/Prog/The-After/GameScene.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/GameScene.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/MainPlayer.cpp.o -c /home/martin/Downloads/Prog/The-After/MainPlayer.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/MainPlayer.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Map.cpp.o -c /home/martin/Downloads/Prog/The-After/Map.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Map.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/RenderingArray.cpp.o -c /home/martin/Downloads/Prog/The-After/RenderingArray.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/RenderingArray.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Room.cpp.o -c /home/martin/Downloads/Prog/The-After/Room.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Room.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/RoomMask.cpp.o -c /home/martin/Downloads/Prog/The-After/RoomMask.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/RoomMask.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/SceneManager.cpp.o -c /home/martin/Downloads/Prog/The-After/SceneManager.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/SceneManager.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Settings.cpp.o -c /home/martin/Downloads/Prog/The-After/Settings.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Settings.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/TextBox.cpp.o -c /home/martin/Downloads/Prog/The-After/TextBox.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/TextBox.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/TextBoxBackground.cpp.o -c /home/martin/Downloads/Prog/The-After/TextBoxBackground.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/TextBoxBackground.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Tile.cpp.o -c /home/martin/Downloads/Prog/The-After/Tile.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Tile.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/TileMap.cpp.o -c /home/martin/Downloads/Prog/The-After/TileMap.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/TileMap.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Vigil.cpp.o -c /home/martin/Downloads/Prog/The-After/Vigil.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Vigil.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Events/Events.cpp.o -c /home/martin/Downloads/Prog/The-After/Events/Events.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Events/Events.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Events/Keyboard.cpp.o -c /home/martin/Downloads/Prog/The-After/Events/Keyboard.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Events/Keyboard.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Events/Mouse.cpp.o -c /home/martin/Downloads/Prog/The-After/Events/Mouse.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Events/Mouse.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Graphics/FontHandler.cpp.o -c /home/martin/Downloads/Prog/The-After/Graphics/FontHandler.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Graphics/FontHandler.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Graphics/Graphics.cpp.o -c /home/martin/Downloads/Prog/The-After/Graphics/Graphics.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Graphics/Graphics.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Graphics/TextureHandler.cpp.o -c /home/martin/Downloads/Prog/The-After/Graphics/TextureHandler.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Graphics/TextureHandler.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Primitives/Astar.cpp.o -c /home/martin/Downloads/Prog/The-After/Primitives/Astar.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Primitives/Astar.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Primitives/EllipseShape.cpp.o -c /home/martin/Downloads/Prog/The-After/Primitives/EllipseShape.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Primitives/EllipseShape.cpp"
+},
+{
+  "directory": "/home/martin/Downloads/Prog/The-After/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/theafter.dir/Primitives/Perlin.cpp.o -c /home/martin/Downloads/Prog/The-After/Primitives/Perlin.cpp",
+  "file": "/home/martin/Downloads/Prog/The-After/Primitives/Perlin.cpp"
+}
+]
