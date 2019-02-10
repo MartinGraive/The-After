@@ -31,7 +31,8 @@ Settings::Settings() : path(""), quitting(false)
         char buff[FILENAME_MAX];
         GetCurrentDir( buff, FILENAME_MAX );
         std::string current_working_dir(buff);
-        path = current_working_dir + "/../";
+        if (current_working_dir.substr(current_working_dir.length()-5)=="build") path = current_working_dir + "/../";
+        else path = current_working_dir + '/';
     #endif
 }
 
