@@ -12,6 +12,8 @@ Projet de TDLog*/
 #include <iostream>
 #include "Keyboard.h"
 #include "Events.h"
+#include "../SceneManager.h"
+#include "../AbstractScene.h"
 #include "../GameCore.h"
 #include "../Settings.h"
 
@@ -26,26 +28,28 @@ Keyboard::~Keyboard()
 void Keyboard::handleKeys()
 {
     double xt = 0, yt = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        xt=-GameCore::getInstance()->getMPlayer()->getSpeed();
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        xt=+GameCore::getInstance()->getMPlayer()->getSpeed();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        yt=-GameCore::getInstance()->getMPlayer()->getSpeed();
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        yt=+GameCore::getInstance()->getMPlayer()->getSpeed();
-    }
-    if (xt != 0 || yt != 0) {
-        GameCore::getInstance()->getMPlayer()->move(xt,yt);
+    if (SceneManager::getInstance()->top()->getType() == GAME) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            xt=-GameCore::getInstance()->getMPlayer()->getSpeed();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            xt=+GameCore::getInstance()->getMPlayer()->getSpeed();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            yt=-GameCore::getInstance()->getMPlayer()->getSpeed();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            yt=+GameCore::getInstance()->getMPlayer()->getSpeed();
+        }
+        if (xt != 0 || yt != 0) {
+            GameCore::getInstance()->getMPlayer()->move(xt,yt);
+        }
     }
 }
 
 void Keyboard::punctualPress()
 {
-    if (events->getEvent().key.code == sf::Keyboard::Space) {
+    if (events->getEvent().key.code == sf::Keyboard::Space && SceneManager::getInstance()->top()->getType() == GAME) {
         RenderingArray* r = GameCore::getInstance()->getEntities();
         MainPlayer* m = GameCore::getInstance()->getMPlayer();
         for (int i = 0 ; i < r->size() ; i++) {

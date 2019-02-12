@@ -25,6 +25,7 @@ GameCore::~GameCore()
     TextureHandler::getInstance()->freeGame();
     delete entities;
     delete map;
+    delete hud;
     delete camera;
 }
 
@@ -42,6 +43,7 @@ void GameCore::init(sf::RenderWindow* window)
 
     map = new Map;
     map->loadMap(1);
+    hud = new HUD;
     //if no window given in argument: no drawing intended, this is a test situation and thus camera is useless
     if (window != NULL) camera = new Camera(window);
 
@@ -51,7 +53,7 @@ void GameCore::init(sf::RenderWindow* window)
     mplayer->setY(180, false);
     entities->addEntity(mplayer);
 
-    Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+    /*Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);
     student->setX(400);
     student->setY(180, false);
     addCharacter(student);
@@ -64,7 +66,7 @@ void GameCore::init(sf::RenderWindow* window)
     Student* student3 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
     student3->setX(520);
     student3->setY(230, false);
-    addCharacter(student3);
+    addCharacter(student3);*/
 }
 
 RenderingArray* GameCore::getEntities() const
@@ -100,6 +102,9 @@ void GameCore::removeCharacter(Character* c)
 
 Camera* GameCore::getCamera() const
     { return camera; }
+
+HUD* GameCore::getHUD() const
+    { return hud; }
 
 int GameCore::getNbCharacters() const
     { return characters.size(); }

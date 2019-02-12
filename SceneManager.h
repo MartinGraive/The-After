@@ -23,6 +23,7 @@ class SceneManager
         void stackScene(AbstractScene* scene);
         void drawScene();
         void processScene();
+        AbstractScene* top();
     private:
         SceneManager();
         ~SceneManager();

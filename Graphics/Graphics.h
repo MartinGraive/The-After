@@ -18,7 +18,8 @@ class Graphics
 {
     public:
         static Graphics* getInstance();
-        void drawSprite(sf::RenderWindow* win, Texture t, int px, int py, int cx = -1, int cy = -1, int cw = -1, int ch = -1, double scale = 1);
+        void drawSprite(sf::RenderWindow* win, Texture t, int px, int py, int cx, int cy, int cw, int ch, double scale = 1);
+        void drawSprite(sf::RenderWindow* win, Texture t, int px, int py, double scale = 1, int alpha = 255);
         void drawEllipse(sf::RenderWindow* win, int px, int py, double w, double h, double scale = 1, int alpha = 255);
     private:
         Graphics();

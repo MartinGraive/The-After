@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+CommencÃ© le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -14,10 +14,10 @@ Projet de TDLog*/
 #include <SFML/Graphics.hpp>
 #include "AbstractScene.h"
 
-class GameScene : public AbstractScene
+class GameoverScene : public AbstractScene
 {
     public:
-        GameScene(sf:: RenderWindow* window);
+        GameoverScene(sf:: RenderWindow* window);
 
         void draw();
         void process();
@@ -29,3 +29,4 @@ class GameScene : public AbstractScene
 
         sf::RenderWindow* window;
 };
+

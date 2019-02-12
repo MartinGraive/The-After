@@ -31,6 +31,8 @@ void TextureHandler::loadGame()
     vigils[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/vigil.png");
     tileset = loadTexture(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png");
     bubble = loadTexture(Settings::getInstance()->getPath()+"data/graphics/system/bubble.png");
+    stars = loadTexture(Settings::getInstance()->getPath()+"data/graphics/system/stars.png");
+    weisted = loadTexture(Settings::getInstance()->getPath()+"data/graphics/system/weisted.png");
 }
 
 Texture TextureHandler::loadTexture(std::string src)
@@ -43,6 +45,8 @@ Texture TextureHandler::loadTexture(std::string src)
     }
     Texture t;
     t.t = tex;
+    t.w = img.getSize().x;
+    t.h = img.getSize().y;
     return t;
 }
 
@@ -52,6 +56,8 @@ void TextureHandler::freeGame()
     delete vigils[0].t;
     delete tileset.t;
     delete bubble.t;
+    delete stars.t;
+    delete weisted.t;
 }
 
 Texture TextureHandler::getCharas(int i)
@@ -65,3 +71,9 @@ Texture TextureHandler::getTileset()
 
 Texture TextureHandler::getBubble()
     { return bubble; }
+
+Texture TextureHandler::getStars()
+    { return stars; }
+
+Texture TextureHandler::getWeisted()
+    { return weisted; }

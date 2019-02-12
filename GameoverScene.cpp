@@ -10,18 +10,16 @@ Arnaud Lafargue
 Projet de TDLog*/
 
 #include <iostream>
-#include "GameScene.h"
-#include "GameCore.h"
 #include "GameoverScene.h"
-#include "SceneManager.h"
+#include "GameCore.h"
 #include "Graphics/TextureHandler.h"
+#include "Graphics/Graphics.h"
 
-GameScene::GameScene(sf::RenderWindow* win) : window(win)
+GameoverScene::GameoverScene(sf::RenderWindow* win) : window(win)
 {
-    GameCore::createInstance(window);
 }
 
-void GameScene::draw()
+void GameoverScene::draw()
 {
     GameCore* gameCore = GameCore::getInstance();
 
@@ -32,26 +30,20 @@ void GameScene::draw()
     gameCore->getMap()->drawCeil(window);
 
     drawAboveEntities();
+
+    Texture tex = TextureHandler::getInstance()->getWeisted();
+    MainPlayer* m = GameCore::getInstance()->getMPlayer();
+    int posx = - tex.w / 2 + m->getXbase() + m->getBaseRect().w / 2;
+    int posy = - tex.h / 2 + m->getYbase() + m->getBaseRect().h / 2;
+    Graphics::getInstance()->drawSprite(window, tex,
+                         posx, posy);
 }
 
-void GameScene::process()
+void GameoverScene::process()
 {
-    GameCore* gameCore = GameCore::getInstance();
-    gameCore->getCamera()->autoScroll();
-
-    gameCore->getMap()->process();
-
-    for (int i = 0 ; i < gameCore->getEntities()->size() ; i++) {
-        gameCore->getEntities()->getEntity(i)->process();
-    }
-
-    if (gameCore->getNbCharacters() > 3) {
-        GameoverScene* newScene = new GameoverScene(window);
-        SceneManager::getInstance()->stackScene(newScene);
-    }
 }
 
-void GameScene::drawEntities()
+void GameoverScene::drawEntities()
 {
     GameCore* gameCore = GameCore::getInstance();
 
@@ -60,7 +52,7 @@ void GameScene::drawEntities()
     }
 }
 
-void GameScene::drawAboveEntities()
+void GameoverScene::drawAboveEntities()
 {
     GameCore* gameCore = GameCore::getInstance();
 
@@ -71,5 +63,6 @@ void GameScene::drawAboveEntities()
     gameCore->getHUD()->draw(window);
 }
 
-int GameScene::getType()
-    { return GAME; }
+int GameoverScene::getType()
+    { return GAMEOVER; }
+

@@ -42,3 +42,6 @@ void SceneManager::drawScene()
 
 void SceneManager::processScene()
     { sceneStack.top()->process(); }
+
+AbstractScene* SceneManager::top()
+    { return sceneStack.top(); }

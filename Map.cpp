@@ -22,7 +22,7 @@ Projet de TDLog*/
 #include "Primitives/Perlin.h"
 #include "Room.h"
 
-Map::Map() : anim(0)
+Map::Map() : anim(0), frameSpawn(0), nextSpawn(0)
 {
     clock.restart();
 }
@@ -57,6 +57,8 @@ void Map::process()
     for (unsigned int i = 0 ; i < rooms.size() ; i++) {
         rooms[i].process();
     }
+
+    addRandomStudents();
 }
 
 void Map::create()
@@ -181,13 +183,16 @@ void Map::loadMap(int i)
     tilemap_ceil.prepare(TextureHandler::getInstance()->getTileset(), tiles_ceil, w, h);
     rooms.push_back(Room(18, 0, 11, 10, 23, 6, this));
     rooms.push_back(Room(49, 13, 12, 14, 54, 19, this));
-    safeZone.x = 42;
-    safeZone.y = 36;
-    safeZone.w = 4;
-    safeZone.h = 7;
-
-    exit.x = 44;
-    exit.y = 43;
+    Rect sz;
+    sz.x = 42;
+    sz.y = 36;
+    sz.w = 4;
+    sz.h = 7;
+    safeZone.push_back(sz);
+    Point ex;
+    ex.x = 44;
+    ex.y = 43;
+    exit.push_back(ex);
 }
 
 void Map::randomMap()
@@ -337,8 +342,29 @@ int Map::getNbRooms() const
 Room Map::getRoom(int i) const
     { return rooms[i]; }
 
-Rect Map::getSafeZone() const
-    { return safeZone; }
+int Map::getNbExits() const
+    { return exit.size(); }
 
-Point Map::getExit() const
-    { return exit; }
+Rect Map::getSafeZone(int i) const
+    { return safeZone[i]; }
+
+Point Map::getExit(int i) const
+    { return exit[i]; }
+
+void Map::addRandomStudents()
+{
+    if (nextSpawn == 0) { nextSpawn = (rand() % (50 * 10)) + 150; }
+
+    frameSpawn++;
+    /*if (frameSpawn > nextSpawn) {
+        int random = (rand() % getNbExits());
+        Student* s = new Student(TextureHandler::getInstance()->getCharas(0), GameCore::getInstance()->getEntities());
+        s->setXtile(exit[random].x);
+        s->setYtile(exit[random].y, false);
+        s->goToRandomRoom();
+        GameCore::getInstance()->addCharacter(s);
+
+        nextSpawn = (rand() % (50 * 10)) + 150;
+        frameSpawn = 0;
+    }*/
+}

@@ -17,6 +17,7 @@ Projet de TDLog*/
 #include "Entity.h"
 #include "MainPlayer.h"
 #include "Camera.h"
+#include "HUD.h"
 
 class GameCore
 {
@@ -32,11 +33,14 @@ class GameCore
         MainPlayer* getMPlayer() const;
         Character* getCharacters(int i) const;
         Camera* getCamera() const;
+        HUD* getHUD() const;
 
         int getNbCharacters() const;
 
         void addCharacter(Character* i);
         void removeCharacter(Character* c);
+
+
     private:
         GameCore();
         static GameCore* instance;
@@ -47,6 +51,7 @@ class GameCore
         MainPlayer* mplayer;
         std::vector<Character*> characters;
         Map* map;
+        HUD* hud;
         Camera* camera;
 };
 

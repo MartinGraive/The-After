@@ -30,6 +30,20 @@ void Graphics::drawSprite(sf::RenderWindow* win, Texture t, int px, int py, int 
 {
     sf::Sprite sprite(*t.t);
     sprite.setTextureRect(sf::IntRect(cx, cy, cw, ch));
+    if (scale != 1.d)
+        sprite.setScale(scale, scale);
+
+    sprite.setPosition(px, py);
+    win->draw(sprite);
+}
+
+void Graphics::drawSprite(sf::RenderWindow* win, Texture t, int px, int py, double scale, int alpha)
+{
+    sf::Sprite sprite(*t.t);
+    if (scale != 1.d)
+        sprite.setScale(scale, scale);
+
+    sprite.setColor(sf::Color(255,255,255,alpha));
 
     sprite.setPosition(px, py);
     win->draw(sprite);

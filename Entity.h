@@ -29,6 +29,8 @@ class Entity //Abstract class for every item / object / character
 
         void setX(double i);
         void setY(double i, bool ordering = true);
+        void setXtile(int i);
+        void setYtile(int i, bool ordering = true);
         void setRenderingOrder(int i);
         double getX() const;
         double getY() const;

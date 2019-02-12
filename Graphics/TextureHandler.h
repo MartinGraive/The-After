@@ -16,6 +16,8 @@ Projet de TDLog*/
 struct Texture
 {
     sf::Texture* t;
+    int w;
+    int h;
 };
 
 class TextureHandler
@@ -29,6 +31,8 @@ class TextureHandler
         Texture getVigils(int i);
         Texture getTileset();
         Texture getBubble();
+        Texture getStars();
+        Texture getWeisted();
     private:
         TextureHandler();
         ~TextureHandler();
@@ -39,6 +43,8 @@ class TextureHandler
         Texture vigils[1];
         Texture tileset;
         Texture bubble;
+        Texture stars;
+        Texture weisted;
 };
 
 #endif // DEF_TEXTUREHANDLER

@@ -11,10 +11,14 @@ Projet de TDLog*/
 
 #pragma once
 
+enum{GAME, TITLE, GAMEOVER};
+
 class AbstractScene
 {
     public:
         virtual ~AbstractScene() {}
         virtual void draw() = 0;
         virtual void process() = 0;
+
+        virtual int getType() = 0;
 };

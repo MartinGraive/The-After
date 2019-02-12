@@ -45,6 +45,12 @@ void Entity::setY(double i, bool ordering)
     }
 }
 
+void Entity::setXtile(int i)
+    {x = i * TILE_SIZE + TILE_SIZE / 2 - baseRect.x - baseRect.w / 2;}
+
+void Entity::setYtile(int i, bool ordering)
+    {setY(i * TILE_SIZE + TILE_SIZE / 2 - baseRect.y - baseRect.h / 2, ordering);}
+
 void Entity::setRenderingOrder(int i)
     { renderingOrder = i; }
 
