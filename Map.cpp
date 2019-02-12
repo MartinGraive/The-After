@@ -182,6 +182,36 @@ void Map::loadMap(int i)
     rooms.push_back(Room(18, 0, 11, 10, this));
 }
 
+void Map::testMap()
+{
+    bool MapOk;
+
+    for (int i=0 ; i<w ; i++)
+    {
+        for (int j=0 ; j<h ; j++)
+        {
+            if (tiles[i][j]=mur){
+                if (i=0){bool gauche = false}
+                else{bool gauche = (tiles[i-1][j]=mur)}
+
+                if (i=w-1){bool droite = false}
+                else{bool droite = (tiles[i+1][j]=mur)}
+
+                if (j=0){bool haut = false}
+                else{bool haut = (tiles[i][j-1]=mur)}
+
+                if (j=h-1){bool bas = false}
+                else{bool bas = (tiles[i][j+1]=mur)}
+
+                if (!((gauche||droite)&&(haut||bas))){
+                    MapOk = false;
+                }
+            }
+        }
+    }
+}
+
+
 void Map::randomMap()
 {
     ///DRAWING PATH
