@@ -39,7 +39,7 @@ class Map
         void autotile(std::vector<std::vector<Tile> >& vt);
         void randomMap();
         void loadTileRules();
-        void testMap();
+
         int w;
         int h;
         //two-layers tile-system
