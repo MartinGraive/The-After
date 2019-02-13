@@ -356,7 +356,7 @@ void Map::addRandomStudents()
     if (nextSpawn == 0) { nextSpawn = (rand() % (50 * 10)) + 150; }
 
     frameSpawn++;
-    /*if (frameSpawn > nextSpawn) {
+    if (frameSpawn > nextSpawn) {
         int random = (rand() % getNbExits());
         Student* s = new Student(TextureHandler::getInstance()->getCharas(0), GameCore::getInstance()->getEntities());
         s->setXtile(exit[random].x);
@@ -366,5 +366,5 @@ void Map::addRandomStudents()
 
         nextSpawn = (rand() % (50 * 10)) + 150;
         frameSpawn = 0;
-    }*/
+    }
 }

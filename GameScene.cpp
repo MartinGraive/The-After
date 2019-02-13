@@ -68,7 +68,7 @@ void GameScene::drawAboveEntities()
         gameCore->getEntities()->getEntity(i)->drawAbove(window);
     }
 
-    gameCore->getHUD()->draw(window);
+    //gameCore->getHUD()->draw(window);
 }
 
 int GameScene::getType()

@@ -96,7 +96,7 @@ void Character::drawStillAndMove(sf::RenderWindow* window)
 
 void Character::process()
 {
-    //addBubbleTime();
+    addBubbleTime();
 }
 
 EntityType Character::getType() const
