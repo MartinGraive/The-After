@@ -14,7 +14,7 @@ Projet de TDLog*/
 
 SceneManager* SceneManager::instance = NULL;
 
-SceneManager::SceneManager()
+SceneManager::SceneManager(sf::RenderWindow* win) : window(win)
 {
 }
 
@@ -29,19 +29,38 @@ SceneManager::~SceneManager()
 
 SceneManager* SceneManager::getInstance() { return instance; }
 
-void SceneManager::createInstance()
+void SceneManager::createInstance(sf::RenderWindow* win)
 {
-    instance = new SceneManager;
+    instance = new SceneManager(win);
 }
 
 void SceneManager::stackScene(AbstractScene* scene)
     { sceneStack.push(scene); }
 
+void SceneManager::popScene()
+{
+    delete sceneStack.top();
+    sceneStack.pop();
+}
+
 void SceneManager::drawScene()
     { sceneStack.top()->draw(); }
 
 void SceneManager::processScene()
-    { sceneStack.top()->process(); }
+{
+    if (sceneStack.top()->getNext() != NULL) { //pop and stack
+        AbstractScene* next = sceneStack.top()->getNext();
+        popScene();
+        stackScene(next);
+    }
+    sceneStack.top()->process();
+}
 
-AbstractScene* SceneManager::top()
+bool SceneManager::isEmpty() const
+    { return sceneStack.empty(); }
+
+AbstractScene* SceneManager::top() const
     { return sceneStack.top(); }
+
+sf::RenderWindow* SceneManager::getWindow() const
+    { return window; }

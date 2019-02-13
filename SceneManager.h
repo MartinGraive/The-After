@@ -12,22 +12,29 @@ Projet de TDLog*/
 #pragma once
 
 #include <stack>
+#include <SFML/Graphics.hpp>
 #include "AbstractScene.h"
 
 class SceneManager
 {
     public:
         static SceneManager* getInstance();
-        static void createInstance();
+        static void createInstance(sf::RenderWindow* win);
 
         void stackScene(AbstractScene* scene);
+        void popScene();
         void drawScene();
         void processScene();
-        AbstractScene* top();
+        bool isEmpty() const;
+        AbstractScene* top() const;
+
+        sf::RenderWindow* getWindow() const;
     private:
-        SceneManager();
+        SceneManager(sf::RenderWindow* win);
         ~SceneManager();
         static SceneManager* instance;
 
         std::stack<AbstractScene*> sceneStack;
+
+        sf::RenderWindow* window;
 };

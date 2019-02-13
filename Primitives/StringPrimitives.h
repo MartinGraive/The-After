@@ -9,7 +9,7 @@ Arnaud Lafargue
 
 Projet de TDLog*/
 
-#include <limits>
+#include <climits>
 
 #pragma once
 

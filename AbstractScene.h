@@ -11,7 +11,7 @@ Projet de TDLog*/
 
 #pragma once
 
-enum{GAME, TITLE, GAMEOVER};
+enum{GAME, TITLE, GAMEOVER, SPLASHSCREEN};
 
 class AbstractScene
 {
@@ -21,4 +21,8 @@ class AbstractScene
         virtual void process() = 0;
 
         virtual int getType() = 0;
+        AbstractScene* getNext() const { return next; }
+
+    protected:
+        AbstractScene* next = NULL;
 };

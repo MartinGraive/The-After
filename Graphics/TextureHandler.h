@@ -33,11 +33,12 @@ class TextureHandler
         Texture getBubble();
         Texture getStars();
         Texture getWeisted();
+
+        Texture loadTexture(std::string src);
     private:
         TextureHandler();
         ~TextureHandler();
         static TextureHandler* instance;
-        Texture loadTexture(std::string src);
 
         Texture charas[1];
         Texture vigils[1];

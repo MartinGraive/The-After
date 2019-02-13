@@ -28,7 +28,7 @@ Keyboard::~Keyboard()
 void Keyboard::handleKeys()
 {
     double xt = 0, yt = 0;
-    if (SceneManager::getInstance()->top()->getType() == GAME) {
+    if (!SceneManager::getInstance()->isEmpty() && SceneManager::getInstance()->top()->getType() == GAME) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             xt=-GameCore::getInstance()->getMPlayer()->getSpeed();
         }

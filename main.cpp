@@ -17,6 +17,7 @@ Projet de TDLog*/
 #include "SceneManager.h"
 #include "Graphics/FontHandler.h"
 #include "GameScene.h"
+#include "SplashScreenScene.h"
 #include "Events/Events.h"
 
 int main()
@@ -29,21 +30,24 @@ int main()
     sf::RenderWindow window(sf::VideoMode(Settings::getInstance()->getW() * Settings::getInstance()->getScale(),
                                           Settings::getInstance()->getH() * Settings::getInstance()->getScale()),
                                           "The after at ENPC");
-    SceneManager::createInstance();
-    GameScene* scene = new GameScene(&window);
+    SceneManager::createInstance(&window);
+    //GameScene* scene = new GameScene(&window);
+    SplashScreenScene* ssscene = new SplashScreenScene(&window);
 
-    SceneManager::getInstance()->stackScene(scene);
+    SceneManager::getInstance()->stackScene(ssscene);
 
     sf::Clock clock;
-    while (!Settings::getInstance()->hasQuit())
+    while (!SceneManager::getInstance()->isEmpty() && !Settings::getInstance()->hasQuit())
     {
         sf::Time elapsed1 = clock.restart();
-        Events::getInstance()->handleEvents(&window);
         SceneManager::getInstance()->processScene();
 
         window.clear();
         SceneManager::getInstance()->drawScene();
         window.display();
+
+        Events::getInstance()->handleEvents(&window);
+
         sf::Time elapsed2 = clock.getElapsedTime();
         if (elapsed2.asMilliseconds() - elapsed1.asMilliseconds() < 20) { sf::sleep(sf::milliseconds(20-elapsed2.asMilliseconds()-elapsed1.asMilliseconds())); }
     }

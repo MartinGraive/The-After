@@ -12,6 +12,8 @@ Projet de TDLog*/
 #include <iostream>
 #include "Mouse.h"
 #include "Events.h"
+#include "../SceneManager.h"
+#include "../GameScene.h"
 #include "../GameCore.h"
 
 Mouse::Mouse() : leftPressed(false), rightPressed(false)
@@ -44,6 +46,15 @@ void Mouse::handleMouse()
 void Mouse::pressLeft(int x, int y)
 {
     ///PLACES SELECTION
+    if (SceneManager::getInstance()->top()->getType() == TITLE) {
+        if (x >= 321 && y >= 504 && x <= 459 && y <= 555) {
+            GameScene* scene = new GameScene(SceneManager::getInstance()->getWindow());
+            SceneManager::getInstance()->stackScene(scene);
+        }
+        else if (x >= 682 && y >= 501 && x <= 855 && y <= 557) {
+            SceneManager::getInstance()->popScene();
+        }
+    }
 }
 
 void Mouse::pressRight(int x, int y)
