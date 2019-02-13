@@ -45,7 +45,7 @@ void GameScene::process()
         gameCore->getEntities()->getEntity(i)->process();
     }
 
-    if (gameCore->getNbCharacters() > 3) {
+    if (gameCore->getNbCharacters() > 5 * 5) {
         GameoverScene* newScene = new GameoverScene(window);
         SceneManager::getInstance()->stackScene(newScene);
     }
@@ -68,7 +68,7 @@ void GameScene::drawAboveEntities()
         gameCore->getEntities()->getEntity(i)->drawAbove(window);
     }
 
-    //gameCore->getHUD()->draw(window);
+    gameCore->getHUD()->draw(window);
 }
 
 int GameScene::getType()
