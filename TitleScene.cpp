@@ -33,9 +33,6 @@ TitleScene::~TitleScene()
 void TitleScene::draw()
 {
     int posx = Settings::getInstance()->getW() / 100, posy = Settings::getInstance()->getH() / 100;
-    ///POSITION
-    ///
-
 
     Graphics::getInstance()->drawSprite(window, background,
                          0, 0);
