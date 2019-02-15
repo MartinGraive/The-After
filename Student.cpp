@@ -122,7 +122,7 @@ void Student::mayStopFollowing()
 {
     MainPlayer* m = GameCore::getInstance()->getMPlayer();
     if (followRank == m->followStackSize()) {
-        int chance = 1000 - followRank * 100 - std::abs(getXbase() - m->getXbase()) - std::abs(getYbase() - m->getYbase());
+        int chance = 1000 - followRank * 100 - (getXbase() - m->getXbase()>0?getXbase() - m->getXbase():- getXbase() + m->getXbase()) - (getYbase() - m->getYbase()>0?getYbase() - m->getYbase():- getYbase() + m->getYbase());
         if (chance < 30) { chance = 30; }
 
         if (rand() % chance == 0) {
