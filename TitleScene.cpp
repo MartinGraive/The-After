@@ -20,7 +20,7 @@ TitleScene::TitleScene(sf::RenderWindow* win) : window(win)
 {
     title = TextureHandler::getInstance()->loadTexture(Settings::getInstance()->getPath()+"data/graphics/title/title.png");
     background = TextureHandler::getInstance()->loadTexture(Settings::getInstance()->getPath()+"data/graphics/title/background.png");
-    MusicManager::getInstance()->playMusic(Settings::getInstance()->getPath()+"data/audio/spirit.wav");
+    MusicManager::getInstance()->playMusic(Settings::getInstance()->getPath()+"data/audio/spirit.ogg");
 
 }
 
