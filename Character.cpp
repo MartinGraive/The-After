@@ -96,7 +96,7 @@ void Character::drawStillAndMove(sf::RenderWindow* window)
 
 void Character::process()
 {
-    //addBubbleTime();
+    addBubbleTime();
 }
 
 EntityType Character::getType() const
@@ -152,11 +152,19 @@ int Character::getDirection()
 
 bool Character::collideWithEntities(double xd, double yd)
 {
-    /// if map blocks
+    /// if map blocks layer1
     if (GameCore::getInstance()->getMap()->getTile((getXbase()+xd)/TILE_SIZE,(getYbase()+yd)/TILE_SIZE).isSolid() ||
         GameCore::getInstance()->getMap()->getTile((getXbase()+baseRect.w+xd)/TILE_SIZE,(getYbase()+yd)/TILE_SIZE).isSolid() ||
         GameCore::getInstance()->getMap()->getTile((getXbase()+baseRect.w+xd)/TILE_SIZE,(getYbase()+baseRect.h+yd)/TILE_SIZE).isSolid() ||
         GameCore::getInstance()->getMap()->getTile((getXbase()+xd)/TILE_SIZE,(getYbase()+baseRect.h+yd)/TILE_SIZE).isSolid()) {
+
+        return true;
+    }
+    /// if map blocks layer2
+    if (GameCore::getInstance()->getMap()->getTile2((getXbase()+xd)/TILE_SIZE,(getYbase()+yd)/TILE_SIZE).isSolid() ||
+        GameCore::getInstance()->getMap()->getTile2((getXbase()+baseRect.w+xd)/TILE_SIZE,(getYbase()+yd)/TILE_SIZE).isSolid() ||
+        GameCore::getInstance()->getMap()->getTile2((getXbase()+baseRect.w+xd)/TILE_SIZE,(getYbase()+baseRect.h+yd)/TILE_SIZE).isSolid() ||
+        GameCore::getInstance()->getMap()->getTile2((getXbase()+xd)/TILE_SIZE,(getYbase()+baseRect.h+yd)/TILE_SIZE).isSolid()) {
 
         return true;
     }
@@ -198,6 +206,9 @@ void Character::goTo(int xt, int yt)
 {
     path = astar(getXbase(), getYbase(), xt, yt);
     std::cout<< "path.size="<<path.size()<<"\n";
+    if (path.size() == 0) {
+        std::cout<<"xt="<<xt<<" yt="<<yt<<"\n";
+    }
     if (path.size() > 0) {
         finaltarget.x = (xt / TILE_SIZE) * TILE_SIZE + TILE_SIZE / 2;
         finaltarget.y = (yt / TILE_SIZE) * TILE_SIZE + TILE_SIZE / 2;
@@ -226,7 +237,7 @@ void Character::moveToDestination()
         arrivedAtDestination();
     }
     else if (getXbase() + baseRect.w / 2  >= target.x + TILE_SIZE / 2 - 1 && /// if partial path done
-        getYbase() + baseRect.h / 2  >= target.y + TILE_SIZE / 2 - 2 &&
+        getYbase() + baseRect.h / 2  >= target.y + TILE_SIZE / 2 - 1 &&
         getXbase() + baseRect.w / 2 <= target.x + TILE_SIZE / 2 + 1 &&
         getYbase() + baseRect.h / 2 <= target.y + TILE_SIZE / 2)
     {

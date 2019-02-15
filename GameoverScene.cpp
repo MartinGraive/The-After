@@ -14,8 +14,10 @@ Projet de TDLog*/
 #include "GameCore.h"
 #include "Graphics/TextureHandler.h"
 #include "Graphics/Graphics.h"
+#include "SceneManager.h"
+#include "Camera.h"
 
-GameoverScene::GameoverScene(sf::RenderWindow* win) : window(win)
+GameoverScene::GameoverScene(sf::RenderWindow* win) : frameElapsed(0), window(win)
 {
 }
 
@@ -41,6 +43,13 @@ void GameoverScene::draw()
 
 void GameoverScene::process()
 {
+    frameElapsed++;
+
+    if (frameElapsed > 250) {
+        GameCore::getInstance()->getCamera()->reset();
+        SceneManager::getInstance()->popScene();
+        SceneManager::getInstance()->popScene();
+    }
 }
 
 void GameoverScene::drawEntities()

@@ -45,7 +45,7 @@ void GameScene::process()
         gameCore->getEntities()->getEntity(i)->process();
     }
 
-    if (gameCore->getNbCharacters() > 5 * 5) {
+    if (gameCore->getNbCharacters() >= MAX_STUDENTS) {
         GameoverScene* newScene = new GameoverScene(window);
         SceneManager::getInstance()->stackScene(newScene);
     }

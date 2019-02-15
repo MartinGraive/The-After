@@ -27,6 +27,8 @@ class GameoverScene : public AbstractScene
         void drawEntities();
         void drawAboveEntities();
 
+        int frameElapsed;
+
         sf::RenderWindow* window;
 };
 

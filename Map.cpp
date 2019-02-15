@@ -121,6 +121,10 @@ void Map::loadTileRules()
                 if (spe[t] == 2) {
                     tiles_ceil[i][j].setVal(t);
                 }
+                t = tiles2[i][j].getVal();
+                if (spe[t] == 1) {
+                    tiles2[i][j].setSolid(true);
+                }
             }
         }
         delete[] spe;
@@ -182,16 +186,47 @@ void Map::loadMap(int i)
     tilemap2.prepare(TextureHandler::getInstance()->getTileset(), tiles2, w, h);
     tilemap_ceil.prepare(TextureHandler::getInstance()->getTileset(), tiles_ceil, w, h);
     rooms.push_back(Room(18, 0, 11, 10, 23, 6, this));
-    rooms.push_back(Room(49, 13, 12, 14, 54, 19, this));
+    rooms.push_back(Room(15, 17, 6, 17, 17, 23, this));
+    rooms.push_back(Room(21, 20, 7, 14, 26, 12, this));
+    rooms.push_back(Room(27, 17, 9, 17, 26, 14, this));
+    rooms.push_back(Room(35, 26, 9, 8, 38, 30, this));
+    rooms.push_back(Room(40, 13, 9, 8, 43, 17, this));
+    rooms.push_back(Room(50, 13, 10, 14, 54, 23, this));
+    rooms.push_back(Room(66, 19, 9, 8, 70, 24, this));
+    rooms.push_back(Room(81, 12, 11, 8, 86, 16, this));
+    rooms.push_back(Room(15, 41, 8, 9, 18, 47, this));
+    rooms.push_back(Room(29, 41, 7, 9, 32, 47, this));
+    rooms.push_back(Room(42, 41, 9, 17, 36, 53, this));
+    rooms.push_back(Room(51, 34, 7, 24, 54, 46, this));
+    rooms.push_back(Room(64, 34, 15, 21, 61, 57, this));
+    rooms.push_back(Room(15, 57, 8, 13, 18, 63, this));
+    rooms.push_back(Room(29, 57, 7, 13, 32, 63, this));
+    //rooms.push_back(Room(49, 13, 12, 14, 54, 19, this));
     Rect sz;
-    sz.x = 42;
+    sz.x = 5;
     sz.y = 36;
+    sz.w = 5;
+    sz.h = 5;
+    safeZone.push_back(sz);
+    sz.x = 50;
+    sz.y = 60;
     sz.w = 4;
     sz.h = 7;
     safeZone.push_back(sz);
+    sz.x = 80;
+    sz.y = 37;
+    sz.w = 8;
+    sz.h = 4;
+    safeZone.push_back(sz);
     Point ex;
-    ex.x = 44;
-    ex.y = 43;
+    ex.x = 6;
+    ex.y = 39;
+    exit.push_back(ex);
+    ex.x = 52;
+    ex.y = 66;
+    exit.push_back(ex);
+    ex.x = 87;
+    ex.y = 40;
     exit.push_back(ex);
 }
 
@@ -324,6 +359,9 @@ int Map::getAnim() const
 Tile Map::getTile(int i, int j) const
     { return tiles[i][j]; }
 
+Tile Map::getTile2(int i, int j) const
+    { return tiles2[i][j]; }
+
 Tile Map::getTileCeil(int i, int j) const
     { return tiles_ceil[i][j]; }
 
@@ -353,7 +391,7 @@ Point Map::getExit(int i) const
 
 void Map::addRandomStudents()
 {
-    if (nextSpawn == 0) { nextSpawn = (rand() % (50 * 10)) + 150; }
+    if (nextSpawn == 0) { nextSpawn = (rand() % (50 * (MAX_TIME_SPAWN - MIN_TIME_SPAWN))) + MIN_TIME_SPAWN * 50; }
 
     frameSpawn++;
     if (frameSpawn > nextSpawn) {

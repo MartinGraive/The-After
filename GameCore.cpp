@@ -49,22 +49,21 @@ void GameCore::init(sf::RenderWindow* window)
 
     entities = new RenderingArray;
     mplayer = new MainPlayer(TextureHandler::getInstance()->getVigils(0), entities);
-    mplayer->setX(180);
-    mplayer->setY(180, false);
+    mplayer->setXtile(52);
+    mplayer->setYtile(61,false);
     entities->addEntity(mplayer);
     /*Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);
     student->setX(400);
     student->setY(180, false);
     addCharacter(student);
 
-    Student* student2 = new Student(TextureHandler::getInstance()->getCharas(0), entities);
+    Student* student2 = new Student(TextureHandler::getInstance()->getCharas(0), entities);*/
 
     //Agréé par ARPEJ
     //Faire une blague lundi / jeudi
     //Meunier Simulator
     //Développement agile
     //TDD style
-    mplayer->say(L"Agréé par ARPEJ");
 
     /*for (int i = 0 ; i < 10 ; i++) {
         Student* student = new Student(TextureHandler::getInstance()->getCharas(0), entities);

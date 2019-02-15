@@ -22,6 +22,8 @@ class Camera
         int getPhg(int i) const;
         void scrollScreen(int x, int y);
         void autoScroll();
+
+        void reset();
     private:
         void process();
 

@@ -32,6 +32,7 @@ class Map
         void loadMap(int i);
         int getAnim() const;
         Tile getTile(int i, int j) const;
+        Tile getTile2(int i, int j) const;
         Tile getTileCeil(int i, int j) const;
         int getW() const;
         int getH() const;

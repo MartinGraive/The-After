@@ -31,7 +31,7 @@ void HUD::draw(sf::RenderWindow* window)
     int posx = 10 + GameCore::getInstance()->getMPlayer()->getX() - Settings::getInstance()->getW() / 4;
     int posy = 25 + GameCore::getInstance()->getMPlayer()->getY() - Settings::getInstance()->getH() / 4;
 
-    int level = GameCore::getInstance()->getNbCharacters() / 5;
+    int level = (GameCore::getInstance()->getNbCharacters() * 5) / MAX_STUDENTS;
 
     int clipx = 0, clipy = 21 * level, clipw = 100, cliph = 21;
     Graphics::getInstance()->drawSprite(window, TextureHandler::getInstance()->getStars(),

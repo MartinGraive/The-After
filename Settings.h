@@ -16,6 +16,10 @@ Projet de TDLog*/
 #define TILE_SIZE     16
 #define TILESET_WIDTH 30
 
+#define MAX_STUDENTS 25
+#define MIN_TIME_SPAWN 20
+#define MAX_TIME_SPAWN 50
+
 enum EntityType {ENTITY, CHARACTER};
 enum TypeAnim{STILL, MOVE};
 enum {HAUT = 0,BAS = 2,GAUCHE = 3,DROITE = 1};

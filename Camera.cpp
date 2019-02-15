@@ -59,3 +59,9 @@ void Camera::autoScroll()
     }
 }
 
+void Camera::reset()
+{
+    view.reset(sf::FloatRect(0, 0, Settings::getInstance()->getW(), Settings::getInstance()->getH()));
+    window->setView(view);
+}
+
