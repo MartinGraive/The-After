@@ -1,50 +1,51 @@
 add_executable(theafter
-main.cpp
-AbstractScene.h
-Camera.cpp
-Camera.h
-Character.cpp
-Character.h
-Entity.cpp
-Entity.h
-GameCore.cpp
-GameCore.h
-GameScene.cpp
-GameScene.h
-GameoverScene.cpp
-GameoverScene.h
-HUD.cpp
-HUD.h
-MainPlayer.cpp
-MainPlayer.h
-Map.cpp
-Map.h
-RenderingArray.cpp
-RenderingArray.h
-Room.cpp
-Room.h
-RoomMask.cpp
-RoomMask.h
-SceneManager.cpp
-SceneManager.h
-Settings.cpp
-Settings.h
-SplashScreenScene.cpp
-SplashScreenScene.h
-Student.cpp
-Student.h
-TextBox.cpp
-TextBox.h
-TextBoxBackground.cpp
-TextBoxBackground.h
-Tile.cpp
-Tile.h
-TileMap.cpp
-TileMap.h
-TitleScene.cpp
-TitleScene.h
-Vigil.cpp
-Vigil.h
+	main.cpp
+	AbstractScene.h
+	Camera.cpp
+	Camera.h
+	Character.cpp
+	Character.h
+	Entity.cpp
+	Entity.h
+	GameCore.cpp
+	GameCore.h
+	GameoverScene.h
+	GameoverScene.cpp
+	GameScene.cpp
+	GameScene.h
+	HUD.cpp
+	HUD.h
+	MainPlayer.cpp
+	MainPlayer.h
+	Map.cpp Map.h
+	MusicManager.h
+        MusicManager.cpp
+	RenderingArray.cpp
+	RenderingArray.h
+	Room.h
+	Room.cpp
+	RoomMask.h
+	RoomMask.cpp
+	SceneManager.cpp
+	SceneManager.h
+	Settings.cpp
+	Settings.h
+	SplashScreenScene.cpp
+	SplashScreenScene.h
+	Student.cpp
+	Student.h
+	TextBox.h
+  TextBox.cpp
+	TextBoxBackground.h
+  TextBoxBackground.cpp
+	Tile.cpp
+	Tile.h
+	TileMap.cpp
+	TileMap.h
+	TitleScene.h
+	TitleScene.cpp
+	Vigil.cpp
+	Vigil.h
 	Events/Events.cpp
 	Events/Events.h
 	Events/Keyboard.cpp
@@ -66,4 +67,4 @@ Vigil.h
 	Primitives/Perlin.h
 	Primitives/StringPrimitives.h)
 
-target_link_libraries(theafter sfml-graphics sfml-window sfml-system -lstdc++fs)
+target_link_libraries(theafter sfml-graphics sfml-window sfml-system sfml-audio -lstdc++fs)

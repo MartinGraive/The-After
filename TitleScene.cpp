@@ -1,5 +1,5 @@
 /*THE AFTER
-Commencé le 22/10/2018
+Commencï¿½ le 22/10/2018
 
 Youval Vanlaer
 Martin Graive
@@ -20,6 +20,8 @@ TitleScene::TitleScene(sf::RenderWindow* win) : window(win)
 {
     title = TextureHandler::getInstance()->loadTexture(Settings::getInstance()->getPath()+"data/graphics/title/title.png");
     background = TextureHandler::getInstance()->loadTexture(Settings::getInstance()->getPath()+"data/graphics/title/background.png");
+    MusicManager::getInstance()->playMusic(Settings::getInstance()->getPath()+"data/audio/spirit.wav");
+
 }
 
 TitleScene::~TitleScene()
@@ -32,11 +34,14 @@ void TitleScene::draw()
 {
     int posx = Settings::getInstance()->getW() / 100, posy = Settings::getInstance()->getH() / 100;
     ///POSITION
+    ///
+
 
     Graphics::getInstance()->drawSprite(window, background,
                          0, 0);
     Graphics::getInstance()->drawSprite(window, title,
                          posx, posy);
+
 }
 
 void TitleScene::process()
