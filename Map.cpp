@@ -201,11 +201,11 @@ void Map::loadMap(int i)
     rooms.push_back(Room(64, 34, 15, 21, 61, 57, this));
     rooms.push_back(Room(15, 57, 8, 13, 18, 63, this));
     rooms.push_back(Room(29, 57, 7, 13, 32, 63, this));
-    //rooms.push_back(Room(49, 13, 12, 14, 54, 19, this));
+
     Rect sz;
     sz.x = 5;
     sz.y = 36;
-    sz.w = 5;
+    sz.w = 8;
     sz.h = 5;
     safeZone.push_back(sz);
     sz.x = 50;
@@ -223,7 +223,7 @@ void Map::loadMap(int i)
     ex.y = 39;
     exit.push_back(ex);
     ex.x = 52;
-    ex.y = 66;
+    ex.y = 67;
     exit.push_back(ex);
     ex.x = 87;
     ex.y = 40;
@@ -396,7 +396,7 @@ void Map::addRandomStudents()
     frameSpawn++;
     if (frameSpawn > nextSpawn) {
         int random = (rand() % getNbExits());
-        Student* s = new Student(TextureHandler::getInstance()->getCharas(0), GameCore::getInstance()->getEntities());
+        Student* s = new Student(TextureHandler::getInstance()->getCharas(rand() % NB_CHARAS), GameCore::getInstance()->getEntities());
         s->setXtile(exit[random].x);
         s->setYtile(exit[random].y, false);
         s->goToRandomRoom();

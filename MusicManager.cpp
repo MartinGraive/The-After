@@ -24,6 +24,7 @@ void MusicManager::createInstance()
 
 void MusicManager::playMusic(std::string src){
     music.openFromFile(src);
+    music.setLoop(true);
     music.play();
 }
 

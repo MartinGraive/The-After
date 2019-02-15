@@ -13,6 +13,8 @@ Projet de TDLog*/
 #define DEF_TEXTUREHANDLER
 #include <SFML/Graphics.hpp>
 
+#define NB_CHARAS 5
+
 struct Texture
 {
     sf::Texture* t;
@@ -40,7 +42,7 @@ class TextureHandler
         ~TextureHandler();
         static TextureHandler* instance;
 
-        Texture charas[1];
+        Texture charas[NB_CHARAS];
         Texture vigils[1];
         Texture tileset;
         Texture bubble;

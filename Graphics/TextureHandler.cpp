@@ -10,6 +10,7 @@ Arnaud Lafargue
 Projet de TDLog*/
 
 #include <iostream>
+#include <sstream>
 #include "TextureHandler.h"
 #include "../Settings.h"
 
@@ -27,7 +28,11 @@ TextureHandler* TextureHandler::getInstance() { return instance; }
 
 void TextureHandler::loadGame()
 {
-    charas[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/chara1.png");
+    for (int i = 0 ; i < NB_CHARAS ; i++) {
+        std::ostringstream im;
+        im << i + 1;
+        charas[i] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/chara"+im.str()+".png");
+    }
     vigils[0] = loadTexture(Settings::getInstance()->getPath()+"data/graphics/chara/vigil.png");
     tileset = loadTexture(Settings::getInstance()->getPath()+"data/graphics/tiles/chipset.png");
     bubble = loadTexture(Settings::getInstance()->getPath()+"data/graphics/system/bubble.png");
