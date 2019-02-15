@@ -11,20 +11,23 @@ Projet de TDLog*/
 
 #pragma once
 
-#include "SFML/Audio.hpp"
+#include <SFML/Audio.hpp>
 
-//struct Music{
-//    sf::Music music;
-//    sf::SoundBuffer buffer;
-//};
+class MusicManager
+{
+    public:
+        static MusicManager* getInstance();
+        static void createInstance();
 
-class MusicManager{
-public:
-    static MusicManager* getInstance();
-    void playMusic(std::string src);
+        void playMusic(std::string src);
+        void stopMusic();
 
-    MusicManager();
+    private:
+        MusicManager();
+        ~MusicManager();
 
-    static MusicManager* instance;
+        sf::Music music;
+
+        static MusicManager* instance;
 
 };

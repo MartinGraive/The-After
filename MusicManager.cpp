@@ -11,18 +11,24 @@ Projet de TDLog*/
 
 #include"MusicManager.h"
 
-MusicManager* MusicManager::instance = new MusicManager;
+MusicManager* MusicManager::instance = NULL;
 
 MusicManager::MusicManager(){
+
 }
 
 MusicManager* MusicManager::getInstance(){return instance;}
 
-void playMusic(std::string src){
-    sf::Music music;
+void MusicManager::createInstance()
+    { instance = new MusicManager; }
+
+void MusicManager::playMusic(std::string src){
     music.openFromFile(src);
     music.play();
 }
+
+void MusicManager::stopMusic()
+    { music.stop(); }
 
 
 

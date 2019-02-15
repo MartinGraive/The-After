@@ -9,6 +9,7 @@ Arnaud Lafargue
 
 Projet de TDLog*/
 
+#include <iostream>
 #include "Events.h"
 #include "Keyboard.h"
 #include "Mouse.h"
@@ -41,23 +42,27 @@ void Events::handleEvents(sf::RenderWindow* window)
             key->punctualPress();
         }
         else if (event.type == sf::Event::MouseButtonPressed) {
+            Point p = getRealMouseCoordinates(event.mouseButton.x, event.mouseButton.y, window);
+            std::cout<<"p.x="<<p.x<<" p.y="<<p.y<<"\n";
             if (event.mouseButton.button == sf::Mouse::Left) {
-                mouse->pressLeft(event.mouseButton.x, event.mouseButton.y);
+                mouse->pressLeft(p.x, p.y);
             }
             else if (event.mouseButton.button == sf::Mouse::Right) {
-                mouse->pressRight(event.mouseButton.x, event.mouseButton.y);
+                mouse->pressRight(p.x, p.y);
             }
         }
         else if (event.type == sf::Event::MouseButtonReleased) {
+            Point p = getRealMouseCoordinates(event.mouseButton.x, event.mouseButton.y, window);
             if (event.mouseButton.button == sf::Mouse::Left) {
-                mouse->releaseLeft(event.mouseButton.x, event.mouseButton.y);
+                mouse->releaseLeft(p.x, p.y);
             }
             else if (event.mouseButton.button == sf::Mouse::Right) {
-                mouse->releaseRight(event.mouseButton.x, event.mouseButton.y);
+                mouse->releaseRight(p.x, p.y);
             }
         }
         else if (event.type == sf::Event::MouseMoved) {
-            mouse->motion(event.mouseMove.x, event.mouseMove.y);
+            Point p = getRealMouseCoordinates(event.mouseMove.x, event.mouseMove.y, window);
+            mouse->motion(p.x, p.y);
         }
     }
     mouse->handleMouse();
@@ -66,3 +71,11 @@ void Events::handleEvents(sf::RenderWindow* window)
 
 sf::Event Events::getEvent()
     { return event; }
+
+Point Events::getRealMouseCoordinates(int x, int y, sf::RenderWindow* window)
+{
+    Point p;
+    p.x = x * Settings::getInstance()->getW() / window->getSize().x;
+    p.y = y * Settings::getInstance()->getH() / window->getSize().y;
+    return p;
+}

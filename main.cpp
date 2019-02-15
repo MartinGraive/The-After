@@ -19,6 +19,7 @@ Projet de TDLog*/
 #include "GameScene.h"
 #include "SplashScreenScene.h"
 #include "Events/Events.h"
+#include "MusicManager.h"
 
 int main()
 {
@@ -31,7 +32,7 @@ int main()
                                           Settings::getInstance()->getH() * Settings::getInstance()->getScale()),
                                           "The after at ENPC");
     SceneManager::createInstance(&window);
-    //GameScene* scene = new GameScene(&window);
+    MusicManager::createInstance();
     SplashScreenScene* ssscene = new SplashScreenScene(&window);
 
     SceneManager::getInstance()->stackScene(ssscene);

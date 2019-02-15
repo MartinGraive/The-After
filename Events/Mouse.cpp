@@ -15,6 +15,7 @@ Projet de TDLog*/
 #include "../SceneManager.h"
 #include "../GameScene.h"
 #include "../GameCore.h"
+#include "../MusicManager.h"
 
 Mouse::Mouse() : leftPressed(false), rightPressed(false)
 {
@@ -48,6 +49,7 @@ void Mouse::pressLeft(int x, int y)
     ///PLACES SELECTION
     if (SceneManager::getInstance()->top()->getType() == TITLE) {
         if (x >= 321 && y >= 504 && x <= 459 && y <= 555) {
+            MusicManager::getInstance()->stopMusic();
             GameScene* scene = new GameScene(SceneManager::getInstance()->getWindow());
             SceneManager::getInstance()->stackScene(scene);
         }

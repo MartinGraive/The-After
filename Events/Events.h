@@ -12,6 +12,7 @@ Projet de TDLog*/
 #ifndef DEF_EVENTS
 #define DEF_EVENTS
 #include <SFML/Graphics.hpp>
+#include "../Settings.h"
 
 class Keyboard;
 class Mouse;
@@ -27,6 +28,8 @@ class Events
         Events();
         ~Events();
         static Events* instance;
+
+        Point getRealMouseCoordinates(int x, int y, sf::RenderWindow* window);
 
         sf::Event event;
         Keyboard* key;
