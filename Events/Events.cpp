@@ -43,7 +43,6 @@ void Events::handleEvents(sf::RenderWindow* window)
         }
         else if (event.type == sf::Event::MouseButtonPressed) {
             Point p = getRealMouseCoordinates(event.mouseButton.x, event.mouseButton.y, window);
-            std::cout<<"p.x="<<p.x<<" p.y="<<p.y<<"\n";
             if (event.mouseButton.button == sf::Mouse::Left) {
                 mouse->pressLeft(p.x, p.y);
             }
