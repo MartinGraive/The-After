@@ -47,8 +47,6 @@ void TextBox::prepare(std::wstring t, int x1, int y1, int wmax1)
     bubble_width = ceil((bubble_width - 12) / 8) * 8 + 12;
     bubble_height = ceil((bubble_height - 12) / 4) * 4 + 12;
     bubble.prepare(TextureHandler::getInstance()->getBubble(), bubble_width, bubble_height);
-
-    std::wcout<<"Text="<<text<<" height="<<textTexture.getLocalBounds().height<<" bulle="<<bubble_height<<"\n";
 }
 
 /**

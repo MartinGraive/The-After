@@ -188,8 +188,8 @@ void Map::loadMap(int i)
     rooms.push_back(Room(18, 0, 11, 10, 23, 6, this));
     rooms.push_back(Room(15, 17, 6, 17, 17, 23, this));
     rooms.push_back(Room(21, 20, 7, 14, 26, 12, this));
-    rooms.push_back(Room(27, 17, 9, 17, 26, 14, this));
-    rooms.push_back(Room(35, 26, 9, 8, 38, 30, this));
+    rooms.push_back(Room(28, 17, 8, 17, 26, 14, this));
+    rooms.push_back(Room(36, 26, 8, 8, 38, 30, this));
     rooms.push_back(Room(40, 13, 9, 8, 43, 17, this));
     rooms.push_back(Room(50, 13, 10, 14, 54, 23, this));
     rooms.push_back(Room(66, 19, 9, 8, 70, 24, this));

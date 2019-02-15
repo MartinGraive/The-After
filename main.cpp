@@ -49,7 +49,7 @@ int main()
         Events::getInstance()->handleEvents(&window);
 
         sf::Time elapsed2 = clock.getElapsedTime();
-        if (elapsed2.asMilliseconds() - elapsed1.asMilliseconds() < 20) { sf::sleep(sf::milliseconds(20-elapsed2.asMilliseconds()-elapsed1.asMilliseconds())); }
+        if (elapsed2.asMilliseconds() - elapsed1.asMilliseconds() < 20) { sf::sleep(sf::milliseconds(20 - elapsed2.asMilliseconds() - elapsed1.asMilliseconds())); }
     }
 
     window.close();

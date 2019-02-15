@@ -40,6 +40,8 @@ class GameCore
         void addCharacter(Character* i);
         void removeCharacter(Character* c);
 
+        sf::Int32 getElapsedTime() const;
+        void stopTime();
 
     private:
         GameCore();
@@ -53,5 +55,9 @@ class GameCore
         Map* map;
         HUD* hud;
         Camera* camera;
+
+        sf::Clock clock;
+        bool clockStopped;
+        sf::Int32 clockValueStopped;
 };
 

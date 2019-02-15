@@ -205,10 +205,6 @@ bool Character::isSpeaking()
 void Character::goTo(int xt, int yt)
 {
     path = astar(getXbase(), getYbase(), xt, yt);
-    std::cout<< "path.size="<<path.size()<<"\n";
-    if (path.size() == 0) {
-        std::cout<<"xt="<<xt<<" yt="<<yt<<"\n";
-    }
     if (path.size() > 0) {
         finaltarget.x = (xt / TILE_SIZE) * TILE_SIZE + TILE_SIZE / 2;
         finaltarget.y = (yt / TILE_SIZE) * TILE_SIZE + TILE_SIZE / 2;

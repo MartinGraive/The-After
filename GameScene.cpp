@@ -46,6 +46,7 @@ void GameScene::process()
     }
 
     if (gameCore->getNbCharacters() >= MAX_STUDENTS) {
+        gameCore->stopTime();
         GameoverScene* newScene = new GameoverScene(window);
         SceneManager::getInstance()->stackScene(newScene);
     }

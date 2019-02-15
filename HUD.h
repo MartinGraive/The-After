@@ -12,6 +12,7 @@ Projet de TDLog*/
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class HUD
 {
@@ -20,4 +21,9 @@ class HUD
         ~HUD();
 
         void draw(sf::RenderWindow* window);
+    private:
+        void drawStars(sf::RenderWindow* window);
+        void drawChrono(sf::RenderWindow* window);
+        std::string formatTime(int frames);
+        std::string formatNumber(int num);
 };

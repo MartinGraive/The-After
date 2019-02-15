@@ -45,7 +45,7 @@ void GameoverScene::process()
 {
     frameElapsed++;
 
-    if (frameElapsed > 250) {
+    if (frameElapsed > 500) {
         GameCore::getInstance()->getCamera()->reset();
         SceneManager::getInstance()->popScene();
         SceneManager::getInstance()->popScene();
