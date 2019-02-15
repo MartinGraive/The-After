@@ -9,9 +9,9 @@ Arnaud Lafargue
 
 Projet de TDLog*/
 
-#include <climits>
-
 #pragma once
+
+#include <climits>
 
 class StringPrimitives
 {

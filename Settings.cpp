@@ -11,12 +11,28 @@ Projet de TDLog*/
 
 #include "Settings.h"
 
+#include <stdio.h>  /* defines FILENAME_MAX */
+
+#ifdef _WIN32
+    #include <direct.h>
+    #define GetCurrentDir _getcwd
+#else
+    #include <unistd.h>
+    #define GetCurrentDir getcwd
+#endif
+
 Settings* Settings::instance = new Settings;
 
 Settings::Settings() : path(""), quitting(false)
 {
-    #ifndef _WIN32
+    #ifdef __APPLE__
         path = "../";
+    #elif __linux__
+        char buff[FILENAME_MAX];
+        GetCurrentDir( buff, FILENAME_MAX );
+        std::string current_working_dir(buff);
+        if (current_working_dir.substr(current_working_dir.length()-5)=="build") path = current_working_dir + "/../";
+        else path = current_working_dir + '/';
     #endif
 }
 

@@ -402,7 +402,7 @@ void Map::addRandomStudents()
         s->goToRandomRoom();
         GameCore::getInstance()->addCharacter(s);
 
-        nextSpawn = (rand() % (50 * 10)) + 150;
+        nextSpawn = (rand() % (50 * (MAX_TIME_SPAWN - MIN_TIME_SPAWN))) + MIN_TIME_SPAWN * 50;
         frameSpawn = 0;
     }
 }
